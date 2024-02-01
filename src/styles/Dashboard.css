@@ -1,10 +1,26 @@
 #sidebar-container {
   padding: 8px;
-  background: url("../assets/sidebar_dark.png");
   background-size: cover !important;
+
+  &.light {
+    background: url("../assets/sidebar_light.png");
+    background-position: "right";
+  }
+
+  &.dark {
+    background: url("../assets/sidebar_dark.png");
+    background-position: "left";
+  }
 }
 
 #content-container {
-  background: url("../assets/background_dark_transparent.png");
   background-repeat: repeat;
+
+  &.light {
+    background: url("../assets/background_light_transparent.png");
+  }
+
+  &.dark {
+    background: url("../assets/background_dark_transparent.png");
+  }
 }

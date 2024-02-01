@@ -1,17 +1,24 @@
 import '../styles/Dashboard.css'
 import { Grid } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
 import { Outlet } from "react-router-dom";
 import Sidebar from '../components/Dashboard/Sidebar';
 
-function Dashboard() {
+interface Props {
+  ToggleTheme: (e: boolean) => void;
+}
+
+function Dashboard(props: Props) {
+  const theme = useTheme();
+
   return (
     <Grid className="h-100" container flexDirection={"row"}>
-      <Grid id="sidebar-container" container item flexDirection={"column"} xs={2} md={1} lg={2}>
+      <Grid id="sidebar-container" className={theme.palette.mode} container item flexDirection={"column"} xs={2} md={1} lg={2}>
         <Grid className="h-100" container item flexDirection={"row"}>
-          <Sidebar />
+          <Sidebar ToggleTheme={props.ToggleTheme} />
         </Grid>
       </Grid>
-      <Grid id="content-container" container item flexDirection={"column"} xs={10} md={11} lg={10}>
+      <Grid id="content-container" className={theme.palette.mode} container item flexDirection={"column"} xs={10} md={11} lg={10}>
         <Grid className="h-100" container item flexDirection={"row"}>
           <Outlet />
         </Grid>

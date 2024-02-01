@@ -6,6 +6,11 @@
   padding: 16px 0;
   cursor: pointer;
   border-radius: 4px;
+
+  &.active {
+    background-color: #ee1515;
+    color: #ffffff;
+  }
 }
 
 .sidebar-item:hover {
@@ -18,4 +23,8 @@
 
 .empty-space {
   flex-grow: 1;
+}
+
+.sidebar-log-icon {
+  margin-right: 8px;
 }
