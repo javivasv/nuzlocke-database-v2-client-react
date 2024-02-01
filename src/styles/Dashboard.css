@@ -1,0 +1,10 @@
+#sidebar-container {
+  padding: 8px;
+  background: url("../assets/sidebar_dark.png");
+  background-size: cover !important;
+}
+
+#content-container {
+  background: url("../assets/background_dark_transparent.png");
+  background-repeat: repeat;
+}
