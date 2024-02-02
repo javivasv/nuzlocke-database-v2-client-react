@@ -2,6 +2,7 @@ import './App.css'
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 import { lightTheme, darkTheme } from "./themes";
 import Dashboard from "./containers/Dashboard";
 import Home from "./containers/Home";
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <CssBaseline />
       <BrowserRouter>
         <Routes>
           <Route element={<Dashboard ToggleTheme={ToggleTheme} />}>
