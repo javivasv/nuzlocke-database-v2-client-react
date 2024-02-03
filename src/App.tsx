@@ -1,9 +1,11 @@
-import './App.css'
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
+import { Provider } from 'react-redux';
+import './App.css'
 import { lightTheme, darkTheme } from "./themes";
+import { store } from "./store/store";
 import Dashboard from "./containers/Dashboard";
 import Home from "./containers/Home";
 import Nuzlockes from "./containers/Nuzlockes";
@@ -22,25 +24,27 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Dashboard ToggleTheme={ToggleTheme} />}>
-            <Route path="home" element={<Home />} />
-            <Route path="nuzlockes" element={<Nuzlockes />} />
-            <Route path="about" element={<About />} />
-          </Route>
-          <Route element={<Auth />}>
-            <Route path="login" element={<Login />}></Route>
-            <Route path="register" element={<Register />}></Route>
-            <Route path="forgot-password" element={<ForgotPassword />}></Route>
-            <Route path="reset-password/:resetToken" element={<ResetPassword />}></Route>
-          </Route>
-          <Route path="*" element={<Navigate to="/home" />} />
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Dashboard ToggleTheme={ToggleTheme} />}>
+              <Route path="home" element={<Home />} />
+              <Route path="nuzlockes" element={<Nuzlockes />} />
+              <Route path="about" element={<About />} />
+            </Route>
+            <Route element={<Auth />}>
+              <Route path="login" element={<Login />}></Route>
+              <Route path="register" element={<Register />}></Route>
+              <Route path="forgot-password" element={<ForgotPassword />}></Route>
+              <Route path="reset-password/:resetToken" element={<ResetPassword />}></Route>
+            </Route>
+            <Route path="*" element={<Navigate to="/home" />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </Provider>
   )
 }
 

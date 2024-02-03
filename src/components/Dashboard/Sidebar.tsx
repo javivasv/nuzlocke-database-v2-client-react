@@ -8,6 +8,9 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LoginIcon from '@mui/icons-material/Login';
 //import LogoutIcon from '@mui/icons-material/Logout';
+import { login } from '../../store/auth/authSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
@@ -60,8 +63,14 @@ function Sidebar(props: Props) {
     }
   }
 
-  const login = () => {
-    navigate(`/login`);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const makeLogin = () => {
+    //navigate(`/login`);
+    dispatch(login({
+      email: "javivasv@hotmail.com",
+      password: "shadow",
+    })).unwrap().then(() => {}).catch(() => {});
   }
 
   const ChangeTheme = (e: SyntheticEvent) => {
@@ -91,7 +100,7 @@ function Sidebar(props: Props) {
       </Grid>
       <div className="empty-space"></div>
       <Grid id="log-button-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-        <Button className="w-100" color='primary' variant="contained" onClick={login}>
+        <Button className="w-100" color='primary' variant="contained" onClick={makeLogin}>
           <LoginIcon className="sidebar-log-icon" />
           Login
         </Button>
