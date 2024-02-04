@@ -17,7 +17,7 @@ function Login() {
   const [passwordError, setPasswordError] = useState('');
 
   const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email address').required('Email is required'),
+    email: Yup.string().matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
   });
 
