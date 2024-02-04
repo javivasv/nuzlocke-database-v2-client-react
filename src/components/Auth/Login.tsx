@@ -1,6 +1,7 @@
 
 import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { login } from '../../store/auth/authSlice';
@@ -8,6 +9,7 @@ import { Button, Grid, TextField } from '@mui/material';
 import MultiuseText from '../MultiuseText';
 
 function Login() {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   const [email, setEmail] = useState("");
@@ -69,6 +71,10 @@ function Login() {
     })).unwrap().then(() => {}).catch(() => {});
   }
 
+  const ToRegister = () => {
+    navigate(`/register`);
+  }
+
   return (
     <form className="w-100" noValidate onSubmit={HandleLogin}>
       <Grid container item flexDirection={"column"}>
@@ -101,8 +107,16 @@ function Login() {
             onChange={HandlePasswordChange}
           />
         </Grid>
-        <Grid className="auth-actions" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="auth-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <Button color='primary' variant='contained' type="submit">Login</Button>
+        </Grid>
+        <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+          <span>
+            Don't have an account?
+            <span className="auth-extra-action" onClick={ToRegister}>
+              Register
+            </span>
+          </span>
         </Grid>
       </Grid>
     </form>

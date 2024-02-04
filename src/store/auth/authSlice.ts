@@ -52,4 +52,17 @@ export const login = createAsyncThunk(
   }
 );
 
+export const register = createAsyncThunk(
+  "auth/registerAsync",
+  async (userData: UserData, { rejectWithValue }) => {
+    try {
+      await axios.post(`${baseURL}/users`, userData)
+      return;
+    } catch(error) {
+      const axiosError = error as AxiosError<CustomError>;
+      return rejectWithValue(axiosError.response?.data.msg);
+    }
+  }
+);
+
 export default authSlice.reducer;

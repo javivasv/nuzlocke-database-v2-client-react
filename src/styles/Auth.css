@@ -12,6 +12,16 @@
   padding-bottom: 12px;
 }
 
-.auth-actions {
+.auth-actions-row {
   padding: 12px 0;
+}
+
+.auth-extra-actions-row {
+  padding-top: 12px;
+}
+
+.auth-extra-action {
+  cursor: pointer;
+  font-weight: 600;
+  color: #ee1515;
 }
