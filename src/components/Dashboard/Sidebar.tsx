@@ -1,16 +1,9 @@
-import '../../styles/Sidebar.css'
 import { SyntheticEvent } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useMediaQuery, Grid, Divider, Button, Switch } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LoginIcon from '@mui/icons-material/Login';
+import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login } from '@mui/icons-material';
 //import LogoutIcon from '@mui/icons-material/Logout';
-import { login } from '../../store/auth/authSlice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store/store';
+import '../../styles/Sidebar.css'
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
@@ -53,24 +46,18 @@ function Sidebar(props: Props) {
   const ItemIcon = (itemName: string) => {
     switch(itemName) {
     case "home":
-      return <HomeIcon className='sidebar-item-icon' />;
+      return <Home className='sidebar-item-icon' />;
     case "nuzlockes":
-      return <CatchingPokemonIcon className='sidebar-item-icon' />;
+      return <CatchingPokemon className='sidebar-item-icon' />;
     case "about":
-      return <InfoOutlinedIcon className='sidebar-item-icon' />;
+      return <InfoOutlined className='sidebar-item-icon' />;
     default:
-      return <HomeIcon className='sidebar-item-icon' />;
+      return <Home className='sidebar-item-icon' />;
     }
   }
 
-  const dispatch = useDispatch<AppDispatch>();
-
-  const makeLogin = () => {
-    //navigate(`/login`);
-    dispatch(login({
-      email: "javivasv@hotmail.com",
-      password: "shadow",
-    })).unwrap().then(() => {}).catch(() => {});
+  const ToLogin = () => {
+    navigate(`/login`);
   }
 
   const ChangeTheme = (e: SyntheticEvent) => {
@@ -96,12 +83,12 @@ function Sidebar(props: Props) {
       )}
       <Grid id="title-container" container item flexDirection={"row"} alignItems="center" justifyContent='end'>
         <Switch onChange={(e) => ChangeTheme(e)}></Switch>
-        <DarkModeIcon />
+        <DarkMode />
       </Grid>
       <div className="empty-space"></div>
       <Grid id="log-button-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-        <Button className="w-100" color='primary' variant="contained" onClick={makeLogin}>
-          <LoginIcon className="sidebar-log-icon" />
+        <Button className="w-100" color='primary' variant="contained" onClick={ToLogin}>
+          <Login className="sidebar-log-icon" />
           Login
         </Button>
       </Grid>

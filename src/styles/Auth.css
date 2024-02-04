@@ -1,4 +1,17 @@
 #auth-container {
-    background: url("../assets/auth_background.png");
-    background-size: cover;
-  }
+  background: url("../assets/auth_background.png");
+  background-size: cover;
+}
+
+.auth-card {
+  width: 500px;
+  padding: 24px;
+}
+
+.auth-input-row {
+  padding-bottom: 12px;
+}
+
+.auth-actions {
+  padding: 12px 0;
+}

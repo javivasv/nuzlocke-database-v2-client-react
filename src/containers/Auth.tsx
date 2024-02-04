@@ -1,12 +1,18 @@
-import '../styles/Auth.css'
-import { Grid } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { Grid, Card } from "@mui/material";
+import '../styles/Auth.css'
 
 function Auth() {
   return (
     <Grid className="h-100" container flexDirection={"row"}>
       <Grid id="auth-container" container item flexDirection={"column"}>
-        <Outlet />
+        <Grid className="h-100" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+          <Card className='auth-card'>
+            <Grid container flexDirection={"row"}>
+              <Outlet />
+            </Grid>
+          </Card>
+        </Grid>
       </Grid>
     </Grid> 
   );
