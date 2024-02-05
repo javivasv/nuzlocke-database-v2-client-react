@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { RootState } from "./store/store";
 import './App.css'
 import Dashboard from "./containers/Dashboard";
 import Home from "./containers/Home";
@@ -16,6 +18,7 @@ interface Props {
 
 function AppRoutes(props: Props) {
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const GoTo = (path: string) => {
     navigate(`/${path}`);
@@ -28,12 +31,14 @@ function AppRoutes(props: Props) {
         <Route path="nuzlockes" element={<Nuzlockes />} />
         <Route path="about" element={<About />} />
       </Route>
-      <Route element={<Auth />}>
-        <Route path="login" element={<Login GoTo={GoTo} />}></Route>
-        <Route path="register" element={<Register GoTo={GoTo} />}></Route>
-        <Route path="forgot-password" element={<ForgotPassword GoTo={GoTo} />}></Route>
-        <Route path="reset-password/:resetToken" element={<ResetPassword GoTo={GoTo} />}></Route>
-      </Route>
+      {!user && 
+        <Route element={<Auth />}>
+          <Route path="login" element={<Login GoTo={GoTo} />}></Route>
+          <Route path="register" element={<Register GoTo={GoTo} />}></Route>
+          <Route path="forgot-password" element={<ForgotPassword GoTo={GoTo} />}></Route>
+          <Route path="reset-password/:resetToken" element={<ResetPassword GoTo={GoTo} />}></Route>
+        </Route>
+      }
       <Route path="*" element={<Navigate to="/home" />} />
     </Routes>
   )
