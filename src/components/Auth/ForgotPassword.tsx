@@ -1,6 +1,5 @@
 import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { forgotPassword } from '../../store/auth/authSlice';
@@ -8,8 +7,11 @@ import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
 
-function ForgotPassword() {
-  const navigate = useNavigate();
+interface Props {
+  GoTo: (e: string) => void;
+}
+
+function ForgotPassword(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
 
   const [email, setEmail] = useState("");
@@ -70,14 +72,6 @@ function ForgotPassword() {
       });
   }
 
-  const ToLogin = () => {
-    navigate(`/login`);
-  }
-
-  const ToHome = () => {
-    navigate(`/home`);
-  }
-
   return (
     <form className="w-100" noValidate onSubmit={HandleForgotPassword}>
       <Grid container item flexDirection={"column"}>
@@ -100,11 +94,11 @@ function ForgotPassword() {
           <Button color='primary' variant='contained' disabled={loading} type="submit">Send email</Button>
         </Grid>
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <span className="auth-extra-action" onClick={ToLogin}>
+          <span className="auth-extra-action" onClick={() => props.GoTo("login")}>
             Login
           </span>
           <Divider orientation="vertical" flexItem sx={{ margin: "0 12px" }} />
-          <span className="auth-extra-action" onClick={ToHome}>
+          <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
             Home
           </span>
         </Grid>

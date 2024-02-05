@@ -1,7 +1,6 @@
 
 import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { login } from '../../store/auth/authSlice';
@@ -9,8 +8,11 @@ import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
 
-function Login() {
-  const navigate = useNavigate();
+interface Props {
+  GoTo: (e: string) => void;
+}
+
+function Login(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
 
   const [email, setEmail] = useState("");
@@ -83,18 +85,6 @@ function Login() {
       });
   }
 
-  const ToRegister = () => {
-    navigate(`/register`);
-  }
-
-  const ToHome = () => {
-    navigate(`/home`);
-  }
-
-  const ToForgotPassword = () => {
-    navigate(`/forgot-password`);
-  }
-
   return (
     <form className="w-100" noValidate onSubmit={HandleLogin}>
       <Grid container item flexDirection={"column"}>
@@ -133,7 +123,7 @@ function Login() {
           <Button color='primary' variant='contained' disabled={loading} type="submit">Login</Button>
         </Grid>
         <Grid className="auth-forgot-password-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <span className="auth-extra-action" onClick={ToForgotPassword}>
+          <span className="auth-extra-action" onClick={() => props.GoTo("forgot-password")}>
             Forgot password
           </span>
         </Grid>
@@ -141,11 +131,11 @@ function Login() {
           <span className="auth-extra-action-text">
             Don't have an account?
           </span>
-          <span className="auth-extra-action" onClick={ToRegister}>
+          <span className="auth-extra-action" onClick={() => props.GoTo("register")}>
             Register
           </span>
           <Divider orientation="vertical" flexItem sx={{ margin: "0 12px" }} />
-          <span className="auth-extra-action" onClick={ToHome}>
+          <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
             Home
           </span>
         </Grid>

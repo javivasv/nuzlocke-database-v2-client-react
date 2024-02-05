@@ -1,5 +1,5 @@
 import { SyntheticEvent } from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useMediaQuery, Grid, Divider, Button, Switch } from '@mui/material';
 import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login } from '@mui/icons-material';
 //import LogoutIcon from '@mui/icons-material/Logout';
@@ -7,10 +7,10 @@ import '../../styles/Sidebar.css'
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
+  GoTo: (e: string) => void;
 }
 
 function Sidebar(props: Props) {
-  const navigate = useNavigate();
   const location = useLocation();
 
   const items = [
@@ -40,7 +40,7 @@ function Sidebar(props: Props) {
   }
 
   const ChangeView = (itemName: string) => {
-    navigate(`/${itemName}`);
+    props.GoTo(`${itemName}`);
   }
 
   const ItemIcon = (itemName: string) => {
@@ -54,10 +54,6 @@ function Sidebar(props: Props) {
     default:
       return <Home className='sidebar-item-icon' />;
     }
-  }
-
-  const ToLogin = () => {
-    navigate(`/login`);
   }
 
   const ChangeTheme = (e: SyntheticEvent) => {
@@ -87,7 +83,7 @@ function Sidebar(props: Props) {
       </Grid>
       <div className="empty-space"></div>
       <Grid id="log-button-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-        <Button className="w-100" color='primary' variant="contained" onClick={ToLogin}>
+        <Button className="w-100" color='primary' variant="contained" onClick={() => props.GoTo("login")}>
           <Login className="sidebar-log-icon" />
           Login
         </Button>

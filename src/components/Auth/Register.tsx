@@ -1,7 +1,6 @@
 
 import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { register } from '../../store/auth/authSlice';
@@ -9,8 +8,11 @@ import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
 
-function Register() {
-  const navigate = useNavigate();
+interface Props {
+  GoTo: (e: string) => void;
+}
+
+function Register(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
 
   const [email, setEmail] = useState("");
@@ -102,7 +104,7 @@ function Register() {
     })).unwrap()
       .then(res => {
         dispatch(showSnackbar(res));
-        ToLogin();
+        props.GoTo("login");
       })
       .catch(error => {
         dispatch(showSnackbar(error));
@@ -110,14 +112,6 @@ function Register() {
       .finally(() => {
         setLoading(false);
       });
-  }
-
-  const ToLogin = () => {
-    navigate(`/login`);
-  }
-
-  const ToHome = () => {
-    navigate(`/home`);
   }
 
   return (
@@ -192,11 +186,11 @@ function Register() {
           <span className="auth-extra-action-text">
             Already have an account?
           </span>
-          <span className="auth-extra-action" onClick={ToLogin}>
+          <span className="auth-extra-action" onClick={() => props.GoTo("login")}>
             Login
           </span>
           <Divider orientation="vertical" flexItem sx={{ margin: "0 12px" }} />
-          <span className="auth-extra-action" onClick={ToHome}>
+          <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
             Home
           </span>
         </Grid>

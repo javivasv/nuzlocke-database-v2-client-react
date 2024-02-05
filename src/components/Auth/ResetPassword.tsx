@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { validateResetToken, resetPassword } from '../../store/auth/authSlice';
@@ -8,8 +8,11 @@ import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
 
-function ResetPassword() {
-  const navigate = useNavigate();
+interface Props {
+  GoTo: (e: string) => void;
+}
+
+function ResetPassword(props: Props) {
   const { resetToken } = useParams();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -92,7 +95,7 @@ function ResetPassword() {
     })).unwrap()
       .then(res => {
         dispatch(showSnackbar(res));
-        ToLogin();
+        props.GoTo("login");
       })
       .catch(error => {
         dispatch(showSnackbar(error));
@@ -100,14 +103,6 @@ function ResetPassword() {
       .finally(() => {
         setLoading(false);
       });
-  }
-
-  const ToLogin = () => {
-    navigate(`/login`);
-  }
-
-  const ToHome = () => {
-    navigate(`/home`);
   }
 
   return (
@@ -155,11 +150,11 @@ function ResetPassword() {
             </Grid></>
         }
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <span className="auth-extra-action" onClick={ToLogin}>
+          <span className="auth-extra-action" onClick={() => props.GoTo("login")}>
               Login
           </span>
           <Divider orientation="vertical" flexItem sx={{ margin: "0 12px" }} />
-          <span className="auth-extra-action" onClick={ToHome}>
+          <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
               Home
           </span>
         </Grid>
