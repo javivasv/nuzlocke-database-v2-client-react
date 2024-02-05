@@ -41,7 +41,7 @@ function App() {
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <CssBaseline />
       <BrowserRouter>
-        <AppRoutes ToggleTheme={ToggleTheme} />
+        <AppRoutes ToggleTheme={ToggleTheme} Logout={Logout} />
       </BrowserRouter>
       <NotificationSnackbar />
     </ThemeProvider>

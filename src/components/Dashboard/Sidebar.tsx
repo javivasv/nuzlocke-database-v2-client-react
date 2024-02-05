@@ -1,8 +1,7 @@
 import { SyntheticEvent } from 'react';
 import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from "../../store/store";
-import { setUser } from '../../store/auth/authSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from "../../store/store";
 import { useMediaQuery, Grid, Divider, Button, Switch } from '@mui/material';
 import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login, Logout } from '@mui/icons-material';
 import '../../styles/Sidebar.css'
@@ -10,11 +9,11 @@ import '../../styles/Sidebar.css'
 interface Props {
   ToggleTheme: (e: boolean) => void;
   GoTo: (e: string) => void;
+  Logout: () => void;
 }
 
 function Sidebar(props: Props) {
   const location = useLocation();
-  const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
 
   const items = [
@@ -67,7 +66,7 @@ function Sidebar(props: Props) {
 
   const HandleLog = () => {
     if (user) {
-      dispatch(setUser(null));
+      props.Logout();
       props.GoTo("home")
     } else {
       props.GoTo("login")

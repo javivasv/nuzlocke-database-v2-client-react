@@ -14,6 +14,7 @@ import ResetPassword from "./components/Auth/ResetPassword";
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
+  Logout: () => void;
 }
 
 function AppRoutes(props: Props) {
@@ -26,7 +27,7 @@ function AppRoutes(props: Props) {
 
   return (
     <Routes>
-      <Route element={<Dashboard ToggleTheme={props.ToggleTheme} GoTo={GoTo} />}>
+      <Route element={<Dashboard ToggleTheme={props.ToggleTheme} GoTo={GoTo} Logout={props.Logout} />}>
         <Route path="home" element={<Home />} />
         <Route path="nuzlockes" element={<Nuzlockes />} />
         <Route path="about" element={<About />} />
