@@ -1,8 +1,10 @@
 import { SyntheticEvent } from 'react';
 import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from "../../store/store";
+import { setUser } from '../../store/auth/authSlice';
 import { useMediaQuery, Grid, Divider, Button, Switch } from '@mui/material';
-import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login } from '@mui/icons-material';
-//import LogoutIcon from '@mui/icons-material/Logout';
+import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login, Logout } from '@mui/icons-material';
 import '../../styles/Sidebar.css'
 
 interface Props {
@@ -12,6 +14,8 @@ interface Props {
 
 function Sidebar(props: Props) {
   const location = useLocation();
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const items = [
     {
@@ -61,6 +65,15 @@ function Sidebar(props: Props) {
     props.ToggleTheme(target.checked);
   }
 
+  const HandleLog = () => {
+    if (user) {
+      dispatch(setUser(null));
+      props.GoTo("home")
+    } else {
+      props.GoTo("login")
+    }
+  }
+
   return (
     <Grid id="sidebar" container item flexDirection={"column"}>
       <Grid id="title-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
@@ -83,9 +96,10 @@ function Sidebar(props: Props) {
       </Grid>
       <div className="empty-space"></div>
       <Grid id="log-button-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-        <Button className="w-100" color='primary' variant="contained" onClick={() => props.GoTo("login")}>
-          <Login className="sidebar-log-icon" />
-          Login
+        <Button className="w-100" color='primary' variant="contained" onClick={HandleLog}>
+          {user && <Logout className="sidebar-log-icon" />}
+          {!user && <Login className="sidebar-log-icon" />}
+          {user ? "Logout" : "Login" }
         </Button>
       </Grid>
     </Grid>

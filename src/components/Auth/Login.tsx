@@ -3,7 +3,7 @@ import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
-import { login } from '../../store/auth/authSlice';
+import { login, setUser } from '../../store/auth/authSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
@@ -76,7 +76,10 @@ function Login(props: Props) {
       email,
       password,
     })).unwrap()
-      .then(() => {})
+      .then(res => {
+        dispatch(setUser(res));
+        props.GoTo("home");
+      })
       .catch(error => {
         dispatch(showSnackbar(error));
       })
