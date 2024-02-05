@@ -5,6 +5,11 @@ import { Token, User, UserData, EmailData, ResetJWT, CustomError } from "../../i
 
 const baseURL = import.meta.env.VITE_API;
 
+axios.interceptors.request.use((config) => {
+  config.headers["Authorization"] = window.localStorage.getItem("ndb_token");
+  return config;
+});
+
 interface AuthState {
   user: User | null;
 }
@@ -49,8 +54,37 @@ export const register = createAsyncThunk(
   "auth/registerAsync",
   async (data: UserData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseURL}/users`, data)
+      const response = await axios.post(`${baseURL}/users`, data);
       return response.data.msg;
+    } catch(error) {
+      const axiosError = error as AxiosError<CustomError>;
+      return rejectWithValue(axiosError.response?.data.msg);
+    }
+  }
+);
+
+export const validateSession = createAsyncThunk(
+  "auth/validateSessionAsync",
+  async (_, { rejectWithValue }) => {
+    const token = window.localStorage.getItem("ndb_token");
+
+    if (!token) {
+      return;
+    }
+
+    const data = {
+      token,
+    };
+
+    try {
+      await axios.post(`${baseURL}/session`, data);
+      const decodedToken = jwtDecode(token) as Token;
+
+      return {
+        _id: decodedToken._id,
+        email: decodedToken.email,
+        username: decodedToken.username,
+      };
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
       return rejectWithValue(axiosError.response?.data.msg);
@@ -62,7 +96,7 @@ export const forgotPassword = createAsyncThunk(
   "auth/forgotPasswordAsync",
   async (data: EmailData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseURL}/forgot-password`, data)
+      const response = await axios.post(`${baseURL}/forgot-password`, data);
       return response.data.msg;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
@@ -79,7 +113,7 @@ export const validateResetToken = createAsyncThunk(
     };
 
     try {
-      await axios.post(`${baseURL}/validate-reset-token`, data)
+      await axios.post(`${baseURL}/validate-reset-token`, data);
       const token = jwtDecode(resetToken) as ResetJWT;
       return token.email;
     } catch(error) {
@@ -93,7 +127,7 @@ export const resetPassword = createAsyncThunk(
   "auth/resetPasswordAsync",
   async (data: UserData, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${baseURL}/users/reset-password`, data)
+      const response = await axios.put(`${baseURL}/users/reset-password`, data);
       return response.data.msg;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
