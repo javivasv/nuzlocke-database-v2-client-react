@@ -26,10 +26,10 @@ function Register() {
   const [passwordConfirmationError, setPasswordConfirmationError] = useState('');
 
   const validationSchema = Yup.object({
-    email: Yup.string().matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address').required('Email is required'),
+    email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
     username: Yup.string().required('Username is required'),
     password: Yup.string().required('Password is required'),
-    passwordConfirmation: Yup.string().oneOf([password], 'Passwords must match').required('Password confirmation is required'),
+    passwordConfirmation: Yup.string().required('Password confirmation is required').oneOf([password], 'Passwords must match'),
   });
 
   const validateField = async (field: string, value: string) => {

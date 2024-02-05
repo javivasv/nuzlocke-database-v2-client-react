@@ -20,7 +20,7 @@ function Login() {
   const [passwordError, setPasswordError] = useState('');
 
   const validationSchema = Yup.object({
-    email: Yup.string().matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address').required('Email is required'),
+    email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
     password: Yup.string().required('Password is required'),
   });
 
@@ -82,6 +82,10 @@ function Login() {
     navigate(`/home`);
   }
 
+  const ToForgotPassword = () => {
+    navigate(`/forgot-password`);
+  }
+
   return (
     <form className="w-100" noValidate onSubmit={HandleLogin}>
       <Grid container item flexDirection={"column"}>
@@ -116,6 +120,11 @@ function Login() {
         </Grid>
         <Grid className="auth-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <Button color='primary' variant='contained' type="submit">Login</Button>
+        </Grid>
+        <Grid className="auth-forgot-password-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+          <span className="auth-extra-action" onClick={ToForgotPassword}>
+            Forgot password
+          </span>
         </Grid>
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <span className="auth-extra-action-text">

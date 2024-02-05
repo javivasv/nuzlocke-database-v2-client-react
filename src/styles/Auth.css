@@ -16,6 +16,10 @@
   padding: 12px 0;
 }
 
+.auth-forgot-password-row {
+  padding-top: 12px;
+}
+
 .auth-extra-actions-row {
   padding-top: 12px;
 }

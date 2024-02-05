@@ -20,6 +20,10 @@ export interface UserData {
   password: string;
 }
 
+export interface EmailData {
+  email: string;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
 }

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { jwtDecode } from "jwt-decode";
-import { Token, User, UserData, CustomError } from "../../interfaces/interfaces";
+import { Token, User, UserData, EmailData, CustomError } from "../../interfaces/interfaces";
 
 const baseURL = import.meta.env.VITE_API;
 
@@ -46,6 +46,19 @@ export const register = createAsyncThunk(
   async (userData: UserData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${baseURL}/users`, userData)
+      return response.data.msg;
+    } catch(error) {
+      const axiosError = error as AxiosError<CustomError>;
+      return rejectWithValue(axiosError.response?.data.msg);
+    }
+  }
+);
+
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPasswordAsync",
+  async (emailData: EmailData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${baseURL}/forgot-password`, emailData)
       return response.data.msg;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
