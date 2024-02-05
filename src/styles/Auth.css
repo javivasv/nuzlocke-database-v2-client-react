@@ -20,6 +20,10 @@
   padding-top: 12px;
 }
 
+.auth-extra-action-text {
+  margin-right: 4px;
+}
+
 .auth-extra-action {
   cursor: pointer;
   font-weight: 600;

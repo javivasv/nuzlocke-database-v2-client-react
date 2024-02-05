@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { login } from '../../store/auth/authSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
 
 function Login() {
@@ -78,6 +78,10 @@ function Login() {
     navigate(`/register`);
   }
 
+  const ToHome = () => {
+    navigate(`/home`);
+  }
+
   return (
     <form className="w-100" noValidate onSubmit={HandleLogin}>
       <Grid container item flexDirection={"column"}>
@@ -114,11 +118,15 @@ function Login() {
           <Button color='primary' variant='contained' type="submit">Login</Button>
         </Grid>
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <span>
+          <span className="auth-extra-action-text">
             Don't have an account?
-            <span className="auth-extra-action" onClick={ToRegister}>
-              Register
-            </span>
+          </span>
+          <span className="auth-extra-action" onClick={ToRegister}>
+            Register
+          </span>
+          <Divider orientation="vertical" flexItem sx={{ margin: "0 12px" }} />
+          <span className="auth-extra-action" onClick={ToHome}>
+            Home
           </span>
         </Grid>
       </Grid>

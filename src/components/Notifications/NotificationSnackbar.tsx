@@ -15,7 +15,6 @@ function NotificationSnackbar() {
 
   return (
     <Snackbar
-      className="test"
       open={notifications.openSnackbar}
       message={notifications.snackbarText}
       autoHideDuration={5000}
