@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { login } from '../../store/auth/authSlice';
+import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField } from '@mui/material';
 import MultiuseText from '../MultiuseText';
 
@@ -68,7 +69,9 @@ function Login() {
     dispatch(login({
       email,
       password,
-    })).unwrap().then(() => {}).catch(() => {});
+    })).unwrap().then(() => {}).catch(error => {
+      dispatch(showSnackbar(error));
+    });
   }
 
   const ToRegister = () => {

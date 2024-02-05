@@ -17,17 +17,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state, action) => {
-      console.log(state);
-      console.log(action);
-      //state.user = action.payload;
-    });
-    builder.addCase(login.rejected, (state, action) => {
-      console.log(state);
-      console.log(action);
-    });
-  },
 })
 
 export const login = createAsyncThunk(
@@ -56,8 +45,8 @@ export const register = createAsyncThunk(
   "auth/registerAsync",
   async (userData: UserData, { rejectWithValue }) => {
     try {
-      await axios.post(`${baseURL}/users`, userData)
-      return;
+      const response = await axios.post(`${baseURL}/users`, userData)
+      return response.data.msg;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
       return rejectWithValue(axiosError.response?.data.msg);
