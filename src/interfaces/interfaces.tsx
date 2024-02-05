@@ -24,6 +24,10 @@ export interface EmailData {
   email: string;
 }
 
+export interface ResetJWT {
+  email: string;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
 }

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { jwtDecode } from "jwt-decode";
-import { Token, User, UserData, EmailData, CustomError } from "../../interfaces/interfaces";
+import { Token, User, UserData, EmailData, ResetJWT, CustomError } from "../../interfaces/interfaces";
 
 const baseURL = import.meta.env.VITE_API;
 
@@ -21,10 +21,10 @@ const authSlice = createSlice({
 
 export const login = createAsyncThunk(
   "auth/loginAsync",
-  async (userData: UserData, { rejectWithValue }) => {
+  async (data: UserData, { rejectWithValue }) => {
     try {
       const response = await axios
-        .post(`${baseURL}/login`, userData)
+        .post(`${baseURL}/login`, data)
 
       window.localStorage.setItem("ndb_token", response.data.token);
       const token = jwtDecode(response.data.token) as Token;
@@ -43,9 +43,9 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
   "auth/registerAsync",
-  async (userData: UserData, { rejectWithValue }) => {
+  async (data: UserData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseURL}/users`, userData)
+      const response = await axios.post(`${baseURL}/users`, data)
       return response.data.msg;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
@@ -56,9 +56,40 @@ export const register = createAsyncThunk(
 
 export const forgotPassword = createAsyncThunk(
   "auth/forgotPasswordAsync",
-  async (emailData: EmailData, { rejectWithValue }) => {
+  async (data: EmailData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseURL}/forgot-password`, emailData)
+      const response = await axios.post(`${baseURL}/forgot-password`, data)
+      return response.data.msg;
+    } catch(error) {
+      const axiosError = error as AxiosError<CustomError>;
+      return rejectWithValue(axiosError.response?.data.msg);
+    }
+  }
+);
+
+export const validateResetToken = createAsyncThunk(
+  "auth/validateResetTokenAsync",
+  async (resetToken: string, { rejectWithValue }) => {
+    const data = {
+      resetToken,
+    };
+
+    try {
+      await axios.post(`${baseURL}/validate-reset-token`, data)
+      const token = jwtDecode(resetToken) as ResetJWT;
+      return token.email;
+    } catch(error) {
+      const axiosError = error as AxiosError<CustomError>;
+      return rejectWithValue(axiosError.response?.data.msg);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "auth/resetPasswordAsync",
+  async (data: UserData, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(`${baseURL}/users/reset-password`, data)
       return response.data.msg;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;

@@ -73,11 +73,14 @@ function Login() {
     dispatch(login({
       email,
       password,
-    })).unwrap().then(() => {}).catch(error => {
-      dispatch(showSnackbar(error));
-    }).finally(() => {
-      setLoading(false);
-    });
+    })).unwrap()
+      .then(() => {})
+      .catch(error => {
+        dispatch(showSnackbar(error));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   const ToRegister = () => {

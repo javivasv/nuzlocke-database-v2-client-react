@@ -58,13 +58,16 @@ function ForgotPassword() {
 
     dispatch(forgotPassword({
       email,
-    })).unwrap().then(res => {
-      dispatch(showSnackbar(res));
-    }).catch(error => {
-      dispatch(showSnackbar(error));
-    }).finally(() => {
-      setLoading(false);
-    });
+    })).unwrap()
+      .then(res => {
+        dispatch(showSnackbar(res));
+      })
+      .catch(error => {
+        dispatch(showSnackbar(error));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   const ToLogin = () => {

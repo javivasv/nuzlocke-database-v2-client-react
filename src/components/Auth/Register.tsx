@@ -99,14 +99,17 @@ function Register() {
       email,
       username,
       password,
-    })).unwrap().then(res => {
-      dispatch(showSnackbar(res));
-      ToLogin();
-    }).catch(error => {
-      dispatch(showSnackbar(error));
-    }).finally(() => {
-      setLoading(false);
-    });
+    })).unwrap()
+      .then(res => {
+        dispatch(showSnackbar(res));
+        ToLogin();
+      })
+      .catch(error => {
+        dispatch(showSnackbar(error));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   const ToLogin = () => {
