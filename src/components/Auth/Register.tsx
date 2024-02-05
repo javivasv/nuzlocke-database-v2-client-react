@@ -25,6 +25,8 @@ function Register() {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [passwordConfirmationError, setPasswordConfirmationError] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
     username: Yup.string().required('Username is required'),
@@ -85,6 +87,8 @@ function Register() {
   const HandleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setLoading(true);
+
     const isValid = await validateForm();
 
     if (!isValid) {
@@ -100,6 +104,8 @@ function Register() {
       ToLogin();
     }).catch(error => {
       dispatch(showSnackbar(error));
+    }).finally(() => {
+      setLoading(false);
     });
   }
 
@@ -123,6 +129,7 @@ function Register() {
             fullWidth
             size='small'
             color='secondary'
+            disabled={loading}
             error={Boolean(emailError)}
             helperText={emailError}
             onChange={HandleEmailChange}
@@ -137,6 +144,7 @@ function Register() {
             fullWidth
             size='small'
             color='secondary'
+            disabled={loading}
             error={Boolean(usernameError)}
             helperText={usernameError}
             onChange={HandleUsernameChange}
@@ -152,6 +160,7 @@ function Register() {
             fullWidth
             size='small'
             color='secondary'
+            disabled={loading}
             error={Boolean(passwordError)}
             helperText={passwordError}
             onChange={HandlePasswordChange}
@@ -167,13 +176,14 @@ function Register() {
             fullWidth
             size='small'
             color='secondary'
+            disabled={loading}
             error={Boolean(passwordConfirmationError)}
             helperText={passwordConfirmationError}
             onChange={HandlePasswordConfirmationChange}
           />
         </Grid>
         <Grid className="auth-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <Button color='primary' variant='contained' type="submit">Register</Button>
+          <Button color='primary' variant='contained' disabled={loading} type="submit">Register</Button>
         </Grid>
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <span className="auth-extra-action-text">

@@ -19,6 +19,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
     password: Yup.string().required('Password is required'),
@@ -60,6 +62,8 @@ function Login() {
   const HandleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setLoading(true);
+
     const isValid = await validateForm();
 
     if (!isValid) {
@@ -71,6 +75,8 @@ function Login() {
       password,
     })).unwrap().then(() => {}).catch(error => {
       dispatch(showSnackbar(error));
+    }).finally(() => {
+      setLoading(false);
     });
   }
 
@@ -98,6 +104,7 @@ function Login() {
             fullWidth
             size='small'
             color='secondary'
+            disabled={loading}
             error={Boolean(emailError)}
             helperText={emailError}
             onChange={HandleEmailChange}
@@ -113,13 +120,14 @@ function Login() {
             fullWidth
             size='small'
             color='secondary'
+            disabled={loading}
             error={Boolean(passwordError)}
             helperText={passwordError}
             onChange={HandlePasswordChange}
           />
         </Grid>
         <Grid className="auth-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <Button color='primary' variant='contained' type="submit">Login</Button>
+          <Button color='primary' variant='contained' disabled={loading} type="submit">Login</Button>
         </Grid>
         <Grid className="auth-forgot-password-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <span className="auth-extra-action" onClick={ToForgotPassword}>
