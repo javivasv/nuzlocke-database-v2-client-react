@@ -17,7 +17,7 @@ function Home() {
 
     dispatch(fetchVideos()).unwrap()
       .then(res => {
-        dispatch(setVideos(res.videos));
+        dispatch(setVideos(res.videos.sort(() => Math.random() - 0.5)));
       })
       .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps

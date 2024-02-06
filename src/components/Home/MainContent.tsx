@@ -8,7 +8,7 @@ import MultiuseText from "../MultiuseText";
 import Carousel from 'react-material-ui-carousel'
 
 function MainContent() {
-  const videos = [...useSelector((state: RootState) => state.videos.videos)].sort(() => Math.random() - 0.5);
+  const videos = useSelector((state: RootState) => state.videos.videos);
 
   const [currentVideo, setCurrentVideo] = useState(0);
 
