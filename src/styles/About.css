@@ -1,0 +1,9 @@
+.about-main-content-card,
+.about-secondary-content-card {
+  width: 100%;
+  padding: 16px;
+
+  &.top-card {
+    margin-bottom: 16px;
+  }
+}

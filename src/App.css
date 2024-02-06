@@ -14,3 +14,9 @@
 h1, h2, h3 {
   margin: 0;
 }
+
+.website-link {
+  text-decoration: none;
+  color: #1685c5;
+  font-weight: 600;
+}

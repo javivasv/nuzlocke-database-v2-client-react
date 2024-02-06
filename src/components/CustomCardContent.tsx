@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 
 interface Props {
-  text: string;
+  text: React.ReactNode;
 }
 
 function CustomCardContent(props: Props) {
