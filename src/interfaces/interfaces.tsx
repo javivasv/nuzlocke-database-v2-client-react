@@ -34,6 +34,13 @@ export interface Video {
   url: string;
 }
 
+export interface SuggestionData {
+  name: string;
+  text: string;
+  email: string | null;
+  username: string | null;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
 }

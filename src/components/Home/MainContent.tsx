@@ -6,7 +6,6 @@ import CustomCardHeader from "../CustomCardHeader";
 import CustomCardContent from "../CustomCardContent";
 import MultiuseText from "../MultiuseText";
 import Carousel from 'react-material-ui-carousel'
-import { Video } from '../../interfaces/interfaces';
 
 function MainContent() {
   const videos = [...useSelector((state: RootState) => state.videos.videos)].sort(() => Math.random() - 0.5);
@@ -42,7 +41,7 @@ function MainContent() {
         <CustomCardHeader title="Relevant Nuzlocke Videos"></CustomCardHeader>
         <Carousel autoPlay={false} onChange={(e) => HandleChangeVideo(e)}>
           {
-            videos.map((video: Video, i) => (
+            videos.map((video, i) => (
               currentVideo === i && 
               <iframe
                 key={video.url}
