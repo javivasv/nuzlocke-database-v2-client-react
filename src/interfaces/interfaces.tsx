@@ -28,6 +28,12 @@ export interface ResetJWT {
   email: string;
 }
 
+export interface Video {
+  name: string;
+  channel: string;
+  url: string;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
 }

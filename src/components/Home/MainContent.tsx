@@ -1,10 +1,21 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from "../../store/store";
 import { Grid, Card } from "@mui/material";
 import CustomCardHeader from "../CustomCardHeader";
 import CustomCardContent from "../CustomCardContent";
 import MultiuseText from "../MultiuseText";
+import Carousel from 'react-material-ui-carousel'
+import { Video } from '../../interfaces/interfaces';
 
 function MainContent() {
+  const videos = [...useSelector((state: RootState) => state.videos.videos)].sort(() => Math.random() - 0.5);
 
+  const [currentVideo, setCurrentVideo] = useState(0);
+
+  const HandleChangeVideo = (e: number | undefined) => {
+    setCurrentVideo(e || 0);
+  }
 
   return (
     <Grid container flexDirection={"row"}>
@@ -29,10 +40,24 @@ function MainContent() {
       </Card>
       <Card className='home-main-content-card'>
         <CustomCardHeader title="Relevant Nuzlocke Videos"></CustomCardHeader>
+        <Carousel autoPlay={false} onChange={(e) => HandleChangeVideo(e)}>
+          {
+            videos.map((video: Video, i) => (
+              currentVideo === i && 
+              <iframe
+                key={video.url}
+                className="video-iframe"
+                src={`https://www.youtube.com/embed/${video.url}`}
+                title="video.name"
+                allowFullScreen
+              ></iframe>
+            )
+            )
+          }
+        </Carousel>
       </Card>
     </Grid>
   );
 }
-  
+
 export default MainContent;
-  

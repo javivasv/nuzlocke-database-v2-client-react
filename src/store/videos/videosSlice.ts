@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { CustomError } from "../../interfaces/interfaces";
+import { Video, CustomError } from "../../interfaces/interfaces";
 
 const baseURL = import.meta.env.VITE_API;
 
 interface VideosState {
-  videos: string[];
+  videos: Video[];
 }
 
 const initialState: VideosState = {
