@@ -1,4 +1,5 @@
-.home-main-content-card {
+.home-main-content-card,
+.home-secondary-content-card {
   width: 100%;
   padding: 16px;
 
