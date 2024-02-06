@@ -11,7 +11,7 @@ interface Props {
   Logout: () => void;
 }
 
-function Sidebar(props: Props) {
+function Sidebar(props: Props) {  
   const location = useLocation();
   const user = useSelector((state: RootState) => state.auth.user);
 
@@ -48,13 +48,13 @@ function Sidebar(props: Props) {
   const ItemIcon = (itemName: string) => {
     switch(itemName) {
     case "home":
-      return <Home className='sidebar-item-icon' />;
+      return <Home />;
     case "nuzlockes":
-      return <CatchingPokemon className='sidebar-item-icon' />;
+      return <CatchingPokemon />;
     case "about":
-      return <InfoOutlined className='sidebar-item-icon' />;
+      return <InfoOutlined />;
     default:
-      return <Home className='sidebar-item-icon' />;
+      return <Home />;
     }
   }
 
@@ -84,9 +84,11 @@ function Sidebar(props: Props) {
         (item.name !== "nuzlockes" || (item.name === "nuzlockes" && user)) &&
         <Grid key={item.name} className={IsSidebarItemActive(item.name) ? 'sidebar-item active' : 'sidebar-item'} container item flexDirection={"row"} justifyContent='center' onClick={() => ChangeView(item.name)}>
           {ItemIcon(item.name)}
-          <span>
-            {item.title}
-          </span>
+          { IsLgAndUp() && 
+            <span className='sidebar-item-title'>
+              {item.title}
+            </span>
+          }
         </Grid>
       )
       )}
@@ -97,9 +99,13 @@ function Sidebar(props: Props) {
       <div className="empty-space"></div>
       <Grid id="log-button-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
         <Button className="w-100" color='primary' variant="contained" onClick={HandleLog}>
-          {user && <Logout className="sidebar-log-icon" />}
-          {!user && <Login className="sidebar-log-icon" />}
-          {user ? "Logout" : "Login" }
+          {user && <Logout />}
+          {!user && <Login />}
+          { IsLgAndUp() &&
+            <span className="sidebar-log-text">
+              { user ? "Logout" : "Login" }
+            </span>
+          }
         </Button>
       </Grid>
     </Grid>
