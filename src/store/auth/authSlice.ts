@@ -55,7 +55,7 @@ export const register = createAsyncThunk(
   async (data: UserData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${baseURL}/users`, data);
-      return response.data.msg;
+      return response.data;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
       return rejectWithValue(axiosError.response?.data.msg);
@@ -97,7 +97,7 @@ export const forgotPassword = createAsyncThunk(
   async (data: EmailData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${baseURL}/forgot-password`, data);
-      return response.data.msg;
+      return response.data;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
       return rejectWithValue(axiosError.response?.data.msg);
@@ -128,7 +128,7 @@ export const resetPassword = createAsyncThunk(
   async (data: UserData, { rejectWithValue }) => {
     try {
       const response = await axios.put(`${baseURL}/users/reset-password`, data);
-      return response.data.msg;
+      return response.data;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
       return rejectWithValue(axiosError.response?.data.msg);

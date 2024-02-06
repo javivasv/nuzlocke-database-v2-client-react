@@ -103,7 +103,7 @@ function Register(props: Props) {
       password,
     })).unwrap()
       .then(res => {
-        dispatch(showSnackbar(res));
+        dispatch(showSnackbar(res.msg));
         props.GoTo("login");
       })
       .catch(error => {

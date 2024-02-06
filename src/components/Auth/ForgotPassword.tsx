@@ -62,7 +62,7 @@ function ForgotPassword(props: Props) {
       email,
     })).unwrap()
       .then(res => {
-        dispatch(showSnackbar(res));
+        dispatch(showSnackbar(res.msg));
       })
       .catch(error => {
         dispatch(showSnackbar(error));
