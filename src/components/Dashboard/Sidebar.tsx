@@ -80,13 +80,15 @@ function Sidebar(props: Props) {
         </h2>
       </Grid>
       <Divider />
-      {items.map(item =>
+      {items.map(item => (
+        (item.name !== "nuzlockes" || (item.name === "nuzlockes" && user)) &&
         <Grid key={item.name} className={IsSidebarItemActive(item.name) ? 'sidebar-item active' : 'sidebar-item'} container item flexDirection={"row"} justifyContent='center' onClick={() => ChangeView(item.name)}>
           {ItemIcon(item.name)}
           <span>
             {item.title}
           </span>
         </Grid>
+      )
       )}
       <Grid id="title-container" container item flexDirection={"row"} alignItems="center" justifyContent='end'>
         <Switch onChange={(e) => ChangeTheme(e)}></Switch>
