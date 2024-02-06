@@ -19,7 +19,7 @@ function Dashboard(props: Props) {
           <Sidebar ToggleTheme={props.ToggleTheme} GoTo={props.GoTo} Logout={props.Logout} />
         </Grid>
       </Grid>
-      <Grid id="content-container" className={theme.palette.mode} container item flexDirection={"column"} xs={10} md={11} lg={10}>
+      <Grid id="content-container" className={`${theme.palette.mode} thin-scrollbar`} container item flexDirection={"column"} xs={10} md={11} lg={10}>
         <Grid className="h-100" container item flexDirection={"row"}>
           <Outlet />
         </Grid>

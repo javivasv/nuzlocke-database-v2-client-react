@@ -1,0 +1,40 @@
+/* Overflow scrollbar */
+.thin-scrollbar {
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Firefox */
+  scrollbar-color: grey white;
+  scrollbar-width: thin;
+}
+
+/* Edge and Chrome */
+/* Total width */
+.thin-scrollbar::-webkit-scrollbar {
+  background-color: #fff;
+  width: 16px;
+}
+
+/* Background of the scrollbar except button or resizer */
+.thin-scrollbar::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+.thin-scrollbar::-webkit-scrollbar-track:hover {
+  background-color: #f4f4f4;
+}
+
+/* Scrollbar itself */
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #babac0;
+  border-radius: 16px;
+  border: 5px solid #fff;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #a0a0a5;
+  border: 4px solid #f4f4f4;
+}
+
+/* Set button (top and bottom of the scrollbar) */
+.thin-scrollbar::-webkit-scrollbar-button {
+  display: none;
+}

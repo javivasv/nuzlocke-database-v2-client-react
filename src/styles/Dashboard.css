@@ -1,4 +1,5 @@
 #sidebar-container {
+  height: 100%;
   padding: 8px;
   background-size: cover !important;
 
@@ -14,6 +15,7 @@
 }
 
 #content-container {
+  height: 100%;
   background-repeat: repeat;
 
   &.light {
