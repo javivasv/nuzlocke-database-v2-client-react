@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from "../../store/store";
 import { useMediaQuery, Grid, Divider, Button, Switch } from '@mui/material';
 import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login, Logout } from '@mui/icons-material';
-import '../../styles/Sidebar.css'
 
 interface Props {
   ToggleTheme: (e: boolean) => void;

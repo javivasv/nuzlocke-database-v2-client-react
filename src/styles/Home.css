@@ -1,0 +1,8 @@
+.home-main-content-card {
+  width: 100%;
+  padding: 16px;
+
+  &.top-card {
+    margin-bottom: 16px;
+  }
+}

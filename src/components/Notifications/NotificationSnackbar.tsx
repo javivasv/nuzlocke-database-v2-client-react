@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from "../../store/store";
 import { Snackbar } from '@mui/material';
-import '../../styles/Notifications.css'
 import { AppDispatch } from '../../store/store';
 import { hideSnackbar } from '../../store/notifications/notificationsSlice';
 

@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import { Grid, Card } from "@mui/material";
-import '../styles/Auth.css'
 
 function Auth() {
   return (

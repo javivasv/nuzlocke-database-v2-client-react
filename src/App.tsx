@@ -7,7 +7,6 @@ import { showSnackbar } from './store/notifications/notificationsSlice';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { lightTheme, darkTheme } from "./themes";
-import './App.css'
 import NotificationSnackbar from './components/Notifications/NotificationSnackbar';
 import AppRoutes from './AppRoutes';
 

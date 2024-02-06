@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material";
-import '../styles/MultiuseText.css'
 
 interface Props {
   align?: string | "center";
