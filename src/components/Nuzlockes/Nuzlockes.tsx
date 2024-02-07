@@ -24,7 +24,7 @@ function Nuzlockes(props: Props) {
       dispatch(fetchNuzlockes())
         .unwrap()
         .then(res => {
-          dispatch(setNuzlockes([res.nuzlockes]));
+          dispatch(setNuzlockes(res.nuzlockes));
         })
         .catch(error => {
           dispatch(showSnackbar(error.msg));
