@@ -107,7 +107,7 @@ function Register(props: Props) {
         props.GoTo("login");
       })
       .catch(error => {
-        dispatch(showSnackbar(error));
+        dispatch(showSnackbar(error.msg));
       })
       .finally(() => {
         setLoading(false);

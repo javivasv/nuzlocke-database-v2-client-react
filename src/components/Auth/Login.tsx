@@ -81,7 +81,7 @@ function Login(props: Props) {
         props.GoTo("home");
       })
       .catch(error => {
-        dispatch(showSnackbar(error));
+        dispatch(showSnackbar(error.msg));
       })
       .finally(() => {
         setLoading(false);

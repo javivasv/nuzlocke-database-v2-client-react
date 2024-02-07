@@ -22,7 +22,7 @@ function ResetPassword(props: Props) {
         setEmail(res);
       })
       .catch(error => {
-        dispatch(showSnackbar(error));
+        dispatch(showSnackbar(error.msg));
         setErrorMsg(error);
       })
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -98,7 +98,7 @@ function ResetPassword(props: Props) {
         props.GoTo("login");
       })
       .catch(error => {
-        dispatch(showSnackbar(error));
+        dispatch(showSnackbar(error.msg));
       })
       .finally(() => {
         setLoading(false);

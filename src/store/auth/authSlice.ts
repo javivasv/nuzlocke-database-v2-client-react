@@ -45,7 +45,10 @@ export const login = createAsyncThunk(
       };
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
-      return rejectWithValue(axiosError.response?.data.msg);
+      return rejectWithValue({
+        msg: axiosError.response?.data.msg,
+        status: axiosError.response?.status,
+      });
     }
   }
 );
@@ -58,7 +61,10 @@ export const register = createAsyncThunk(
       return response.data;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
-      return rejectWithValue(axiosError.response?.data.msg);
+      return rejectWithValue({
+        msg: axiosError.response?.data.msg,
+        status: axiosError.response?.status,
+      });
     }
   }
 );
@@ -87,7 +93,10 @@ export const validateSession = createAsyncThunk(
       };
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
-      return rejectWithValue(axiosError.response?.data.msg);
+      return rejectWithValue({
+        msg: axiosError.response?.data.msg,
+        status: axiosError.response?.status,
+      });
     }
   }
 );
@@ -100,7 +109,10 @@ export const forgotPassword = createAsyncThunk(
       return response.data;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
-      return rejectWithValue(axiosError.response?.data.msg);
+      return rejectWithValue({
+        msg: axiosError.response?.data.msg,
+        status: axiosError.response?.status,
+      });
     }
   }
 );
@@ -118,7 +130,10 @@ export const validateResetToken = createAsyncThunk(
       return token.email;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
-      return rejectWithValue(axiosError.response?.data.msg);
+      return rejectWithValue({
+        msg: axiosError.response?.data.msg,
+        status: axiosError.response?.status,
+      });
     }
   }
 );
@@ -131,7 +146,10 @@ export const resetPassword = createAsyncThunk(
       return response.data;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
-      return rejectWithValue(axiosError.response?.data.msg);
+      return rejectWithValue({
+        msg: axiosError.response?.data.msg,
+        status: axiosError.response?.status,
+      });
     }
   }
 );

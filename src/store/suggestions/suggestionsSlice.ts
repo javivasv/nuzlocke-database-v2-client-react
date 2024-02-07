@@ -22,7 +22,10 @@ export const sendFeedback = createAsyncThunk(
       return response.data;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
-      return rejectWithValue(axiosError.response?.data.msg);
+      return rejectWithValue({
+        msg: axiosError.response?.data.msg,
+        status: axiosError.response?.status,
+      });
     }
   }
 );

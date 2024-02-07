@@ -21,7 +21,7 @@ function App() {
         dispatch(setUser(res));
       })
       .catch(error => {
-        dispatch(showSnackbar(error));
+        dispatch(showSnackbar(error.msg));
         Logout();
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps

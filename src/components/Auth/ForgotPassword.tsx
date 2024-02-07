@@ -65,7 +65,7 @@ function ForgotPassword(props: Props) {
         dispatch(showSnackbar(res.msg));
       })
       .catch(error => {
-        dispatch(showSnackbar(error));
+        dispatch(showSnackbar(error.msg));
       })
       .finally(() => {
         setLoading(false);

@@ -49,7 +49,7 @@ function Feedback() {
         setSuggestion("");
       })
       .catch(error => {
-        dispatch(showSnackbar(error));
+        dispatch(showSnackbar(error.msg));
       })
       .finally(() => {
         setLoading(false);
