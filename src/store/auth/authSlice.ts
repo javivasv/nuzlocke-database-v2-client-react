@@ -69,7 +69,7 @@ export const validateSession = createAsyncThunk(
     const token = window.localStorage.getItem("ndb_token");
 
     if (!token) {
-      return;
+      return null;
     }
 
     const data = {
