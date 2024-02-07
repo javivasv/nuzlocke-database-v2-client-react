@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { RootState } from "./store/store";
+import { CustomError } from './interfaces/interfaces';
 import './App.css'
 import Dashboard from "./containers/Dashboard";
 import Home from "./containers/Home";
@@ -15,6 +16,7 @@ import ResetPassword from "./components/Auth/ResetPassword";
 interface Props {
   ToggleTheme: (e: boolean) => void;
   Logout: () => void;
+  ValidateError: (e: CustomError) => void;
 }
 
 function AppRoutes(props: Props) {
@@ -28,9 +30,9 @@ function AppRoutes(props: Props) {
   return (
     <Routes>
       <Route element={<Dashboard ToggleTheme={props.ToggleTheme} GoTo={GoTo} Logout={props.Logout} />}>
-        <Route path="home" element={<Home />} />
+        <Route path="home" element={<Home ValidateError={props.ValidateError} />} />
         <Route path="nuzlockes" element={<Nuzlockes />} />
-        <Route path="about" element={<About />} />
+        <Route path="about" element={<About ValidateError={props.ValidateError} />} />
       </Route>
       {!user && 
         <Route element={<Auth />}>

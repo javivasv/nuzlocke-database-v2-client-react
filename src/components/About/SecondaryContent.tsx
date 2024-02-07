@@ -1,8 +1,13 @@
+import { CustomError } from '../../interfaces/interfaces';
 import { Grid, Card } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import Feedback from "./Feedback";
 
-function SecondaryContent() {
+interface Props {
+  ValidateError: (e: CustomError) => void;
+}
+
+function SecondaryContent(props: Props) {
   const websites = [
     {
       name: "Personal website",
@@ -26,7 +31,7 @@ function SecondaryContent() {
     <Grid container flexDirection={"row"}>
       <Card className='about-secondary-content-card top-card'>
         <MultiuseText text="Feedback" justify="center"></MultiuseText>
-        <Feedback />
+        <Feedback ValidateError={props.ValidateError} />
       </Card>
       <Card className='about-secondary-content-card'>
         <MultiuseText text="Contact" justify="center"></MultiuseText>

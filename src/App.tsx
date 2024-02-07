@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from "./store/store";
+import { CustomError } from './interfaces/interfaces';
 import { validateSession, setUser } from './store/auth/authSlice';
 import { showSnackbar } from './store/notifications/notificationsSlice';
 import { ThemeProvider } from '@mui/material/styles';
@@ -22,7 +23,7 @@ function App() {
       })
       .catch(error => {
         dispatch(showSnackbar(error.msg));
-        Logout();
+        ValidateError(error.status);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -36,11 +37,27 @@ function App() {
     dispatch(setUser(null));
   }
 
+  const ValidateError = (error: CustomError) => {
+    if (!error.status || !error.msg) {
+      return;
+    }
+
+    if (
+      error.status === 401 ||
+      error.status === 403 ||
+      error.status === 404
+    ) {
+      Logout();
+    }
+
+    dispatch(showSnackbar(error.msg));
+  }
+
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <CssBaseline />
       <BrowserRouter>
-        <AppRoutes ToggleTheme={ToggleTheme} Logout={Logout} />
+        <AppRoutes ToggleTheme={ToggleTheme} Logout={Logout} ValidateError={ValidateError} />
       </BrowserRouter>
       <NotificationSnackbar />
     </ThemeProvider>

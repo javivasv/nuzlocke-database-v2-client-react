@@ -43,4 +43,5 @@ export interface SuggestionData {
 
 export interface CustomError extends SerializedError {
   msg?: string;
+  status?: number;
 }

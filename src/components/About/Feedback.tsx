@@ -1,12 +1,17 @@
 import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
+import { CustomError } from '../../interfaces/interfaces';
 import { sendFeedback } from '../../store/suggestions/suggestionsSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Grid, TextField, Button } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 
-function Feedback() {
+interface Props {
+  ValidateError: (e: CustomError) => void;
+}
+
+function Feedback(props: Props) {
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((state: RootState) => state.auth.user);
 
@@ -49,7 +54,7 @@ function Feedback() {
         setSuggestion("");
       })
       .catch(error => {
-        dispatch(showSnackbar(error.msg));
+        props.ValidateError(error);
       })
       .finally(() => {
         setLoading(false);

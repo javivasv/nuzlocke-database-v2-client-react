@@ -1,12 +1,17 @@
 import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from "../store/store";
+import { CustomError } from '../interfaces/interfaces';
 import { fetchVideos, setVideos } from '../store/videos/videosSlice';
 import { Grid } from "@mui/material";
 import MainContent from "../components/Home/MainContent";
 import SecondaryContent from "../components/Home/SecondaryContent";
 
-function Home() {
+interface Props {
+  ValidateError: (e: CustomError) => void;
+}
+
+function Home(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const videos = useSelector((state: RootState) => state.videos.videos);
 
@@ -19,7 +24,9 @@ function Home() {
       .then(res => {
         dispatch(setVideos(res.videos.sort(() => Math.random() - 0.5)));
       })
-      .catch(() => {});
+      .catch(error => {
+        props.ValidateError(error);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
