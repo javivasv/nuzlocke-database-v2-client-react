@@ -101,7 +101,8 @@ function Register(props: Props) {
       email,
       username,
       password,
-    })).unwrap()
+    }))
+      .unwrap()
       .then(res => {
         dispatch(showSnackbar(res.msg));
         props.GoTo("login");

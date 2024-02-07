@@ -5,13 +5,14 @@ import { CustomError } from './interfaces/interfaces';
 import './App.css'
 import Dashboard from "./containers/Dashboard";
 import Home from "./containers/Home";
-import Nuzlockes from "./containers/Nuzlockes";
+import NuzlockesContainer from "./containers/Nuzlockes";
 import About from "./containers/About";
 import Auth from "./containers/Auth";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import ResetPassword from "./components/Auth/ResetPassword";
+import NuzlockesComponent from "./components/Nuzlockes/Nuzlockes";
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
@@ -31,7 +32,9 @@ function AppRoutes(props: Props) {
     <Routes>
       <Route element={<Dashboard ToggleTheme={props.ToggleTheme} GoTo={GoTo} Logout={props.Logout} />}>
         <Route path="home" element={<Home ValidateError={props.ValidateError} />} />
-        <Route path="nuzlockes" element={<Nuzlockes />} />
+        <Route path="nuzlockes" element={<NuzlockesContainer GoTo={GoTo} />}>
+          <Route path="" element={<NuzlockesComponent ValidateError={props.ValidateError} />} />
+        </Route>
         <Route path="about" element={<About ValidateError={props.ValidateError} />} />
       </Route>
       {!user && 

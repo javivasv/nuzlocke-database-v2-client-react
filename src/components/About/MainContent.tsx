@@ -5,7 +5,7 @@ import CustomCardContent from "../CustomCardContent";
 function MainContent() {
   return (
     <Grid container flexDirection={"row"}>
-      <Card className='about-main-content-card top-card'>
+      <Card className='main-content-card top-card'>
         <CustomCardHeader title="About"></CustomCardHeader>
         <CustomCardContent text="
           My name is Javier Vivas and I am a Computer/Software Engineer graduated
@@ -49,7 +49,7 @@ function MainContent() {
         )}
         ></CustomCardContent>
       </Card>
-      <Card className='about-main-content-card top-card'>
+      <Card className='main-content-card top-card'>
         <CustomCardContent text={(
           <span>
             Pokemon sprites, Pokemon names, Pokemon types and Pokemon abilities are
@@ -94,7 +94,7 @@ function MainContent() {
         )}
         ></CustomCardContent>
       </Card>
-      <Card className='about-main-content-card'>
+      <Card className='main-content-card'>
         <CustomCardContent text="
           This website/app is a fan-made project and is not affiliated with,
           endorsed, sponsored, or specifically approved by Nintendo, Game Freak,

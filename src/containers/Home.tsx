@@ -20,7 +20,8 @@ function Home(props: Props) {
       return;
     }
 
-    dispatch(fetchVideos()).unwrap()
+    dispatch(fetchVideos())
+      .unwrap()
       .then(res => {
         dispatch(setVideos(res.videos.sort(() => Math.random() - 0.5)));
       })

@@ -3,13 +3,15 @@ import authReducer from "./auth/authSlice"
 import notificationsReducer from './notifications/notificationsSlice'
 import videosSlice from './videos/videosSlice'
 import suggestionsSlice from './suggestions/suggestionsSlice'
+import nuzlockesSlice from './nuzlockes/nuzlockesSlice'
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     notifications: notificationsReducer,
     videos: videosSlice,
-    suggestionsSlice: suggestionsSlice,
+    suggestions: suggestionsSlice,
+    nuzlockes: nuzlockesSlice,
   }
 })
 

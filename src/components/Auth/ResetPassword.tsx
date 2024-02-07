@@ -17,7 +17,8 @@ function ResetPassword(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(validateResetToken(resetToken || "")).unwrap()
+    dispatch(validateResetToken(resetToken || ""))
+      .unwrap()
       .then(res => {
         setEmail(res);
       })
@@ -92,7 +93,8 @@ function ResetPassword(props: Props) {
     dispatch(resetPassword({
       email,
       password,
-    })).unwrap()
+    }))
+      .unwrap()
       .then(res => {
         dispatch(showSnackbar(res.msg));
         props.GoTo("login");
@@ -108,10 +110,12 @@ function ResetPassword(props: Props) {
   return (
     <form className="w-100" noValidate onSubmit={HandleResetPassword}>
       <Grid container item flexDirection={"column"}>
-        {errorMsg &&
+        {
+          errorMsg &&
           <MultiuseText text={errorMsg} justify='center'></MultiuseText>
         }
-        {!errorMsg &&
+        {
+          !errorMsg &&
           <>
             <MultiuseText text="Password"></MultiuseText>
             <Grid className="auth-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>

@@ -75,7 +75,8 @@ function Login(props: Props) {
     dispatch(login({
       email,
       password,
-    })).unwrap()
+    }))
+      .unwrap()
       .then(res => {
         dispatch(setUser(res));
         props.GoTo("home");

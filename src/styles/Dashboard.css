@@ -32,6 +32,16 @@
   padding: 12px;
 }
 
+.main-content-card,
+.secondary-content-card {
+  width: 100%;
+  padding: 16px;
+
+  &.top-card {
+    margin-bottom: 16px;
+  }
+}
+
 .custom-card-header {
   padding: 8px 16px;
 }
@@ -48,4 +58,12 @@
 
 .custom-card-content-text {
   font-size: 14px;
+}
+
+.back-buttton-row {
+  padding: 12px 0;
+}
+
+.loading-row {
+  padding: 20px 0;
 }

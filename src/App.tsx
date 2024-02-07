@@ -17,7 +17,8 @@ function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   useEffect(() => {
-    dispatch(validateSession()).unwrap()
+    dispatch(validateSession())
+      .unwrap()
       .then(res => {
         dispatch(setUser(res));
       })

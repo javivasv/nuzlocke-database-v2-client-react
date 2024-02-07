@@ -60,7 +60,8 @@ function ForgotPassword(props: Props) {
 
     dispatch(forgotPassword({
       email,
-    })).unwrap()
+    }))
+      .unwrap()
       .then(res => {
         dispatch(showSnackbar(res.msg));
       })

@@ -5,7 +5,7 @@ import MultiuseText from "../MultiuseText";
 function SecondaryContent() {
   return (
     <Grid container flexDirection={"row"}>
-      <Card className='home-secondary-content-card top-card'>
+      <Card className='secondary-content-card top-card'>
         <MultiuseText text="Nuzlocke Basic Rules" justify="center"></MultiuseText>
         <CustomCardContent text="
           Any Pokémon that faints is considered dead, and must be released
@@ -24,7 +24,7 @@ function SecondaryContent() {
           Pokémon"
         ></CustomCardContent>
       </Card>
-      <Card className='home-secondary-content-card'>
+      <Card className='secondary-content-card'>
         <MultiuseText text="Commonly accepted extra rules" justify="center"></MultiuseText>
         <CustomCardContent text="
           The two basic rules are not in effect until the player has gained

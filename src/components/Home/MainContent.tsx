@@ -18,7 +18,7 @@ function MainContent() {
 
   return (
     <Grid container flexDirection={"row"}>
-      <Card className='home-main-content-card top-card'>
+      <Card className='main-content-card top-card'>
         <CustomCardHeader title="Welcome to the Nuzlocke DataBase!"></CustomCardHeader>
         <CustomCardContent text="
           Here you can keep track of all of your pokemon nuzlockes. You will be
@@ -37,7 +37,7 @@ function MainContent() {
           self-imposed on the part of the player, and thus subject to variation."
         ></CustomCardContent>
       </Card>
-      <Card className='home-main-content-card'>
+      <Card className='main-content-card'>
         <CustomCardHeader title="Relevant Nuzlocke Videos"></CustomCardHeader>
         <Carousel autoPlay={false} onChange={(e) => HandleChangeVideo(e)}>
           {

@@ -41,6 +41,40 @@ export interface SuggestionData {
   username: string | null;
 }
 
+export interface Nuzlocke {
+  _id?: string;
+  name: string;
+  game: string;
+  description: string;
+  status?: string;
+  user?: string;
+  pokemon?: Array<Pokemon>;
+}
+
+export interface Pokemon {
+  _id?: string;
+  originalSpecies: boolean;
+  species: Name;
+  nickname: string;
+  location: string;
+  obtained: string;
+  sprite: string;
+  fainted: boolean;
+  types: PokemonTypes;
+  originalAbility: boolean;
+  ability: Name;
+}
+
+export interface PokemonTypes {
+  first: string;
+  second: string;
+}
+
+export interface Name {
+  codedName: string;
+  formattedName: string;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
   status?: number;

@@ -11,7 +11,7 @@ interface Props {
   Logout: () => void;
 }
 
-function Sidebar(props: Props) {  
+function Sidebar(props: Props) {
   const location = useLocation();
   const user = useSelector((state: RootState) => state.auth.user);
   const isLgAndUp = useMediaQuery('(min-width:1280px)');
@@ -81,7 +81,8 @@ function Sidebar(props: Props) {
         (item.name !== "nuzlockes" || (item.name === "nuzlockes" && user)) &&
         <Grid key={item.name} className={IsSidebarItemActive(item.name) ? 'sidebar-item active' : 'sidebar-item'} container item flexDirection={"row"} justifyContent='center' onClick={() => ChangeView(item.name)}>
           {ItemIcon(item.name)}
-          { isLgAndUp && 
+          { 
+            isLgAndUp && 
             <span className='sidebar-item-title'>
               {item.title}
             </span>
@@ -96,9 +97,16 @@ function Sidebar(props: Props) {
       <div className="empty-space"></div>
       <Grid id="log-button-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
         <Button className="w-100" color='primary' variant="contained" onClick={HandleLog}>
-          {user && <Logout />}
-          {!user && <Login />}
-          { isLgAndUp &&
+          {
+            user &&
+            <Logout />
+          }
+          {
+            !user &&
+            <Login />
+          }
+          {
+            isLgAndUp &&
             <span className="sidebar-log-text">
               { user ? "Logout" : "Login" }
             </span>

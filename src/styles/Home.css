@@ -1,13 +1,3 @@
-.home-main-content-card,
-.home-secondary-content-card {
-  width: 100%;
-  padding: 16px;
-
-  &.top-card {
-    margin-bottom: 16px;
-  }
-}
-
 .video-iframe {
   width: 100%;
   height: 500px;

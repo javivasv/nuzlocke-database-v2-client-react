@@ -47,7 +47,8 @@ function Feedback(props: Props) {
       username: user ? user.username : null,
     }
 
-    dispatch(sendFeedback(data)).unwrap()
+    dispatch(sendFeedback(data))
+      .unwrap()
       .then(res => {
         dispatch(showSnackbar(res.msg));
         setName("");

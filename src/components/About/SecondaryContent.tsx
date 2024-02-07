@@ -29,11 +29,11 @@ function SecondaryContent(props: Props) {
 
   return (
     <Grid container flexDirection={"row"}>
-      <Card className='about-secondary-content-card top-card'>
+      <Card className='secondary-content-card top-card'>
         <MultiuseText text="Feedback" justify="center"></MultiuseText>
         <Feedback ValidateError={props.ValidateError} />
       </Card>
-      <Card className='about-secondary-content-card'>
+      <Card className='secondary-content-card'>
         <MultiuseText text="Contact" justify="center"></MultiuseText>
         { websites.map(website => (
           <Grid key={website.url} className="contact-link-row" container flexDirection={"row"} justifyContent="center">
