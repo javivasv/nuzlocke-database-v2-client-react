@@ -7,20 +7,20 @@ function MainContent() {
     <Grid container flexDirection={"row"}>
       <Card className='main-content-card top-card'>
         <CustomCardHeader title="About"></CustomCardHeader>
-        <CustomCardContent text="
+        <CustomCardContent>
           My name is Javier Vivas and I am a Computer/Software Engineer graduated
           at Universidad Simón Bolívar in Caracas, Venezuela. I live in the USA
-          and currently work as a Frontend Engineer."
-        ></CustomCardContent>
-        <CustomCardContent text="
+          and currently work as a Frontend Engineer.
+        </CustomCardContent>
+        <CustomCardContent>
           In 2020 I got to know what a nuzlocke is from videos on Youtube. At
           first I did not know how people liked it, but it grew on me over time
           and I really enjoy it now. I have done a couple myself, some finished,
           some lost, but either way, in the end, is very fun to play them. I
           started following some Youtubers and learning and getting better because
-          of them."
-        ></CustomCardContent>
-        <CustomCardContent text="
+          of them.
+        </CustomCardContent>
+        <CustomCardContent>
           As I played, I found uncomfortable to keep track of my nuzlockes. I
           decided to develop an app that would meet my needs as a player and that
           can be as inclusive as possible in terms of different types of games a
@@ -30,9 +30,9 @@ function MainContent() {
           with. In the end, I decided to let the player type manually some of the
           information in order to make it as free as possible. This gives the
           player the opportunity to keep track of any nuzlocke of any type of
-          Pokemon game."
-        ></CustomCardContent>
-        <CustomCardContent text={(
+          Pokemon game.
+        </CustomCardContent>
+        <CustomCardContent>
           <span>
             This is a side project that I made on my free time, however, I would
             appreciate any donation that could be done in order to try and keep the
@@ -46,11 +46,10 @@ function MainContent() {
             </a>
             .
           </span>
-        )}
-        ></CustomCardContent>
+        </CustomCardContent>
       </Card>
       <Card className='main-content-card top-card'>
-        <CustomCardContent text={(
+        <CustomCardContent>
           <span>
             Pokemon sprites, Pokemon names, Pokemon types and Pokemon abilities are
             taken from&nbsp;
@@ -63,9 +62,8 @@ function MainContent() {
             </a>
             , a website dedicated to provide data related to the Pokemon franchise.
           </span>
-        )}
-        ></CustomCardContent>
-        <CustomCardContent text={(
+        </CustomCardContent>
+        <CustomCardContent>
           <span>
             Nuzlocke rules and general information are taken from&nbsp;
             <a
@@ -77,9 +75,8 @@ function MainContent() {
             </a>
             .
           </span>
-        )}
-        ></CustomCardContent>
-        <CustomCardContent text={(
+        </CustomCardContent>
+        <CustomCardContent>
           <span>
             Login background art was made by&nbsp;
             <a
@@ -91,16 +88,15 @@ function MainContent() {
             </a>
             .
           </span>
-        )}
-        ></CustomCardContent>
+        </CustomCardContent>
       </Card>
       <Card className='main-content-card'>
-        <CustomCardContent text="
+        <CustomCardContent>
           This website/app is a fan-made project and is not affiliated with,
           endorsed, sponsored, or specifically approved by Nintendo, Game Freak,
           or The Pokémon Company. Pokémon and its trademarks are the property of
-          Nintendo, Game Freak, and The Pokémon Company."
-        ></CustomCardContent>
+          Nintendo, Game Freak, and The Pokémon Company.
+        </CustomCardContent>
       </Card>
     </Grid>
   );

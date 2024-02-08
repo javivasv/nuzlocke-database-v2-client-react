@@ -1,4 +1,5 @@
-import { Grid, Card } from "@mui/material";
+import { Grid } from "@mui/material";
+import InfoActionsCard from "../InfoActions/InfoActionsCard";
 
 interface Props {
   isMdAndUp: boolean;
@@ -7,9 +8,7 @@ interface Props {
 function SecondaryContent(props: Props) {
   return (
     <Grid className={props.isMdAndUp ? "" : "only-content-second-half"} container flexDirection={"row"}>
-      <Card className='secondary-content-card top-card'>
-        TEST
-      </Card>
+      <InfoActionsCard cardType="nuzlockes" />
     </Grid>
   );
 }

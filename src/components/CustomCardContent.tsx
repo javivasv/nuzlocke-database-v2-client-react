@@ -1,15 +1,13 @@
 import { Grid } from "@mui/material";
 
 interface Props {
-  text: React.ReactNode;
+  children: React.ReactNode;
 }
 
 function CustomCardContent(props: Props) {
   return (
     <Grid className="custom-card-content" container flexDirection={"row"} justifyContent="center">
-      <span className="custom-card-content-text">
-        {props.text}
-      </span>
+      { props.children }
     </Grid>
   );
 }

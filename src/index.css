@@ -4,6 +4,7 @@
 @import "./styles/Home.css";
 @import "./styles/About.css";
 @import "./styles/MultiuseText.css";
+@import "./styles/InfoActionsCard.css";
 @import "./styles/ThinSCrollbar.css";
 
 :root {

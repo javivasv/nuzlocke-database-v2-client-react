@@ -76,7 +76,7 @@ function Sidebar(props: Props) {
           {isLgAndUp ? "Nuzlocke DataBase" : "NDB" }
         </h2>
       </Grid>
-      <Divider />
+      <Divider sx={{ margin: "12px 0" }} />
       {
         sidebarItems.map(item => (
           (item.name !== "nuzlockes" || (item.name === "nuzlockes" && user)) &&
