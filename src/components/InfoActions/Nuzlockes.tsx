@@ -2,7 +2,11 @@ import { Grid, Button, Divider } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import CustomCardContent from "../CustomCardContent";
 
-function Nuzlockes() {
+interface Props {
+  GoTo: (e: string) => void;
+}
+
+function Nuzlockes(props: Props) {
   const websites = [
     {
       name: "Bulbapedia",
@@ -18,10 +22,14 @@ function Nuzlockes() {
     },
   ]
 
+  const HandleClick = () => {
+    props.GoTo("nuzlockes/nuzlocke-form");
+  }
+
   return (
     <>
       <Grid className="info-actions-card-title" container flexDirection={"row"} alignItems="center" justifyContent="center">
-        <Button color="secondary" variant="contained">
+        <Button color="secondary" variant="contained" onClick={HandleClick}>
           New nuzlocke
         </Button>
       </Grid>

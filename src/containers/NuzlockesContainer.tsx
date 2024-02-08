@@ -3,10 +3,11 @@ import MainContent from "../components/Nuzlockes/MainContent";
 import SecondaryContent from "../components/Nuzlockes/SecondaryContent";
 
 interface Props {
+  GoTo: (e: string) => void;
   isMdAndUp: boolean;
 }
 
-function Nuzlockes(props: Props) {
+function NuzlockesContainer(props: Props) {
   return (
     <Grid className="h-100 w-100" container flexDirection={"row"}>
       {
@@ -16,7 +17,7 @@ function Nuzlockes(props: Props) {
             <MainContent />
           </Grid>
           <Grid className="secondary-content" container item flexDirection={"column"} xs={4}>
-            <SecondaryContent isMdAndUp={props.isMdAndUp} />
+            <SecondaryContent GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
           </Grid>
         </>
       }
@@ -25,7 +26,7 @@ function Nuzlockes(props: Props) {
         <>
           <Grid className="only-content" container item flexDirection={"column"} xs={12}>
             <MainContent />
-            <SecondaryContent isMdAndUp={props.isMdAndUp} />
+            <SecondaryContent GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
           </Grid>
         </>
       }
@@ -33,4 +34,4 @@ function Nuzlockes(props: Props) {
   );
 }
   
-export default Nuzlockes;
+export default NuzlockesContainer;

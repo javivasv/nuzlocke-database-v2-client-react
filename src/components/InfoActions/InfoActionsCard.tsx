@@ -1,9 +1,8 @@
 import { Grid, Card } from "@mui/material";
 import pokeball from "../../assets/pokeball.png"
-import Nuzlockes from "./Nuzlockes";
 
 interface Props {
-  cardType: string;
+  children: React.ReactNode;
 }
 
 function InfoActionsCard(props: Props) {
@@ -13,10 +12,7 @@ function InfoActionsCard(props: Props) {
         <img src={pokeball} className="pokeball" />
       </Grid>
       <Card className="info-actions-card">
-        {
-          props.cardType === "nuzlockes" &&
-          <Nuzlockes />
-        }
+        { props.children }
       </Card>
     </div>
   );
