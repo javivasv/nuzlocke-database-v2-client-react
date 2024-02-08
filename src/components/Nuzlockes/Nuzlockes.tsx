@@ -5,6 +5,8 @@ import { AppDispatch, RootState } from '../../store/store';
 import { fetchNuzlockes, setNuzlockes } from '../../store/nuzlockes/nuzlockesSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Grid, Card } from "@mui/material";
+import LoadingRow from "../LoadingRow";
+import CustomCardHeader from '../CustomCardHeader';
 import NuzlockesTable from "./NuzlockesTable";
 
 interface Props {
@@ -41,7 +43,24 @@ function Nuzlockes(props: Props) {
   return (
     <Grid container flexDirection={"row"}>
       <Card className="main-content-card">
-        <NuzlockesTable loading={loading} />
+        <Grid container flexDirection={"row"}>
+          <Grid container item flexDirection={"column"}>
+            {
+              loading &&
+              <LoadingRow />
+            }
+            {
+              (!loading && nuzlockes.length === 0) && 
+              <Grid container item flexDirection={"row"}>
+                <CustomCardHeader title="There are no nuzlockes registered yet"></CustomCardHeader>
+              </Grid>
+            }
+            {
+              (!loading && nuzlockes.length > 0) &&
+              <NuzlockesTable />
+            }
+          </Grid>
+        </Grid>
       </Card>
     </Grid>
   );

@@ -1,12 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { Grid, IconButton } from "@mui/material";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { ArrowBack } from '@mui/icons-material';
 
-interface Props {
-  GoTo: (e: string) => void;
-}
-
-function MainContent(props: Props) {
+function MainContent() {
   const location = useLocation();
 
   const IsRootNuzlockes = () => {
@@ -23,7 +19,7 @@ function MainContent(props: Props) {
         IsRootNuzlockes() &&
         <Grid className="back-buttton-row" container flexDirection={"row"}>
           <IconButton onClick={HandleGoBack}>
-            <ArrowBackIcon />
+            <ArrowBack />
           </IconButton>
         </Grid>
       }

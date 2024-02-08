@@ -75,6 +75,16 @@ export interface Name {
   formattedName: string;
 }
 
+export interface Nuzlocke {
+  _id?: string;
+  name: string;
+  game: string;
+  description: string;
+  status?: string;
+  user?: string;
+  pokemon?: Array<Pokemon>;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
   status?: number;

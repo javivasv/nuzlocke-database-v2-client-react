@@ -35,17 +35,19 @@ function SecondaryContent(props: Props) {
       </Card>
       <Card className='secondary-content-card'>
         <MultiuseText text="Contact" justify="center"></MultiuseText>
-        { websites.map(website => (
-          <Grid key={website.url} className="contact-link-row" container flexDirection={"row"} justifyContent="center">
-            <a
-              className="website-link"
-              href={website.url}
-              target="_blank"
-            >
-              {website.name}
-            </a>
-          </Grid>
-        )) }
+        {
+          websites.map(website => (
+            <Grid key={website.url} className="contact-link-row" container flexDirection={"row"} justifyContent="center">
+              <a
+                className="website-link"
+                href={website.url}
+                target="_blank"
+              >
+                {website.name}
+              </a>
+            </Grid>
+          ))
+        }
       </Card>
     </Grid>
   );

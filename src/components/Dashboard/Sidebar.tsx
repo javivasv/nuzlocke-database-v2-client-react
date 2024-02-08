@@ -16,7 +16,7 @@ function Sidebar(props: Props) {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLgAndUp = useMediaQuery('(min-width:1280px)');
 
-  const items = [
+  const sidebarItems = [
     {
       title: "Home",
       name: "home",
@@ -77,19 +77,20 @@ function Sidebar(props: Props) {
         </h2>
       </Grid>
       <Divider />
-      {items.map(item => (
-        (item.name !== "nuzlockes" || (item.name === "nuzlockes" && user)) &&
-        <Grid key={item.name} className={IsSidebarItemActive(item.name) ? 'sidebar-item active' : 'sidebar-item'} container item flexDirection={"row"} justifyContent='center' onClick={() => ChangeView(item.name)}>
-          {ItemIcon(item.name)}
-          { 
-            isLgAndUp && 
-            <span className='sidebar-item-title'>
-              {item.title}
-            </span>
-          }
-        </Grid>
-      )
-      )}
+      {
+        sidebarItems.map(item => (
+          (item.name !== "nuzlockes" || (item.name === "nuzlockes" && user)) &&
+          <Grid key={item.name} className={IsSidebarItemActive(item.name) ? 'sidebar-item active' : 'sidebar-item'} container item flexDirection={"row"} justifyContent='center' onClick={() => ChangeView(item.name)}>
+            {ItemIcon(item.name)}
+            { 
+              isLgAndUp && 
+              <span className='sidebar-item-title'>
+                {item.title}
+              </span>
+            }
+          </Grid>
+        ))
+      }
       <Grid id="title-container" container item flexDirection={"row"} alignItems="center" justifyContent='end'>
         <Switch onChange={(e) => ChangeTheme(e)}></Switch>
         <DarkMode />

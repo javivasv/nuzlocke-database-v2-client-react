@@ -50,8 +50,7 @@ function MainContent() {
                 title="video.name"
                 allowFullScreen
               ></iframe>
-            )
-            )
+            ))
           }
         </Carousel>
       </Card>
