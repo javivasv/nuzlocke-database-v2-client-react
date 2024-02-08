@@ -28,7 +28,8 @@
 }
 
 .main-content,
-.secondary-content {
+.secondary-content,
+.only-content {
   padding: 12px;
 }
 
@@ -40,6 +41,10 @@
   &.top-card {
     margin-bottom: 16px;
   }
+}
+
+.only-content-second-half {
+  padding-top: 12px;
 }
 
 .custom-card-header {

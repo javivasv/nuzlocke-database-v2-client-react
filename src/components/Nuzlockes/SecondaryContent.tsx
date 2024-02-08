@@ -1,8 +1,12 @@
 import { Grid, Card } from "@mui/material";
 
-function SecondaryContent() {
+interface Props {
+  isMdAndUp: boolean;
+}
+
+function SecondaryContent(props: Props) {
   return (
-    <Grid container flexDirection={"row"}>
+    <Grid className={props.isMdAndUp ? "" : "only-content-second-half"} container flexDirection={"row"}>
       <Card className='secondary-content-card top-card'>
         TEST
       </Card>

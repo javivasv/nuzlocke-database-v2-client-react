@@ -2,6 +2,7 @@ import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { RootState } from "./store/store";
 import { CustomError } from './interfaces/interfaces';
+import { useMediaQuery } from "@mui/material";
 import './App.css'
 import Dashboard from "./containers/Dashboard";
 import Home from "./containers/Home";
@@ -22,6 +23,7 @@ interface Props {
 
 function AppRoutes(props: Props) {
   const navigate = useNavigate();
+  const isMdAndUp = useMediaQuery('(min-width:960px)');
   const user = useSelector((state: RootState) => state.auth.user);
 
   const GoTo = (path: string) => {
@@ -31,11 +33,11 @@ function AppRoutes(props: Props) {
   return (
     <Routes>
       <Route element={<Dashboard ToggleTheme={props.ToggleTheme} GoTo={GoTo} Logout={props.Logout} />}>
-        <Route path="home" element={<Home ValidateError={props.ValidateError} />} />
-        <Route path="nuzlockes" element={<NuzlockesContainer GoTo={GoTo} />}>
+        <Route path="home" element={<Home ValidateError={props.ValidateError} isMdAndUp={isMdAndUp} />} />
+        <Route path="nuzlockes" element={<NuzlockesContainer isMdAndUp={isMdAndUp} />}>
           <Route path="" element={<NuzlockesComponent ValidateError={props.ValidateError} />} />
         </Route>
-        <Route path="about" element={<About ValidateError={props.ValidateError} />} />
+        <Route path="about" element={<About ValidateError={props.ValidateError} isMdAndUp={isMdAndUp} />} />
       </Route>
       {!user && 
         <Route element={<Auth />}>

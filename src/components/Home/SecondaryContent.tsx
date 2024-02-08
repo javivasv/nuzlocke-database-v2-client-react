@@ -2,9 +2,13 @@ import { Grid, Card } from "@mui/material";
 import CustomCardContent from "../CustomCardContent";
 import MultiuseText from "../MultiuseText";
 
-function SecondaryContent() {
+interface Props {
+  isMdAndUp: boolean;
+}
+
+function SecondaryContent(props: Props) {
   return (
-    <Grid container flexDirection={"row"}>
+    <Grid className={props.isMdAndUp ? "" : "only-content-second-half"} container flexDirection={"row"}>
       <Card className='secondary-content-card top-card'>
         <MultiuseText text="Nuzlocke Basic Rules" justify="center"></MultiuseText>
         <CustomCardContent text="
