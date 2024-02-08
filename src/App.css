@@ -15,6 +15,18 @@ h1, h2, h3 {
   margin: 0;
 }
 
+.form-input-row {
+  padding-bottom: 12px;
+}
+
+.form-submit-row {
+  padding: 12px 0;
+}
+
+.card-text-row {
+  padding: 4px 0;
+}
+
 .website-link {
   font-size: 14px;
   text-decoration: none;

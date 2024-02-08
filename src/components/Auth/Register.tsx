@@ -119,7 +119,7 @@ function Register(props: Props) {
     <form className="w-100" noValidate onSubmit={HandleRegister}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Email"></MultiuseText>
-        <Grid className="auth-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={email}
             name="email"
@@ -134,7 +134,7 @@ function Register(props: Props) {
           />
         </Grid>
         <MultiuseText text="Username"></MultiuseText>
-        <Grid className="auth-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={username}
             name="username"
@@ -149,7 +149,7 @@ function Register(props: Props) {
           />
         </Grid>
         <MultiuseText text="Password"></MultiuseText>
-        <Grid className="auth-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={password}
             name="password"
@@ -165,7 +165,7 @@ function Register(props: Props) {
           />
         </Grid>
         <MultiuseText text="Password confirmation"></MultiuseText>
-        <Grid className="auth-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={passwordConfirmation}
             name="passwordConfirmation"
@@ -180,7 +180,7 @@ function Register(props: Props) {
             onChange={HandlePasswordConfirmationChange}
           />
         </Grid>
-        <Grid className="auth-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="form-submit-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <Button color='primary' variant='contained' disabled={loading} type="submit">Register</Button>
         </Grid>
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>

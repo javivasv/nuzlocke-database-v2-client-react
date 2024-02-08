@@ -118,7 +118,7 @@ function ResetPassword(props: Props) {
           !errorMsg &&
           <>
             <MultiuseText text="Password"></MultiuseText>
-            <Grid className="auth-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+            <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <TextField
                 value={password}
                 name="password"
@@ -134,7 +134,7 @@ function ResetPassword(props: Props) {
               />
             </Grid>
             <MultiuseText text="Password confirmation"></MultiuseText>
-            <Grid className="auth-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+            <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <TextField
                 value={passwordConfirmation}
                 name="passwordConfirmation"
@@ -149,7 +149,7 @@ function ResetPassword(props: Props) {
                 onChange={HandlePasswordConfirmationChange}
               />
             </Grid>
-            <Grid className="auth-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+            <Grid className="form-submit-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <Button color='primary' variant='contained' disabled={loading} type="submit">Reset password</Button>
             </Grid></>
         }

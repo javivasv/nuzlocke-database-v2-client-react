@@ -38,7 +38,7 @@ function Nuzlockes(props: Props) {
       <CustomCardContent>
         {
           websites.map(website => (
-            <Grid key={website.url} className="contact-link-row" container flexDirection={"row"} justifyContent="center">
+            <Grid key={website.url} className="card-text-row" container flexDirection={"row"} justifyContent="center">
               <a
                 className="website-link"
                 href={website.url}
