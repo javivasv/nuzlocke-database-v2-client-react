@@ -1,5 +1,6 @@
 import { useState, SyntheticEvent } from "react";
 import { useSelector } from "react-redux";
+import { Nuzlocke } from "../../interfaces/interfaces";
 import { RootState } from "../../store/store";
 import { Grid, TextField } from "@mui/material";
 import NuzlockeRow from "./NuzlockeRow";
@@ -25,6 +26,18 @@ function NuzlockesTable() {
       cols: 3,
     },
   ]
+
+  const filteredNuzlockes = () => {
+    if (search === "") {
+      return nuzlockes;
+    }
+
+    return nuzlockes.filter(
+      (nuzlocke: Nuzlocke) =>
+        nuzlocke.name.toLowerCase().includes(search) ||
+        nuzlocke.game.toLowerCase().includes(search)
+    );
+  }
 
   const tableContentStyle = {
     maxHeight: window.innerHeight - 172 + "px",
@@ -67,7 +80,7 @@ function NuzlockesTable() {
           <Grid container item flexDirection={"row"}>
             <Grid className="thin-scrollbar" container item flexDirection={"column"} wrap="nowrap" style={tableContentStyle}>
               {
-                nuzlockes.map(nuzlocke => (
+                filteredNuzlockes().map(nuzlocke => (
                   <Grid key={nuzlocke._id} container item flexDirection={"row"}>
                     <NuzlockeRow nuzlocke={nuzlocke} />
                   </Grid>
