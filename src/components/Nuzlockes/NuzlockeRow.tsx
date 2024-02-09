@@ -3,12 +3,13 @@ import { Grid } from "@mui/material";
 import { Flag, Done, Close } from '@mui/icons-material';
 
 interface Props {
+  GoTo: (e: string) => void;
   nuzlocke: Nuzlocke;
 }
 
 function NuzlockeRow(props: Props) {
-  const checkNuzlocke = () => {
-    console.log("sfghdfkj");
+  const CheckNuzlocke = () => {
+    props.GoTo(`nuzlockes/nuzlocke/${props.nuzlocke._id}/nuzlocke-form`);
   }
 
   const ItemIcon = (itemStatus: string) => {
@@ -25,7 +26,7 @@ function NuzlockeRow(props: Props) {
   }
 
   return (
-    <Grid className="table-row" container flexDirection={"row"} onClick={checkNuzlocke}>
+    <Grid className="table-row" container flexDirection={"row"} onClick={CheckNuzlocke}>
       <Grid container item flexDirection={"column"} xs={6}>
         <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
           <span>

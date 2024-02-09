@@ -1,8 +1,9 @@
-import { useState, SyntheticEvent, FormEvent } from "react";
+import { useState, useEffect, SyntheticEvent, FormEvent } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import { AppDispatch } from "../../store/store";
-import { createNuzlocke, setNuzlockes } from "../../store/nuzlockes/nuzlockesSlice";
+import { createNuzlocke, fetchNuzlocke, setNuzlockes, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Grid, Card, TextField, Button } from "@mui/material";
 import { CustomError } from "../../interfaces/interfaces";
@@ -14,6 +15,7 @@ interface Props {
 }
 
 function NuzlockeForm(props: Props) {
+  const { nuzlockeId } = useParams();
   const dispatch = useDispatch<AppDispatch>()
   
   const [name, setName] = useState("");
@@ -25,6 +27,24 @@ function NuzlockeForm(props: Props) {
   const [description, setDescription] = useState("");
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (nuzlockeId) {
+      dispatch(fetchNuzlocke(nuzlockeId))
+        .unwrap()
+        .then(res => {
+          dispatch(setNuzlocke(res.nuzlocke));
+          setName(res.nuzlocke.name);
+          setGame(res.nuzlocke.game);
+          setDescription(res.nuzlocke.description);
+        })
+        .catch(error => {
+          dispatch(showSnackbar(error.msg));
+          props.ValidateError(error);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const validationSchema = Yup.object({
     name: Yup.string().required('Name is required'),

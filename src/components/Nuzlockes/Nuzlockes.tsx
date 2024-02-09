@@ -11,6 +11,7 @@ import NuzlockesTable from "./NuzlockesTable";
 
 interface Props {
   ValidateError: (e: CustomError) => void;
+  GoTo: (e: string) => void;
 }
 
 function Nuzlockes(props: Props) {
@@ -57,7 +58,7 @@ function Nuzlockes(props: Props) {
             }
             {
               (!loading && nuzlockes.length > 0) &&
-              <NuzlockesTable />
+              <NuzlockesTable GoTo={props.GoTo} />
             }
           </Grid>
         </Grid>

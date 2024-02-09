@@ -5,7 +5,11 @@ import { RootState } from "../../store/store";
 import { Grid, TextField } from "@mui/material";
 import NuzlockeRow from "./NuzlockeRow";
 
-function NuzlockesTable() {
+interface Props {
+  GoTo: (e: string) => void;
+}
+
+function NuzlockesTable(props: Props) {
   const nuzlockes = useSelector((state: RootState) => state.nuzlockes.nuzlockes);
   const [search, setSearch] = useState("");
 
@@ -82,7 +86,7 @@ function NuzlockesTable() {
               {
                 filteredNuzlockes().map(nuzlocke => (
                   <Grid key={nuzlocke._id} container item flexDirection={"row"}>
-                    <NuzlockeRow nuzlocke={nuzlocke} />
+                    <NuzlockeRow GoTo={props.GoTo} nuzlocke={nuzlocke} />
                   </Grid>
                 ))
               }

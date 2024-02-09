@@ -44,7 +44,6 @@ function AppRoutes(props: Props) {
   }, [])
 
   const Logout = () => {
-    console.log("sfgdfgfdg");
     window.localStorage.removeItem("ndb_token");
     dispatch(setUser(null));
     dispatch(setNuzlockes([]));
@@ -76,8 +75,9 @@ function AppRoutes(props: Props) {
       <Route element={<Dashboard ToggleTheme={props.ToggleTheme} GoTo={GoTo} Logout={Logout} />}>
         <Route index path="home" element={<Home ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
         <Route path="nuzlockes" element={<NuzlockesContainer GoTo={GoTo} isMdAndUp={isMdAndUp} />}>
-          <Route index path="" element={<Nuzlockes ValidateError={ValidateError} />} />
+          <Route index path="" element={<Nuzlockes ValidateError={ValidateError} GoTo={GoTo} />} />
           <Route path="nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} GoTo={GoTo} />} />
+          <Route path="nuzlocke/:nuzlockeId/nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} GoTo={GoTo} />} />
         </Route>
         <Route path="about" element={<About ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
       </Route>
