@@ -1,14 +1,20 @@
 import { useState, SyntheticEvent, FormEvent } from "react";
+import { useDispatch } from "react-redux";
 import * as Yup from 'yup';
+import { AppDispatch } from "../../store/store";
+import { createNuzlocke, setNuzlockes } from "../../store/nuzlockes/nuzlockesSlice";
+import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Grid, Card, TextField, Button } from "@mui/material";
 import { CustomError } from "../../interfaces/interfaces";
 import MultiuseText from "../MultiuseText";
 
 interface Props {
   ValidateError: (e: CustomError) => void;
+  GoTo: (e: string) => void;
 }
 
 function NuzlockeForm(props: Props) {
+  const dispatch = useDispatch<AppDispatch>()
   
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState('');
@@ -73,6 +79,27 @@ function NuzlockeForm(props: Props) {
     if (!isValid) {
       return;
     }
+
+    const data = {
+      name,
+      game,
+      description,
+    }
+
+    dispatch(createNuzlocke(data))
+      .unwrap()
+      .then(res => {
+        dispatch(setNuzlockes(res.nuzlockes));
+        dispatch(showSnackbar(res.msg));
+        props.GoTo("nuzlockes");
+      })
+      .catch(error => {
+        dispatch(showSnackbar(error.msg));
+        props.ValidateError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   return (

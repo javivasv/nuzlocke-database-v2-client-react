@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import { RootState } from "./store/store";
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from "./store/store";
+import { validateSession, setUser } from './store/auth/authSlice';
+import { setNuzlockes } from './store/nuzlockes/nuzlockesSlice';
+import { showSnackbar } from './store/notifications/notificationsSlice';
 import { CustomError } from './interfaces/interfaces';
 import { useMediaQuery } from "@mui/material";
 import './App.css'
@@ -18,14 +22,50 @@ import NuzlockeForm from "./components/Nuzlocke/NuzlockeForm";
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
-  Logout: () => void;
-  ValidateError: (e: CustomError) => void;
 }
 
 function AppRoutes(props: Props) {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const isMdAndUp = useMediaQuery('(min-width:960px)');
   const user = useSelector((state: RootState) => state.auth.user);
+
+  useEffect(() => {
+    dispatch(validateSession())
+      .unwrap()
+      .then(res => {
+        dispatch(setUser(res));
+      })
+      .catch(error => {
+        dispatch(showSnackbar(error.msg));
+        ValidateError(error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const Logout = () => {
+    console.log("sfgdfgfdg");
+    window.localStorage.removeItem("ndb_token");
+    dispatch(setUser(null));
+    dispatch(setNuzlockes([]));
+    GoTo("home");
+  }
+
+  const ValidateError = (error: CustomError) => {
+    if (!error.status || !error.msg) {
+      return;
+    }
+
+    if (
+      error.status === 401 ||
+      error.status === 403 ||
+      error.status === 404
+    ) {
+      Logout();
+    }
+
+    dispatch(showSnackbar(error.msg));
+  }
 
   const GoTo = (path: string) => {
     navigate(`/${path}`);
@@ -33,13 +73,13 @@ function AppRoutes(props: Props) {
 
   return (
     <Routes>
-      <Route element={<Dashboard ToggleTheme={props.ToggleTheme} GoTo={GoTo} Logout={props.Logout} />}>
-        <Route index path="home" element={<Home ValidateError={props.ValidateError} isMdAndUp={isMdAndUp} />} />
+      <Route element={<Dashboard ToggleTheme={props.ToggleTheme} GoTo={GoTo} Logout={Logout} />}>
+        <Route index path="home" element={<Home ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
         <Route path="nuzlockes" element={<NuzlockesContainer GoTo={GoTo} isMdAndUp={isMdAndUp} />}>
-          <Route index path="" element={<Nuzlockes ValidateError={props.ValidateError} />} />
-          <Route path="nuzlocke-form" element={<NuzlockeForm ValidateError={props.ValidateError} />} />
+          <Route index path="" element={<Nuzlockes ValidateError={ValidateError} />} />
+          <Route path="nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} GoTo={GoTo} />} />
         </Route>
-        <Route path="about" element={<About ValidateError={props.ValidateError} isMdAndUp={isMdAndUp} />} />
+        <Route path="about" element={<About ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
       </Route>
       {!user && 
         <Route element={<Auth />}>

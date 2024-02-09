@@ -43,5 +43,21 @@ export const fetchNuzlockes = createAsyncThunk(
   }
 );
 
+export const createNuzlocke = createAsyncThunk(
+  "auth/createNuzlockeAsync",
+  async (data: Nuzlocke, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${baseURL}/nuzlocke`, data);
+      return response.data;
+    } catch(error) {
+      const axiosError = error as AxiosError<CustomError>;
+      return rejectWithValue({
+        msg: axiosError.response?.data.msg,
+        status: axiosError.response?.status,
+      });
+    }
+  }
+);
+
 export const { setNuzlockes, setNuzlocke } = nuzlockesSlice.actions;
 export default nuzlockesSlice.reducer;

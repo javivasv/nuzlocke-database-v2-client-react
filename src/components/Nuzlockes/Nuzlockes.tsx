@@ -30,7 +30,7 @@ function Nuzlockes(props: Props) {
         })
         .catch(error => {
           dispatch(showSnackbar(error.msg));
-          props.ValidateError(error.status);
+          props.ValidateError(error);
         })
         .finally(() => {
           setLoading(false);
