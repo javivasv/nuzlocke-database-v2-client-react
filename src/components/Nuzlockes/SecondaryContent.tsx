@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import InfoActionsCard from "../InfoActions/InfoActionsCard";
 import Nuzlockes from "../InfoActions/Nuzlockes";
 import NuzlockeForm from "../InfoActions/NuzlockeForm";
+import Nuzlocke from "../InfoActions/Nuzlocke";
 
 interface Props {
   GoTo: (e: string) => void;
@@ -16,14 +17,18 @@ function SecondaryContent(props: Props) {
     const pathSplit = location.pathname.split("/");
     const path = pathSplit[pathSplit.length - 1];
 
-    switch(path) {
-    case "nuzlockes":
+    if (path.includes("nuzlockes")) {
       return <Nuzlockes GoTo={props.GoTo} />;
-    case "nuzlocke-form":
+    } else if (path.includes("nuzlocke-form")) {
       return <NuzlockeForm />;
-    default:
-      return <Nuzlockes GoTo={props.GoTo} />;
+    } else {
+      return <Nuzlocke GoTo={props.GoTo} />
     }
+    /*
+    else if (path.includes("pokemon") || path.includes("pokemon-form")) {
+      
+    }
+    */
   }
 
   return (

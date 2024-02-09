@@ -2,7 +2,8 @@ import { useState, SyntheticEvent } from "react";
 import { useSelector } from "react-redux";
 import { Nuzlocke } from "../../interfaces/interfaces";
 import { RootState } from "../../store/store";
-import { Grid, TextField } from "@mui/material";
+import { Grid, TextField, InputAdornment } from "@mui/material";
+import { Search } from '@mui/icons-material';
 import NuzlockeRow from "./NuzlockeRow";
 
 interface Props {
@@ -63,6 +64,13 @@ function NuzlockesTable(props: Props) {
           fullWidth
           size='small'
           color='secondary'
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
           onChange={HandleSearchChange}
         />
       </Grid>

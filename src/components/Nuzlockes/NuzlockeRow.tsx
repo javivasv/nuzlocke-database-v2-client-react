@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { Nuzlocke } from "../../interfaces/interfaces";
 import { Grid } from "@mui/material";
 import { Flag, Done, Close } from '@mui/icons-material';
@@ -8,8 +11,11 @@ interface Props {
 }
 
 function NuzlockeRow(props: Props) {
+  const dispatch = useDispatch<AppDispatch>();
+
   const CheckNuzlocke = () => {
-    props.GoTo(`nuzlockes/nuzlocke/${props.nuzlocke._id}/nuzlocke-form`);
+    dispatch(setNuzlocke(props.nuzlocke));
+    props.GoTo(`nuzlockes/nuzlocke/${props.nuzlocke._id}`);
   }
 
   const ItemIcon = (itemStatus: string) => {
