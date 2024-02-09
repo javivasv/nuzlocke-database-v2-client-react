@@ -2,7 +2,11 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Grid, IconButton } from "@mui/material";
 import { ArrowBack } from '@mui/icons-material';
 
-function MainContent() {
+interface Props {
+  GoTo: (e: string) => void;
+}
+
+function MainContent(props: Props) {
   const location = useLocation();
 
   const IsRootNuzlockes = () => {
@@ -10,7 +14,11 @@ function MainContent() {
   }
 
   const HandleGoBack = () => {
-    console.log("HANDLE GO BACK"); 
+    if (location.pathname.includes("nuzlocke-form")) {
+      props.GoTo("nuzlockes");
+    } else {
+      console.log("TO NUZLOCKE");
+    }
   }
 
   return (

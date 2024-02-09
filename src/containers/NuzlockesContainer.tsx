@@ -14,7 +14,7 @@ function NuzlockesContainer(props: Props) {
         props.isMdAndUp &&
         <>
           <Grid className="main-content" container item flexDirection={"column"} xs={8}>
-            <MainContent />
+            <MainContent GoTo={props.GoTo} />
           </Grid>
           <Grid className="secondary-content" container item flexDirection={"column"} xs={4}>
             <SecondaryContent GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
@@ -25,7 +25,7 @@ function NuzlockesContainer(props: Props) {
         !props.isMdAndUp &&
         <>
           <Grid className="only-content" container item flexDirection={"column"} xs={12}>
-            <MainContent />
+            <MainContent GoTo={props.GoTo} />
             <SecondaryContent GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
           </Grid>
         </>
