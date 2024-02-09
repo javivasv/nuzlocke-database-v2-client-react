@@ -85,6 +85,11 @@ export interface Nuzlocke {
   pokemon?: Array<Pokemon>;
 }
 
+export interface UpdateNuzlockeData {
+  nuzlockeId: string;
+  nuzlocke: Nuzlocke;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
   status?: number;

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import { AppDispatch } from "../../store/store";
-import { createNuzlocke, fetchNuzlocke, setNuzlockes, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
+import { fetchNuzlocke, createNuzlocke, updateNuzlocke, setNuzlockes, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Grid, Card, TextField, Button } from "@mui/material";
 import { CustomError } from "../../interfaces/interfaces";
@@ -26,10 +26,13 @@ function NuzlockeForm(props: Props) {
 
   const [description, setDescription] = useState("");
 
+  const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (nuzlockeId) {
+      setEditMode(true);
+
       dispatch(fetchNuzlocke(nuzlockeId))
         .unwrap()
         .then(res => {
@@ -89,7 +92,7 @@ function NuzlockeForm(props: Props) {
     setDescription(target.value);
   }
 
-  const HandleCreateNuzlocke = async (e: FormEvent<HTMLFormElement>) => {
+  const HandleSubmitNuzlocke = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setLoading(true);
@@ -106,26 +109,50 @@ function NuzlockeForm(props: Props) {
       description,
     }
 
-    dispatch(createNuzlocke(data))
-      .unwrap()
-      .then(res => {
-        dispatch(setNuzlockes(res.nuzlockes));
-        dispatch(showSnackbar(res.msg));
-        props.GoTo("nuzlockes");
-      })
-      .catch(error => {
-        dispatch(showSnackbar(error.msg));
-        props.ValidateError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (editMode) {
+      const editData = {
+        nuzlocke: {
+          ...data,
+        },
+        nuzlockeId: nuzlockeId!,
+      }
+
+      dispatch(updateNuzlocke(editData))
+        .unwrap()
+        .then(res => {
+          dispatch(setNuzlocke(res.nuzlocke));
+          dispatch(showSnackbar(res.msg));
+          props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+        })
+        .catch(error => {
+          dispatch(showSnackbar(error.msg));
+          props.ValidateError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      dispatch(createNuzlocke(data))
+        .unwrap()
+        .then(res => {
+          dispatch(setNuzlockes(res.nuzlockes));
+          dispatch(showSnackbar(res.msg));
+          props.GoTo("nuzlockes");
+        })
+        .catch(error => {
+          dispatch(showSnackbar(error.msg));
+          props.ValidateError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   }
 
   return (
     <Grid container flexDirection={"row"} alignItems="center" justifyContent="center">
       <Card className='main-content-card'>
-        <form className="w-100" noValidate onSubmit={HandleCreateNuzlocke}>
+        <form className="w-100" noValidate onSubmit={HandleSubmitNuzlocke}>
           <Grid container item flexDirection={"column"}>
             <MultiuseText text="Name"></MultiuseText>
             <Grid className="form-input-row" container item flexDirection={"row"}>
@@ -172,9 +199,9 @@ function NuzlockeForm(props: Props) {
                 onChange={HandleDescriptionChange}
               />
             </Grid>
-            <Grid className="form-submit-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+            <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <Button color='secondary' variant='contained' disabled={loading} type="submit">
-                Create nuzlocke
+                { editMode ? "Update nuzlocke" : "Create nuzlocke" }
               </Button>
             </Grid>
           </Grid>

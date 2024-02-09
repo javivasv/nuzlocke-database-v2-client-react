@@ -91,8 +91,10 @@ function ForgotPassword(props: Props) {
             onChange={HandleEmailChange}
           />
         </Grid>
-        <Grid className="form-submit-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <Button color='primary' variant='contained' disabled={loading} type="submit">Send email</Button>
+        <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+          <Button color='primary' variant='contained' disabled={loading} type="submit">
+            Send email
+          </Button>
         </Grid>
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <span className="auth-extra-action" onClick={() => props.GoTo("login")}>

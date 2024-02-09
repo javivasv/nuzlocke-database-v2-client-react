@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { useLocation, useParams, Outlet } from 'react-router-dom';
 import { Grid, IconButton } from "@mui/material";
 import { ArrowBack } from '@mui/icons-material';
 
@@ -8,16 +8,24 @@ interface Props {
 
 function MainContent(props: Props) {
   const location = useLocation();
+  const { nuzlockeId } = useParams();
 
   const IsRootNuzlockes = () => {
-    return location.pathname.split("/").length > 2;
+    const pathSplit = location.pathname.split("/").filter(Boolean);
+    return pathSplit.length !== 1;
   }
 
   const HandleGoBack = () => {
-    if (location.pathname.includes("nuzlocke-form")) {
-      props.GoTo("nuzlockes");
+    const pathSplit = location.pathname.split("/").filter(Boolean);
+
+    if (pathSplit.includes("nuzlocke-form")) {
+      if (pathSplit.length === 2) {
+        props.GoTo("nuzlockes");
+      } else {
+        props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+      }
     } else {
-      console.log("TO NUZLOCKE");
+      props.GoTo("nuzlockes");
     }
   }
 

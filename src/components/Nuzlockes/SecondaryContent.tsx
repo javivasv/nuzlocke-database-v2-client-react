@@ -14,15 +14,16 @@ function SecondaryContent(props: Props) {
   const location = useLocation();
 
   const InfoActionCard = () => {
-    const pathSplit = location.pathname.split("/");
-    const path = pathSplit[pathSplit.length - 1];
+    const pathSplit = location.pathname.split("/").filter(Boolean);
 
-    if (path.includes("nuzlockes")) {
+    if (pathSplit.length === 1) {
       return <Nuzlockes GoTo={props.GoTo} />;
-    } else if (path.includes("nuzlocke-form")) {
-      return <NuzlockeForm />;
     } else {
-      return <Nuzlocke GoTo={props.GoTo} />
+      if (pathSplit.includes("nuzlocke-form")) {
+        return <NuzlockeForm />;
+      } else {
+        return <Nuzlocke GoTo={props.GoTo} />
+      }
     }
     /*
     else if (path.includes("pokemon") || path.includes("pokemon-form")) {

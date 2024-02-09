@@ -93,8 +93,10 @@ function Feedback(props: Props) {
             onChange={HandleSuggestionChange}
           />
         </Grid>
-        <Grid className="form-submit-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <Button color='secondary' variant='contained' disabled={loading} type="submit">Send</Button>
+        <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+          <Button color='secondary' variant='contained' disabled={loading} type="submit">
+            Send
+          </Button>
         </Grid>
       </Grid>
     </form>

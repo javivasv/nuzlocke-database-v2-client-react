@@ -123,8 +123,10 @@ function Login(props: Props) {
             onChange={HandlePasswordChange}
           />
         </Grid>
-        <Grid className="form-submit-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <Button color='primary' variant='contained' disabled={loading} type="submit">Login</Button>
+        <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+          <Button color='primary' variant='contained' disabled={loading} type="submit">
+            Login
+          </Button>
         </Grid>
         <Grid className="auth-forgot-password-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <span className="auth-extra-action" onClick={() => props.GoTo("forgot-password")}>
