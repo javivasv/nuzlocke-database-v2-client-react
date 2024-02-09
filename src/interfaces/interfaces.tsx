@@ -90,6 +90,15 @@ export interface UpdateNuzlockeData {
   nuzlocke: Nuzlocke;
 }
 
+export interface UpdateNuzlockeStatus {
+  nuzlockeId: string;
+  nuzlocke: NuzlockeStatus;
+}
+
+export interface NuzlockeStatus {
+  status: string;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
   status?: number;

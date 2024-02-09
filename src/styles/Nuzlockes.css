@@ -1,0 +1,4 @@
+.current-status {
+  pointer-events: none;
+  cursor: default;
+}
