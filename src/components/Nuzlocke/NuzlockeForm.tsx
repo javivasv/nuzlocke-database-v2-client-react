@@ -42,7 +42,6 @@ function NuzlockeForm(props: Props) {
           setDescription(res.nuzlocke.description);
         })
         .catch(error => {
-          dispatch(showSnackbar(error.msg));
           props.ValidateError(error);
         });
     }
@@ -125,7 +124,6 @@ function NuzlockeForm(props: Props) {
           props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
         })
         .catch(error => {
-          dispatch(showSnackbar(error.msg));
           props.ValidateError(error);
         })
         .finally(() => {
@@ -140,7 +138,6 @@ function NuzlockeForm(props: Props) {
           props.GoTo("nuzlockes");
         })
         .catch(error => {
-          dispatch(showSnackbar(error.msg));
           props.ValidateError(error);
         })
         .finally(() => {

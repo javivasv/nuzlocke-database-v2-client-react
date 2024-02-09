@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CustomError } from '../../interfaces/interfaces';
 import { AppDispatch, RootState } from '../../store/store';
 import { fetchNuzlockes, setNuzlockes } from '../../store/nuzlockes/nuzlockesSlice';
-import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Grid, Card } from "@mui/material";
 import LoadingRow from "../LoadingRow";
 import CustomCardHeader from '../CustomCardHeader';
@@ -30,7 +29,6 @@ function Nuzlockes(props: Props) {
           dispatch(setNuzlockes(res.nuzlockes));
         })
         .catch(error => {
-          dispatch(showSnackbar(error.msg));
           props.ValidateError(error);
         })
         .finally(() => {

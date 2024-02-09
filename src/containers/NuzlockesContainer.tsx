@@ -1,8 +1,10 @@
+import { CustomError } from "../interfaces/interfaces";
 import { Grid } from "@mui/material";
 import MainContent from "../components/Nuzlockes/MainContent";
 import SecondaryContent from "../components/Nuzlockes/SecondaryContent";
 
 interface Props {
+  ValidateError: (e: CustomError) => void;
   GoTo: (e: string) => void;
   isMdAndUp: boolean;
 }
@@ -17,7 +19,7 @@ function NuzlockesContainer(props: Props) {
             <MainContent GoTo={props.GoTo} />
           </Grid>
           <Grid className="secondary-content" container item flexDirection={"column"} xs={4}>
-            <SecondaryContent GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
+            <SecondaryContent ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
           </Grid>
         </>
       }
@@ -26,7 +28,7 @@ function NuzlockesContainer(props: Props) {
         <>
           <Grid className="only-content" container item flexDirection={"column"} xs={12}>
             <MainContent GoTo={props.GoTo} />
-            <SecondaryContent GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
+            <SecondaryContent ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
           </Grid>
         </>
       }

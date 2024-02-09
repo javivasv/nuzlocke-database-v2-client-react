@@ -91,5 +91,21 @@ export const updateNuzlocke = createAsyncThunk(
   }
 );
 
+export const deleteNuzlocke = createAsyncThunk(
+  "auth/deleteNuzlockeAsync",
+  async (data: string, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`${baseURL}/nuzlocke/${data}`);
+      return response.data;
+    } catch(error) {
+      const axiosError = error as AxiosError<CustomError>;
+      return rejectWithValue({
+        msg: axiosError.response?.data.msg,
+        status: axiosError.response?.status,
+      });
+    }
+  }
+);
+
 export const { setNuzlockes, setNuzlocke } = nuzlockesSlice.actions;
 export default nuzlockesSlice.reducer;

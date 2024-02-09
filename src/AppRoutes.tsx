@@ -75,7 +75,7 @@ function AppRoutes(props: Props) {
     <Routes>
       <Route element={<Dashboard ToggleTheme={props.ToggleTheme} GoTo={GoTo} Logout={Logout} />}>
         <Route index path="home" element={<Home ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
-        <Route path="nuzlockes" element={<NuzlockesContainer GoTo={GoTo} isMdAndUp={isMdAndUp} />}>
+        <Route path="nuzlockes" element={<NuzlockesContainer ValidateError={ValidateError} GoTo={GoTo} isMdAndUp={isMdAndUp} />}>
           <Route index path="" element={<Nuzlockes ValidateError={ValidateError} GoTo={GoTo} />} />
           <Route path="nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} GoTo={GoTo} />} />
           <Route path="nuzlocke/:nuzlockeId/nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} GoTo={GoTo} />} />

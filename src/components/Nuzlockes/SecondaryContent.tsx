@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { CustomError } from "../../interfaces/interfaces";
 import { Grid } from "@mui/material";
 import InfoActionsCard from "../InfoActions/InfoActionsCard";
 import Nuzlockes from "../InfoActions/Nuzlockes";
@@ -6,6 +7,7 @@ import NuzlockeForm from "../InfoActions/NuzlockeForm";
 import Nuzlocke from "../InfoActions/Nuzlocke";
 
 interface Props {
+  ValidateError: (e: CustomError) => void;
   GoTo: (e: string) => void;
   isMdAndUp: boolean;
 }
@@ -22,7 +24,7 @@ function SecondaryContent(props: Props) {
       if (pathSplit.includes("nuzlocke-form")) {
         return <NuzlockeForm />;
       } else {
-        return <Nuzlocke GoTo={props.GoTo} />
+        return <Nuzlocke ValidateError={props.ValidateError} GoTo={props.GoTo} />
       }
     }
     /*

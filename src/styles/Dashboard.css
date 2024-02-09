@@ -34,7 +34,8 @@
 }
 
 .main-content-card,
-.secondary-content-card {
+.secondary-content-card,
+.delete-dialog-card {
   width: 100%;
   padding: 16px;
 
