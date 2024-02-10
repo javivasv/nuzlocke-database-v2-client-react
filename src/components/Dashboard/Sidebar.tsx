@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { useEffect, useState, SyntheticEvent } from 'react';
 import { useLocation } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { RootState } from "../../store/store";
@@ -15,6 +15,8 @@ function Sidebar(props: Props) {
   const location = useLocation();
   const user = useSelector((state: RootState) => state.auth.user);
   const isLgAndUp = useMediaQuery('(min-width:1280px)');
+
+  const [darkTheme, setDarkTheme] = useState(false);
 
   const sidebarItems = [
     {
@@ -33,6 +35,14 @@ function Sidebar(props: Props) {
       icon: "info_outline",
     },
   ];
+
+  useEffect(() => {
+    const theme = window.localStorage.getItem("ndb_theme");
+
+    if (theme === "dark") {
+      setDarkTheme(true);
+    }
+  }, []);
 
   const IsSidebarItemActive = (itemName: string) => {
     return location.pathname.split("/")[1] === itemName;
@@ -57,6 +67,7 @@ function Sidebar(props: Props) {
 
   const ChangeTheme = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
+    setDarkTheme(target.checked);
     props.ToggleTheme(target.checked);
   }
 
@@ -92,7 +103,7 @@ function Sidebar(props: Props) {
         ))
       }
       <Grid id="title-container" container item flexDirection={"row"} alignItems="center" justifyContent='end'>
-        <Switch onChange={(e) => ChangeTheme(e)}></Switch>
+        <Switch checked={darkTheme} onChange={(e) => ChangeTheme(e)}></Switch>
         <DarkMode />
       </Grid>
       <div className="empty-space"></div>

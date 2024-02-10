@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
@@ -9,8 +9,17 @@ import AppRoutes from './AppRoutes';
 function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
+  useEffect(() => {
+    const theme = window.localStorage.getItem("ndb_theme");
+
+    if (theme === "dark") {
+      ToggleTheme(true);
+    }
+  }, []);
+
   const ToggleTheme = (toggle: boolean) => {
     setIsDarkTheme(toggle);
+    window.localStorage.setItem("ndb_theme", toggle ? "dark" : "light");
   };
 
   return (
