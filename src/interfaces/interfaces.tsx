@@ -53,6 +53,15 @@ export interface Pokemon {
   types: PokemonTypes;
   originalAbility: boolean;
   ability: Name;
+  obtainedAs?: ObtainedAs;
+}
+
+export interface ObtainedAs {
+  _id?: string;
+  species: Name;
+  sprite: string;
+  types: PokemonTypes;
+  ability: Name;
 }
 
 export interface PokemonTypes {
@@ -112,6 +121,12 @@ export interface Settings {
   name: string;
   value: string;
   on: boolean;
+}
+
+export interface TableHeader {
+  name: string;
+  text: string;
+  cols: number;
 }
 
 export interface CustomError extends SerializedError {

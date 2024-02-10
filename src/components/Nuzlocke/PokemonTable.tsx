@@ -1,33 +1,92 @@
 import { useState, SyntheticEvent, MouseEvent } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import { Grid, TextField, InputAdornment, IconButton, Menu } from "@mui/material";
 import { Search, FilterList, Settings } from '@mui/icons-material';
 import FiltersMenu from "./FiltersMenu";
 import SettingsMenu from "./SettingsMenu";
+import TableHeaders from "../TableHeaders";
+import PokemonRow from "./PokemonRow";
 
-function PokemonTable() {
+interface Props {
+  GoTo: (e: string) => void;
+  isMdAndUp: boolean;
+}
+
+function PokemonTable(props: Props) {
+  const pokemon = useSelector((state: RootState) => (state.nuzlockes.nuzlocke!).pokemon);
   const [search, setSearch] = useState("");
+
+  const headers = [
+    {
+      name: "sprite",
+      text: "",
+      cols: 2,
+    },
+    {
+      name: "nickname",
+      text: "Nickname",
+      cols: 2,
+    },
+    {
+      name: "ability",
+      text: "Ability",
+      cols: 2,
+    },
+    {
+      name: "location",
+      text: "Location",
+      cols: 2,
+    },
+    {
+      name: "obtained",
+      text: "Obtained",
+      cols: 2,
+    },
+    {
+      name: "status",
+      text: "Status",
+      cols: 2,
+    },
+  ];
+
+  const [filtersAnchorEl, setFiltersAnchorEl] = useState<null | HTMLElement>(null);
+  const openFilters = Boolean(filtersAnchorEl);
+
+  const [settingsAnchorEl, setSettingsAnchorEl] = useState<null | HTMLElement>(null);
+
+  const FilteredHeaders = () => {
+    if (props.isMdAndUp) {
+      return headers;
+    }
+
+    return headers.filter(header => header.name !== "ability" && header.name !== "obtained").map(header => ({ ...header, cols: 3 }));
+  }
+
+  const FilteredPokemon = () => {
+    return pokemon;
+  }
+  const openSettings = Boolean(settingsAnchorEl);
+
+  const tableContentStyle = {
+    maxHeight: window.innerHeight - 312 + "px",
+  }
 
   const HandleSearchChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setSearch(target.value);
   }
 
-  const [filtersAnchorEl, setFiltersAnchorEl] = useState<null | HTMLElement>(null);
-  const openFilters = Boolean(filtersAnchorEl);
-
-  const [settingsAnchorEl, setSettingsAnchorEl] = useState<null | HTMLElement>(null);
-  const openSettings = Boolean(settingsAnchorEl);
-
-  const HandleOpenFilters = (event: MouseEvent<HTMLButtonElement>) => {
-    setFiltersAnchorEl(event.currentTarget);
+  const HandleOpenFilters = (e: MouseEvent<HTMLButtonElement>) => {
+    setFiltersAnchorEl(e.currentTarget);
   };
 
   const HandleCloseFilters = () => {
     setFiltersAnchorEl(null);
   };
 
-  const HandleOpenSettings = (event: MouseEvent<HTMLButtonElement>) => {
-    setSettingsAnchorEl(event.currentTarget);
+  const HandleOpenSettings = (e: MouseEvent<HTMLButtonElement>) => {
+    setSettingsAnchorEl(e.currentTarget);
   };
 
   const HandleCloseSettings = () => {
@@ -78,6 +137,22 @@ function PokemonTable() {
           >
             <SettingsMenu />
           </Menu>
+        </Grid>
+        <Grid container item flexDirection={"row"}>
+          <Grid container item flexDirection={"column"}>
+            <TableHeaders headers={FilteredHeaders()} />
+            <Grid container item flexDirection={"row"}>
+              <Grid className="thin-scrollbar" container item flexDirection={"column"} wrap="nowrap" style={tableContentStyle}>
+                {
+                  FilteredPokemon().map(pokemon => (
+                    <Grid key={pokemon._id} container item flexDirection={"row"}>
+                      <PokemonRow GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} pokemon={pokemon} />
+                    </Grid>
+                  ))
+                }
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

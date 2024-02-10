@@ -5,6 +5,7 @@ import { RootState } from "../../store/store";
 import { Grid, TextField, InputAdornment } from "@mui/material";
 import { Search } from '@mui/icons-material';
 import NuzlockeRow from "./NuzlockeRow";
+import TableHeaders from "../TableHeaders";
 
 interface Props {
   GoTo: (e: string) => void;
@@ -32,7 +33,7 @@ function NuzlockesTable(props: Props) {
     },
   ]
 
-  const filteredNuzlockes = () => {
+  const FilteredNuzlockes = () => {
     if (search === "") {
       return nuzlockes;
     }
@@ -76,23 +77,11 @@ function NuzlockesTable(props: Props) {
       </Grid>
       <Grid container flexDirection={"row"}>
         <Grid container item flexDirection={"column"}>
-          <Grid className="table-header" container item flexDirection={"row"}>
-            {
-              headers.map(header => (
-                <Grid key={header.name} container item flexDirection={"column"} xs={header.cols}>
-                  <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-                    <span className="header-text">
-                      { header.text }
-                    </span>
-                  </Grid>
-                </Grid>
-              ))
-            }
-          </Grid>
+          <TableHeaders headers={headers} />
           <Grid container item flexDirection={"row"}>
             <Grid className="thin-scrollbar" container item flexDirection={"column"} wrap="nowrap" style={tableContentStyle}>
               {
-                filteredNuzlockes().map(nuzlocke => (
+                FilteredNuzlockes().map(nuzlocke => (
                   <Grid key={nuzlocke._id} container item flexDirection={"row"}>
                     <NuzlockeRow GoTo={props.GoTo} nuzlocke={nuzlocke} />
                   </Grid>

@@ -12,6 +12,8 @@ import PokemonTable from './PokemonTable';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
+  GoTo: (e: string) => void;
+  isMdAndUp: boolean;
 }
 
 function Nuzlocke(props: Props) {
@@ -75,8 +77,8 @@ function Nuzlocke(props: Props) {
                 }
                 {
                   (!loading && nuzlocke.pokemon.length > 0) &&
-                  <TabPanel value="1" sx={{ padding: "0" }}>
-                    <PokemonTable />
+                  <TabPanel value="1" sx={{ padding: "0", minHeight: "0px" }}>
+                    <PokemonTable GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
                   </TabPanel>
                 }
               </TabContext>
