@@ -15,7 +15,16 @@ interface Props {
 
 function PokemonTable(props: Props) {
   const pokemon = useSelector((state: RootState) => (state.nuzlockes.nuzlocke!).pokemon);
+  const statusFilters = useSelector((state: RootState) => state.filters.statusFilters).filter(filter => filter.on).map(filter => filter.value);
+  const obtainedFilters = useSelector((state: RootState) => state.filters.obtainedFilters).filter(filter => filter.on).map(filter => filter.value);
+  const pokemonTypeFilters = useSelector((state: RootState) => state.filters.pokemonTypeFilters).filter(filter => filter.on).map(filter => filter.value);
+
   const [search, setSearch] = useState("");
+
+  const [filtersAnchorEl, setFiltersAnchorEl] = useState<null | HTMLElement>(null);
+  const openFilters = Boolean(filtersAnchorEl);
+
+  const [settingsAnchorEl, setSettingsAnchorEl] = useState<null | HTMLElement>(null);
 
   const headers = [
     {
@@ -50,11 +59,6 @@ function PokemonTable(props: Props) {
     },
   ];
 
-  const [filtersAnchorEl, setFiltersAnchorEl] = useState<null | HTMLElement>(null);
-  const openFilters = Boolean(filtersAnchorEl);
-
-  const [settingsAnchorEl, setSettingsAnchorEl] = useState<null | HTMLElement>(null);
-
   const FilteredHeaders = () => {
     if (props.isMdAndUp) {
       return headers;
@@ -64,7 +68,50 @@ function PokemonTable(props: Props) {
   }
 
   const FilteredPokemon = () => {
-    return pokemon;
+    const pokemonList = pokemon.filter(pokemonInst => {
+      if (
+        search !== "" &&
+        !pokemonInst.nickname.toLowerCase().includes(search) &&
+        !pokemonInst.species.formattedName.toLowerCase().includes(search) &&
+        !pokemonInst.location.toLowerCase().includes(search)
+      ) {
+        return false;
+      }
+
+      if (statusFilters.length > 0) {
+        if (!pokemonInst.fainted && !statusFilters.includes("alive")) {
+          return false;
+        }
+
+        if (pokemonInst.fainted && !statusFilters.includes("fainted")) {
+          return false;
+        }
+      }
+
+      if (
+        obtainedFilters.length > 0 &&
+        !obtainedFilters.includes(pokemonInst.obtained)
+      ) {
+        return false;
+      }
+
+      if (
+        pokemonTypeFilters.length > 0 &&
+        !pokemonTypeFilters.includes(pokemonInst.types.first)
+      ) {
+        if (pokemonInst.types.second === "") {
+          return false;
+        }
+
+        if (!pokemonTypeFilters.includes(pokemonInst.types.second)) {
+          return false;
+        }
+      }
+
+      return true;
+    })
+    
+    return pokemonList;
   }
   const openSettings = Boolean(settingsAnchorEl);
 
