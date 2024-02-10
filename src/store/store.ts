@@ -4,6 +4,8 @@ import notificationsReducer from './notifications/notificationsSlice'
 import videosSlice from './videos/videosSlice'
 import suggestionsSlice from './suggestions/suggestionsSlice'
 import nuzlockesSlice from './nuzlockes/nuzlockesSlice'
+import filtersSlice from './filters/filtersSlice'
+import settingsSlice from './settings/settingsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ export const store = configureStore({
     videos: videosSlice,
     suggestions: suggestionsSlice,
     nuzlockes: nuzlockesSlice,
+    filters: filtersSlice,
+    settings: settingsSlice,
   }
 })
 

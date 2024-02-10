@@ -93,7 +93,7 @@ function Nuzlocke(props: Props) {
             <Divider sx={{ margin: "12px 0" }} />
             <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <Button color='secondary' variant='contained' onClick={GoToEditNuzlocke}>
-                Update nuzlocke
+                Edit nuzlocke
               </Button>
             </Grid>
             <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>

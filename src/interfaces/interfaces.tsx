@@ -41,16 +41,6 @@ export interface SuggestionData {
   username: string | null;
 }
 
-export interface Nuzlocke {
-  _id?: string;
-  name: string;
-  game: string;
-  description: string;
-  status?: string;
-  user?: string;
-  pokemon?: Array<Pokemon>;
-}
-
 export interface Pokemon {
   _id?: string;
   originalSpecies: boolean;
@@ -82,7 +72,7 @@ export interface Nuzlocke {
   description: string;
   status?: string;
   user?: string;
-  pokemon?: Array<Pokemon>;
+  pokemon: Array<Pokemon>;
 }
 
 export interface UpdateNuzlockeData {
@@ -97,6 +87,31 @@ export interface UpdateNuzlockeStatus {
 
 export interface NuzlockeStatus {
   status: string;
+}
+
+export interface PokemonTypeFilter {
+  name: string;
+  value: string;
+  color: string;
+  on: boolean;
+}
+
+export interface StatusFilter {
+  name: string;
+  value: string;
+  on: boolean;
+}
+
+export interface ObtainedFilter {
+  name: string;
+  value: string;
+  on: boolean;
+}
+
+export interface Settings {
+  name: string;
+  value: string;
+  on: boolean;
 }
 
 export interface CustomError extends SerializedError {

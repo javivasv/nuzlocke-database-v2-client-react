@@ -4,21 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { fetchNuzlocke, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { CustomError } from '../../interfaces/interfaces';
-import { Grid, Card, Tabs, Tab } from "@mui/material";
+import { Grid, Card, Tab } from "@mui/material";
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import CustomCardHeader from '../CustomCardHeader';
 import LoadingRow from '../LoadingRow';
+import PokemonTable from './PokemonTable';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
 }
 
-function Nuzlockes(props: Props) {
+function Nuzlocke(props: Props) {
   const { nuzlockeId } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke);
 
   const [loading, setLoading] = useState(false);
 
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState("1");
 
   useEffect(() => {
     setLoading(true);
@@ -42,37 +45,47 @@ function Nuzlockes(props: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const HandleTabChange = (val: number) => {
+  const HandleTabChange = (val: string) => {
     setTab(val);
   }
 
   return (
-    <Grid container flexDirection={"row"}>
-      <Card className="main-content-card">
-        <Grid container flexDirection={"row"}>
-          <Grid container item flexDirection={"column"}>
-            <Grid container flexDirection={"row"}>
-              <Tabs value={tab} onChange={(_, val) => HandleTabChange(val)} aria-label="basic tabs example">
-                <Tab label="Pokemon" />
-              </Tabs>
+    ( nuzlocke &&
+      <Grid container flexDirection={"row"}>
+        <Card className="main-content-card">
+          <Grid container flexDirection={"row"}>
+            <Grid container item flexDirection={"column"}>
+              <TabContext value={tab}>
+                <Grid container flexDirection={"row"}>
+                  <TabList onChange={(_, val) => HandleTabChange(val)}>
+                    <Tab value="1" label="Pokemon" />
+                  </TabList>
+                </Grid>
+                {
+                  loading &&
+                <Grid container flexDirection={"row"}>
+                  <LoadingRow />
+                </Grid>
+                }
+                {
+                  (!loading && nuzlocke.pokemon.length === 0) && 
+                  <Grid container item flexDirection={"row"}>
+                    <CustomCardHeader title="There are no pokemon registered yet"></CustomCardHeader>
+                  </Grid>
+                }
+                {
+                  (!loading && nuzlocke.pokemon.length > 0) &&
+                  <TabPanel value="1" sx={{ padding: "0" }}>
+                    <PokemonTable />
+                  </TabPanel>
+                }
+              </TabContext>
             </Grid>
-            {
-              loading &&
-              <Grid container flexDirection={"row"}>
-                <LoadingRow />
-              </Grid>
-            }
-            {
-              !loading &&
-              <Grid container flexDirection={"row"}>
-                LOADED
-              </Grid>
-            }
           </Grid>
-        </Grid>
-      </Card>
-    </Grid>
+        </Card>
+      </Grid>
+    )
   );
 }
 
-export default Nuzlockes;
+export default Nuzlocke;
