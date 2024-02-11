@@ -116,7 +116,7 @@ function PokemonTable(props: Props) {
   const openSettings = Boolean(settingsAnchorEl);
 
   const tableContentStyle = {
-    maxHeight: window.innerHeight - 312 + "px",
+    maxHeight: window.innerHeight - 296 + "px",
   }
 
   const HandleSearchChange = (e: SyntheticEvent) => {
