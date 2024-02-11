@@ -5,6 +5,7 @@ import InfoActionsCard from "../InfoActions/InfoActionsCard";
 import Nuzlockes from "../InfoActions/Nuzlockes";
 import NuzlockeForm from "../InfoActions/NuzlockeForm";
 import Nuzlocke from "../InfoActions/Nuzlocke";
+import PokemonForm from "../InfoActions/PokemonForm";
 
 interface Props {
   ValidateError: (e: CustomError) => void;
@@ -23,15 +24,12 @@ function SecondaryContent(props: Props) {
     } else {
       if (pathSplit.includes("nuzlocke-form")) {
         return <NuzlockeForm />;
+      } else if (pathSplit.includes("pokemon") || pathSplit.includes("pokemon-form")) {
+        return <PokemonForm />
       } else {
         return <Nuzlocke ValidateError={props.ValidateError} GoTo={props.GoTo} />
       }
     }
-    /*
-    else if (path.includes("pokemon") || path.includes("pokemon-form")) {
-      
-    }
-    */
   }
 
   return (

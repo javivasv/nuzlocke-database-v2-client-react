@@ -135,6 +135,11 @@ export interface TableHeader {
   cols: number;
 }
 
+export interface BasicDataFromApi {
+  name: string;
+  url: string;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
   status?: number;

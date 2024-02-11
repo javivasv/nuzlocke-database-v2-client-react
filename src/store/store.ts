@@ -6,6 +6,7 @@ import suggestionsSlice from './suggestions/suggestionsSlice'
 import nuzlockesSlice from './nuzlockes/nuzlockesSlice'
 import filtersSlice from './filters/filtersSlice'
 import settingsSlice from './settings/settingsSlice'
+import pokeapiSlice from './pokeapi/pokeapiSlice'
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     nuzlockes: nuzlockesSlice,
     filters: filtersSlice,
     settings: settingsSlice,
+    pokeapi: pokeapiSlice,
   }
 })
 

@@ -27,7 +27,7 @@ function Nuzlocke(props: Props) {
   }
 
   const GoToAddPokemon = () => {
-    console.log("ADD POKEMON");
+    props.GoTo(`nuzlockes/nuzlocke/${nuzlocke._id}/pokemon-form`);
   }
 
   const HandleShowDeleteDialog = () => {

@@ -20,6 +20,7 @@ import ResetPassword from "./components/Auth/ResetPassword";
 import Nuzlockes from "./components/Nuzlockes/Nuzlockes";
 import NuzlockeForm from "./components/Nuzlocke/NuzlockeForm";
 import Nuzlocke from "./components/Nuzlocke/Nuzlocke";
+import PokemonForm from './components/Nuzlocke/PokemonForm';
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
@@ -80,6 +81,7 @@ function AppRoutes(props: Props) {
           <Route path="nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} GoTo={GoTo} />} />
           <Route path="nuzlocke/:nuzlockeId/nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} GoTo={GoTo} />} />
           <Route path="nuzlocke/:nuzlockeId" element={<Nuzlocke ValidateError={ValidateError} GoTo={GoTo} isMdAndUp={isMdAndUp} />} />
+          <Route path="nuzlocke/:nuzlockeId/pokemon-form" element={<PokemonForm ValidateError={ValidateError} GoTo={GoTo} isMdAndUp={isMdAndUp} />} />
         </Route>
         <Route path="about" element={<About ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
       </Route>
