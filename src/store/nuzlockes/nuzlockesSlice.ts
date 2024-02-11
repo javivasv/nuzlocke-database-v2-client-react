@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { Nuzlocke, UpdateNuzlockeData, UpdateNuzlockeStatus, CustomError } from "../../interfaces/interfaces";
+import { Nuzlocke, NuzlockeData, UpdateNuzlockeData, UpdateNuzlockeStatus, CustomError } from "../../interfaces/interfaces";
 
 const baseURL = import.meta.env.VITE_API;
 
@@ -45,7 +45,7 @@ export const fetchNuzlockes = createAsyncThunk(
 
 export const createNuzlocke = createAsyncThunk(
   "auth/createNuzlockeAsync",
-  async (data: Nuzlocke, { rejectWithValue }) => {
+  async (data: NuzlockeData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${baseURL}/nuzlocke`, data);
       return response.data;

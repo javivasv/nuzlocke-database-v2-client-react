@@ -79,14 +79,20 @@ export interface Nuzlocke {
   name: string;
   game: string;
   description: string;
-  status?: string;
-  user?: string;
+  status: string;
+  user: string;
   pokemon: Array<Pokemon>;
 }
 
 export interface UpdateNuzlockeData {
   nuzlockeId: string;
-  nuzlocke: Nuzlocke;
+  nuzlocke: NuzlockeData;
+}
+
+export interface NuzlockeData {
+  name: string;
+  game: string;
+  description: string;
 }
 
 export interface UpdateNuzlockeStatus {
