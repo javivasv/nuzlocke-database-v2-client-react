@@ -58,7 +58,7 @@ function PokemonForm(props: Props) {
         dispatch(fetchNuzlocke(nuzlocke._id!))
           .unwrap()
           .then(res => {
-            dispatch(setNuzlocke(res.nuzlockes));
+            dispatch(setNuzlocke(res.nuzlocke));
             props.GoTo(`nuzlockes/nuzlocke/${nuzlocke._id}`);
           });
       })
