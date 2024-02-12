@@ -61,16 +61,6 @@ function PokemonForm(props: Props) {
   const [speciesError, setSpeciesError] = useState('');
   const [locationError, setLocationError] = useState('');
 
-
-
-
-
-
-
-
-
-
-
   const validationSchema = Yup.object({
     species: Yup.string().required('Species is required'),
     location: Yup.string().required('Location is required'),
@@ -94,26 +84,6 @@ function PokemonForm(props: Props) {
 
     return !speciesError && !locationError;
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   useEffect(() => {
     if (pokemonId) {
@@ -177,6 +147,10 @@ function PokemonForm(props: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setSprite(shiny ? shinySpriteUrl : normalSpriteUrl);
+  }, [shiny, shinySpriteUrl, normalSpriteUrl]);
+
   const DefaultPokemon = async () => {
     if (!editMode) {      
       setSpecies({
@@ -194,21 +168,21 @@ function PokemonForm(props: Props) {
     dispatch(fetchPokemon(species))
       .unwrap()
       .then(res => {
-        // Processing of the sprites (normal and shiny)
+        // Set the sprites URLs (normal and shiny)
         setNormalSpriteUrl(res.sprites.front_default ? res.sprites.front_default : "");
         setShinySpriteUrl(res.sprites.front_shiny ? res.sprites.front_shiny : "");
 
+        // Set shiny
         if (editMode) {
           setShiny(shinySpriteUrl === sprite);
         }
 
+        // Set shiny as false if there is no sprite URL
         if (shinySpriteUrl === "") {
           setShiny(false);
         }
 
-        setSprite(shiny ? shinySpriteUrl : normalSpriteUrl);
-
-        // Set the types of the new pokemon being added
+        // Set the types of the pokemon
         if (!editMode) {
           const firstType = pokemonTypeFilters.find((type) => type.name.toLowerCase() === res.types[0].type.name) || pokemonTypeFilters[0];
           setTypesFirst(firstType.name); 
@@ -237,6 +211,7 @@ function PokemonForm(props: Props) {
 
   const HandleSpeciesChange = async (_e: SyntheticEvent, species: Name) => {
     setSpecies(species);
+    FetchPokemonData(species.codedName);
   }
 
   const HandleOriginalSpeciesNameChange = async (e: SyntheticEvent) => {
@@ -330,19 +305,38 @@ function PokemonForm(props: Props) {
   const HandleSubmitPokemon = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setLoading(true);
-
     const isValid = await validateForm();
 
-    console.log("IS VALID: ", isValid);
-    
-    /*
     if (!isValid) {
       return;
     }
-    */
 
-    console.log("SUBMIT POKEMON");
+    setLoading(true);
+
+    const data = {
+      nuzlockeId,
+      pokemon: {
+        originalSpecies,
+        species,
+        nickname,
+        location,
+        obtained,
+        sprite,
+        types: {
+          first: typesFirst,
+          second: typesSecond,
+        },
+        originalAbility,
+        ability,
+      }
+    }
+
+    if (editMode) {
+      console.log("EDIT MODE");
+    } else {
+      console.log("DATA: ", data);
+      setLoading(false);
+    }
   }
 
   return (

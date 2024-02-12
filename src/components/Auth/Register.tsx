@@ -89,13 +89,13 @@ function Register(props: Props) {
   const HandleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setLoading(true);
-
     const isValid = await validateForm();
 
     if (!isValid) {
       return;
     }
+
+    setLoading(true);
 
     dispatch(register({
       email,
