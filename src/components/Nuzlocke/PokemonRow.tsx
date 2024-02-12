@@ -154,14 +154,20 @@ function PokemonRow(props: Props) {
         </Grid>
       }
       <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 2 : 3}>
-        {
-          props.pokemon.obtained !== "not" &&
-          <Grid className="h-100" container item flexDirection={"row"} alignItems="center" justifyContent="center">
-            <IconButton onClick={ChangePokemonStatus} onMouseEnter={() => setStatusButtonHover(true)} onMouseLeave={() => setStatusButtonHover(false)}>
-              { StatusIcon() }
-            </IconButton>
-          </Grid>
-        }
+        <Grid className="h-100" container item flexDirection={"row"} alignItems="center" justifyContent="center">
+          {
+            props.pokemon.obtained === "not" &&
+            <span className="table-text">
+              -
+            </span>
+          }
+          {
+            props.pokemon.obtained !== "not" &&
+              <IconButton onClick={ChangePokemonStatus} onMouseEnter={() => setStatusButtonHover(true)} onMouseLeave={() => setStatusButtonHover(false)}>
+                { StatusIcon() }
+              </IconButton>
+          }
+        </Grid>
       </Grid>
     </Grid>
   );
