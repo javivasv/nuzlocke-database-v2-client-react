@@ -366,7 +366,10 @@ function PokemonForm(props: Props) {
           second: typesSecond.toLowerCase(),
         },
         originalAbility,
-        ability,
+        ability: noAbility ? {
+          codedName: "",
+          formattedName: "",
+        } : ability,
       }
     }
 
