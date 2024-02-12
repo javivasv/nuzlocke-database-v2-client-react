@@ -7,6 +7,7 @@ import nuzlockesSlice from './nuzlockes/nuzlockesSlice'
 import filtersSlice from './filters/filtersSlice'
 import settingsSlice from './settings/settingsSlice'
 import pokeapiSlice from './pokeapi/pokeapiSlice'
+import pokemonSlice from './pokemon/pokemonSlice'
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     filters: filtersSlice,
     settings: settingsSlice,
     pokeapi: pokeapiSlice,
+    pokemon: pokemonSlice,
   }
 })
 

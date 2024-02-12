@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { AppDispatch, RootState } from "../../store/store";
 import { fetchNuzlocke, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { fetchPokemonList, fetchAbilitiesList, fetchPokemon, setPokemonList, setAbilitiesList } from "../../store/pokeapi/pokeapiSlice";
+import { addPokemon } from "../../store/pokemon/pokemonSlice";
 import { showSnackbar } from "../../store/notifications/notificationsSlice";
 import { Grid, Card, TextField, Button, FormControlLabel, Checkbox, Autocomplete, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import { Name, CustomError } from "../../interfaces/interfaces";
@@ -337,17 +338,18 @@ function PokemonForm(props: Props) {
     setLoading(true);
 
     const data = {
-      nuzlockeId,
+      nuzlockeId: nuzlockeId!,
       pokemon: {
         originalSpecies,
         species,
         nickname,
         location,
-        obtained,
+        obtained: obtained.toLowerCase(),
         sprite,
+        fainted: false,
         types: {
-          first: typesFirst,
-          second: typesSecond,
+          first: typesFirst.toLowerCase(),
+          second: typesSecond.toLowerCase(),
         },
         originalAbility,
         ability,
@@ -357,8 +359,19 @@ function PokemonForm(props: Props) {
     if (editMode) {
       console.log("EDIT MODE");
     } else {
-      console.log("DATA: ", data);
-      setLoading(false);
+      dispatch(addPokemon(data))
+        .unwrap()
+        .then(res => {
+          dispatch(setNuzlocke(res.nuzlocke));
+          dispatch(showSnackbar(res.msg));
+          props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+        })
+        .catch(error => {
+          props.ValidateError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }
 
@@ -581,7 +594,7 @@ function PokemonForm(props: Props) {
             </Grid>
             <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <Button color='secondary' variant='contained' disabled={loading} type="submit">
-                { editMode ? "Update pokemon" : "Add nuzlocke" }
+                { editMode ? "Update pokemon" : "Add pokemon" }
               </Button>
             </Grid>
           </Grid>

@@ -140,6 +140,11 @@ export interface BasicDataFromApi {
   url: string;
 }
 
+export interface CreatePokemonData {
+  nuzlockeId: string;
+  pokemon: Pokemon;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
   status?: number;
