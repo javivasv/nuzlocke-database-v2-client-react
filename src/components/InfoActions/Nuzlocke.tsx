@@ -88,43 +88,43 @@ function Nuzlocke(props: Props) {
       <MultiuseText text={`${nuzlocke.name} - ${nuzlocke.game}`} justify="center" />
       <Divider sx={{ margin: "12px 0" }} />
       <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-        <Button color='secondary' variant='contained' onClick={GoToEditNuzlocke}>
-                Edit nuzlocke
+        <Button color='secondary' variant='contained' disabled={loading} onClick={GoToEditNuzlocke}>
+          Edit nuzlocke
         </Button>
       </Grid>
       <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-        <Button color='error' variant="outlined" onClick={HandleShowDeleteDialog}>
-                Delete nuzlocke
+        <Button color='error' variant="outlined" disabled={loading} onClick={HandleShowDeleteDialog}>
+          Delete nuzlocke
         </Button>
       </Grid>
       <Divider sx={{ margin: "12px 0" }} />
       <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-        <Button color='secondary' variant='contained' onClick={GoToAddPokemon}>
-                Add pokemon
+        <Button color='secondary' variant='contained' disabled={loading} onClick={GoToAddPokemon}>
+          Add pokemon
         </Button>
       </Grid>
       <Divider sx={{ margin: "12px 0" }} />
       <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='space-around'>
         <Button className={nuzlocke.status === "started" ? "current-status" : ""} color='secondary' variant={nuzlocke.status === "started" ? "contained" : "outlined"} disabled={loading} onClick={() => HandleUpdateStatus("started")}>
-                Started
+          Started
         </Button>
         <Button className={nuzlocke.status === "completed" ? "current-status" : ""} color='success' variant={nuzlocke.status === "completed" ? "contained" : "outlined"} disabled={loading} onClick={() => HandleUpdateStatus("completed")}>
-                Completed
+          Completed
         </Button>
         <Button className={nuzlocke.status === "lost" ? "current-status" : ""} color='error' variant={nuzlocke.status === "lost" ? "contained" : "outlined"} disabled={loading} onClick={() => HandleUpdateStatus("lost")}>
-                Lost
+          Lost
         </Button>
       </Grid>
       {
         Boolean(nuzlocke.description) &&
-              <>
-                <Divider sx={{ margin: "12px 0" }} />
-                <CustomCardContent>
-                  <span className="card-text">
-                    { nuzlocke.description }
-                  </span>
-                </CustomCardContent>
-              </> 
+        <>
+          <Divider sx={{ margin: "12px 0" }} />
+          <CustomCardContent>
+            <span className="card-text">
+              { nuzlocke.description }
+            </span>
+          </CustomCardContent>
+        </> 
       }
       <DeleteDialog HandleShowDeleteDialog={HandleShowDeleteDialog} HandleDelete={HandleDelete} show={showDeleteDialog} name={nuzlocke.name} loading={loading} />
     </>
