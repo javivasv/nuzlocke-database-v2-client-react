@@ -236,9 +236,12 @@ function PokemonForm(props: Props) {
       codedName: target.value,
       formattedName: target.value,
     });
+
+    const error = await validateField('species', target.value);
+    setSpeciesError(error);
   }
 
-  const HandleOriginalSpeciesChange = (e: SyntheticEvent) => {
+  const HandleOriginalSpeciesChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setOriginalSpecies(target.checked);
 
@@ -256,6 +259,9 @@ function PokemonForm(props: Props) {
       setSpecies(defaultSpecies);
       FetchPokemonData(defaultSpecies.codedName);
     }
+
+    const error = await validateField('species', target.value);
+    setSpeciesError(error);
   }
 
   const HandleTypesFirstChange = async (e: SelectChangeEvent) => {
@@ -316,9 +322,11 @@ function PokemonForm(props: Props) {
     setNickname(target.value);
   }
 
-  const HandleLocationChange = (e: SyntheticEvent) => {
+  const HandleLocationChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setLocation(target.value);
+    const error = await validateField('location', target.value);
+    setLocationError(error);
   }
 
   const HandleObtainedChange = async (e: SelectChangeEvent) => {
