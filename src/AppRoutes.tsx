@@ -82,6 +82,7 @@ function AppRoutes(props: Props) {
           <Route path="nuzlocke/:nuzlockeId/nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} GoTo={GoTo} />} />
           <Route path="nuzlocke/:nuzlockeId" element={<Nuzlocke ValidateError={ValidateError} GoTo={GoTo} isMdAndUp={isMdAndUp} />} />
           <Route path="nuzlocke/:nuzlockeId/pokemon-form" element={<PokemonForm ValidateError={ValidateError} GoTo={GoTo} isMdAndUp={isMdAndUp} />} />
+          <Route path="nuzlocke/:nuzlockeId/pokemon/:pokemonId" element={<PokemonForm ValidateError={ValidateError} GoTo={GoTo} isMdAndUp={isMdAndUp} />} />
         </Route>
         <Route path="about" element={<About ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
       </Route>

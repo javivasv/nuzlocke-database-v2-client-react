@@ -13,6 +13,7 @@ interface Props {
 }
 
 function PokemonRow(props: Props) {
+  const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
   const showAsObtained = useSelector((state: RootState) => state.settings.settings[0].on);
 
   const [statusButtonHover, setStatusButtonHover] = useState(false);
@@ -85,8 +86,7 @@ function PokemonRow(props: Props) {
   }
 
   const CheckPokemon = () => {
-    console.log("CHECK POKEMON");
-    //props.GoTo(`nuzlockes/nuzlocke/${props.nuzlocke._id}`);
+    props.GoTo(`nuzlockes/nuzlocke/${nuzlocke._id}/pokemon/${props.pokemon._id}`);
   }
 
   const ChangePokemonStatus = (e: MouseEvent<HTMLButtonElement>) => {

@@ -19,7 +19,6 @@ function Nuzlocke(props: Props) {
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
 
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-
   const [loading, setLoading] = useState(false);
 
   const GoToEditNuzlocke = () => {

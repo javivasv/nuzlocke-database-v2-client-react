@@ -1,20 +1,60 @@
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { Grid, Divider, Button } from "@mui/material";
+import DeleteDialog from "../DeleteDialog";
 import CustomCardContent from "../CustomCardContent";
 
 function PokemonForm() {
+  const { pokemonId } = useParams();
+
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const HandleShowDeleteDialog = () => {
-    console.log("HANDLE DELETE");
+    setShowDeleteDialog(!showDeleteDialog);
+  }
+
+  const HandleDelete = () => {
+    HandleDeletePokemon();
+  }
+
+  const HandleDeletePokemon = () => {
+    setLoading(true);
+
+    /*
+    dispatch(deleteNuzlocke(nuzlocke._id!))
+      .unwrap()
+      .then(res => {
+        dispatch(showSnackbar(res.msg));
+        dispatch(fetchNuzlockes())
+          .unwrap()
+          .then(res => {
+            dispatch(setNuzlockes(res.nuzlockes));
+            props.GoTo("nuzlockes");
+          });
+      })
+      .catch(error => {
+        props.ValidateError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+      */
   }
 
   return (
     <>
-      <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-        <Button color='error' variant="outlined" onClick={HandleShowDeleteDialog}>
-          Delete pokemon
-        </Button>
-      </Grid>
-      <Divider sx={{ margin: "12px 0" }} />
+      {
+        Boolean(pokemonId) &&
+        <>
+          <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+            <Button color='error' variant="outlined" onClick={HandleShowDeleteDialog}>
+            Delete pokemon
+            </Button>
+          </Grid>
+          <Divider sx={{ margin: "12px 0" }} />
+        </>        
+      }
       <CustomCardContent>
         <Grid className="card-text-row" container flexDirection={"row"} justifyContent="center">
           <span className="card-text">
@@ -91,6 +131,7 @@ function PokemonForm() {
           </span>
         </Grid>
       </CustomCardContent>
+      <DeleteDialog HandleShowDeleteDialog={HandleShowDeleteDialog} HandleDelete={HandleDelete} show={showDeleteDialog} name={"nuzlocke.name"} loading={loading} />
     </>
   );
 }
