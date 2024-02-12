@@ -421,7 +421,7 @@ function PokemonForm(props: Props) {
             {
               Boolean(shinySpriteUrl) &&
               <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-                <FormControlLabel control={<Checkbox checked={shiny} color="secondary" onChange={HandleShinyChange} />} label="Shiny" sx={{ margin: "0" }} />
+                <FormControlLabel control={<Checkbox checked={shiny} color="secondary" disabled={loading} onChange={HandleShinyChange} />} label="Shiny" sx={{ margin: "0" }} />
               </Grid>
             }
             <MultiuseText text="Species" />
@@ -466,7 +466,7 @@ function PokemonForm(props: Props) {
               </Grid>
               <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 3 : 12}>
                 <Grid className="h-100" container item flexDirection={"row"} alignItems="center" justifyContent="center">
-                  <FormControlLabel control={<Checkbox checked={originalSpecies} color="secondary" onChange={HandleOriginalSpeciesChange} />} label={"Original species"} sx={{ margin: "0" }} />
+                  <FormControlLabel control={<Checkbox checked={originalSpecies} color="secondary" disabled={loading} onChange={HandleOriginalSpeciesChange} />} label={"Original species"} sx={{ margin: "0" }} />
                 </Grid>
               </Grid>
             </Grid>
@@ -479,6 +479,7 @@ function PokemonForm(props: Props) {
                     fullWidth
                     size='small'
                     color='secondary'
+                    disabled={loading}
                     onChange={HandleTypesFirstChange}
                   >
                     {
@@ -499,6 +500,7 @@ function PokemonForm(props: Props) {
                     fullWidth
                     size='small'
                     color='secondary'
+                    disabled={loading}
                     onChange={HandleTypesSecondChange}
                   >
                     {
@@ -554,7 +556,7 @@ function PokemonForm(props: Props) {
                     </Grid>
                     <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 3 : 6}>
                       <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-                        <FormControlLabel control={<Checkbox checked={originalAbility} color="secondary" onChange={HandleOriginalAbilityChange} />} label={"Original ability"} sx={{ margin: "0" }} />
+                        <FormControlLabel control={<Checkbox checked={originalAbility} color="secondary" disabled={loading} onChange={HandleOriginalAbilityChange} />} label={"Original ability"} sx={{ margin: "0" }} />
                       </Grid>
                     </Grid>
                   </>
@@ -562,7 +564,7 @@ function PokemonForm(props: Props) {
               }
               <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 3 : 6}>
                 <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-                  <FormControlLabel control={<Checkbox checked={noAbility} color="secondary" onChange={HandleNoAbilityChange} />} label={"No ability"} sx={{ margin: "0" }} />
+                  <FormControlLabel control={<Checkbox checked={noAbility} color="secondary" disabled={loading} onChange={HandleNoAbilityChange} />} label={"No ability"} sx={{ margin: "0" }} />
                 </Grid>
               </Grid>
             </Grid>
@@ -600,6 +602,7 @@ function PokemonForm(props: Props) {
                 fullWidth
                 size='small'
                 color='secondary'
+                disabled={loading}
                 onChange={HandleObtainedChange}
               >
                 {
