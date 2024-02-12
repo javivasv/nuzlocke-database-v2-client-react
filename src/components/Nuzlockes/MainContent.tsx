@@ -25,7 +25,11 @@ function MainContent(props: Props) {
         props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
       }
     } else {
-      props.GoTo("nuzlockes");
+      if (pathSplit.length === 3) {
+        props.GoTo("nuzlockes");
+      } else {
+        props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+      }
     }
   }
 
