@@ -26,30 +26,36 @@ function PokemonForm(props: Props) {
   const pokemonTypeFilters = useSelector((state: RootState) => state.filters.pokemonTypeFilters);
   const dispatch = useDispatch<AppDispatch>()
 
+  const defaultSpecies = {
+    codedName: "bulbasaur",
+    formattedName: "Bulbasaur",
+  }
+
+  const defaultAbility = {
+    codedName: "overgrow",
+    formattedName: "Overgrow",
+  }
+
+  const defaultObtained = "Caught";
+
   const [loading, setLoading] = useState(false);
   const [loadingPokemonList, setLoadingPokemonList] = useState(false);
   const [loadingPokemonData, setLoadingPokemonData] = useState(false);
   const [loadingPokemonAbilities, setLoadingPokemonAbilities] = useState(false);
   const [originalSpecies, setOriginalSpecies] = useState(false);  
 
-  const [species, setSpecies] = useState({
-    codedName: "",
-    formattedName: "",
-  });
+  const [species, setSpecies] = useState(defaultSpecies);
 
   const [nickname, setNickname] = useState("");
   const [location, setLocation] = useState("");
-  const [obtained, setObtained] = useState("Caught");
+  const [obtained, setObtained] = useState(defaultObtained);
   const [sprite, setSprite] = useState("");
   //const [fainted, setFainted] = useState(false);
   const [typesFirst, setTypesFirst] = useState("");
   const [typesSecond, setTypesSecond] = useState("");
   const [originalAbility, setOriginalAbility] = useState(false);
 
-  const [ability, setAbility] = useState({
-    codedName: "",
-    formattedName: "",
-  });
+  const [ability, setAbility] = useState(defaultAbility);
 
   const [normalSpriteUrl, setNormalSpriteUrl] = useState("");
   const [shinySpriteUrl, setShinySpriteUrl] = useState("");
@@ -153,17 +159,9 @@ function PokemonForm(props: Props) {
 
   const DefaultPokemon = async () => {
     if (!editMode) {      
-      setSpecies({
-        codedName: "bulbasaur",
-        formattedName: "Bulbasaur"
-      });
-
-      setAbility({
-        codedName: "overgrow",
-        formattedName: "Overgrow"
-      });
-      
-      FetchPokemonData("bulbasaur");
+      setSpecies(defaultSpecies);
+      setAbility(defaultAbility);
+      FetchPokemonData(defaultSpecies.codedName);
     }
   }
 
@@ -243,15 +241,20 @@ function PokemonForm(props: Props) {
     const target = e.target as HTMLInputElement;
     setOriginalSpecies(target.checked);
 
-    setSpecies({
-      codedName: "",
-      formattedName: "",
-    });
-
-    setSprite("");
-    setNormalSpriteUrl("");
-    setShinySpriteUrl("");
-    setShiny(false);
+    if (target.checked) {
+      setSpecies({
+        codedName: "",
+        formattedName: "",
+      });
+  
+      setSprite("");
+      setNormalSpriteUrl("");
+      setShinySpriteUrl("");
+      setShiny(false);
+    } else {
+      setSpecies(defaultSpecies);
+      FetchPokemonData(defaultSpecies.codedName);
+    }
   }
 
   const HandleTypesFirstChange = async (e: SelectChangeEvent) => {
@@ -297,10 +300,14 @@ function PokemonForm(props: Props) {
     const target = e.target as HTMLInputElement;
     setOriginalAbility(target.checked);
 
-    setAbility({
-      codedName: "",
-      formattedName: "",
-    });
+    if (target.checked) {
+      setAbility({
+        codedName: "",
+        formattedName: "",
+      });
+    } else {
+      setAbility(defaultAbility);
+    }
   }
 
   const HandleNicknameChange = (e: SyntheticEvent) => {
@@ -404,7 +411,7 @@ function PokemonForm(props: Props) {
                         </Grid>
                       }
                       {
-                        !originalSpecies &&
+                        (!originalSpecies && pokemonList.length > 0) &&
                         <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
                           <Autocomplete
                             value={species}
@@ -427,7 +434,7 @@ function PokemonForm(props: Props) {
                 }
               </Grid>
               <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 3 : 12}>
-                <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
+                <Grid className="h-100" container item flexDirection={"row"} alignItems="center" justifyContent="center">
                   <FormControlLabel control={<Checkbox checked={originalSpecies} color="secondary" onChange={HandleOriginalSpeciesChange} />} label={"Original species"} />
                 </Grid>
               </Grid>
@@ -499,7 +506,7 @@ function PokemonForm(props: Props) {
                         </Grid>
                       }
                       {
-                        !originalAbility &&
+                        (!originalAbility && abilitiesList.length > 0) &&
                         <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
                           <Autocomplete
                             value={ability}
