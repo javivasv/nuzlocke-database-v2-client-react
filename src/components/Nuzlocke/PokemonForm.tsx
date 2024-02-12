@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import { AppDispatch, RootState } from "../../store/store";
-import { fetchNuzlocke, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
-import { fetchPokemonList, fetchAbilitiesList, fetchPokemon, setPokemonList, setAbilitiesList } from "../../store/pokeapi/pokeapiSlice";
+import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
+import { fetchPokemon } from "../../store/pokeapi/pokeapiSlice";
 import { addPokemon } from "../../store/pokemon/pokemonSlice";
 import { showSnackbar } from "../../store/notifications/notificationsSlice";
 import { Grid, Card, TextField, Button, FormControlLabel, Checkbox, Autocomplete, Select, MenuItem, SelectChangeEvent } from "@mui/material";
-import { Name, CustomError } from "../../interfaces/interfaces";
+import { Name, Pokemon, CustomError } from "../../interfaces/interfaces";
 import MultiuseText from "../MultiuseText";
 import LoadingRow from "../LoadingRow";
 
@@ -16,6 +16,7 @@ interface Props {
   ValidateError: (e: CustomError) => void;
   GoTo: (e: string) => void;
   isMdAndUp: boolean;
+  editMode: boolean;
 }
 
 function PokemonForm(props: Props) {
@@ -25,7 +26,7 @@ function PokemonForm(props: Props) {
   const pokemonList = useSelector((state: RootState) => state.pokeapi.pokemon);
   const abilitiesList = useSelector((state: RootState) => state.pokeapi.abilities);
   const pokemonTypeFilters = useSelector((state: RootState) => state.filters.pokemonTypeFilters);
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
 
   const defaultSpecies = {
     codedName: "bulbasaur",
@@ -39,32 +40,26 @@ function PokemonForm(props: Props) {
 
   const defaultObtained = "Caught";
 
+  const obtainedOptions = ["Caught", "Gifted", "Hatched", "Traded", "Not"]
+
   const [loading, setLoading] = useState(false);
-  const [loadingPokemonList, setLoadingPokemonList] = useState(false);
   const [loadingPokemonData, setLoadingPokemonData] = useState(false);
-  const [loadingPokemonAbilities, setLoadingPokemonAbilities] = useState(false);
-  const [originalSpecies, setOriginalSpecies] = useState(false);  
 
-  const [species, setSpecies] = useState(defaultSpecies);
-
-  const [nickname, setNickname] = useState("");
-  const [location, setLocation] = useState("");
-  const [obtained, setObtained] = useState(defaultObtained);
   const [sprite, setSprite] = useState("");
-  //const [fainted, setFainted] = useState(false);
-  const [typesFirst, setTypesFirst] = useState("");
-  const [typesSecond, setTypesSecond] = useState("");
-  const [originalAbility, setOriginalAbility] = useState(false);
-  const [noAbility, setNoAbility] = useState(false);
-
-  const [ability, setAbility] = useState(defaultAbility);
-
   const [normalSpriteUrl, setNormalSpriteUrl] = useState("");
   const [shinySpriteUrl, setShinySpriteUrl] = useState("");
   const [shiny, setShiny] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-
-  const obtainedOptions = ["Caught", "Gifted", "Hatched", "Traded", "Not"]
+  const [species, setSpecies] = useState(defaultSpecies);
+  const [originalSpecies, setOriginalSpecies] = useState(false);  
+  const [typesFirst, setTypesFirst] = useState("");
+  const [typesSecond, setTypesSecond] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [ability, setAbility] = useState(defaultAbility);
+  const [originalAbility, setOriginalAbility] = useState(false);
+  const [noAbility, setNoAbility] = useState(false);
+  const [location, setLocation] = useState("");
+  const [obtained, setObtained] = useState(defaultObtained);
+  //const [fainted, setFainted] = useState(false);
 
   const [speciesError, setSpeciesError] = useState('');
   const [locationError, setLocationError] = useState('');
@@ -94,60 +89,8 @@ function PokemonForm(props: Props) {
   };
 
   useEffect(() => {
-    if (pokemonId) {
-      setEditMode(true);
-    }
-
-    if (!nuzlocke) {
-      dispatch(fetchNuzlocke(nuzlockeId!))
-        .unwrap()
-        .then(res => {
-          dispatch(setNuzlocke(res.nuzlocke));
-
-          if (editMode) {
-            console.log("EDIT MODE");
-          }
-        })
-        .catch(error => {
-          props.ValidateError(error);
-        });
-    } else {
-      if (editMode) {
-        console.log("EDIT MODE");
-      }
-    }
-
-    if (abilitiesList.length === 0) {
-      setLoadingPokemonAbilities(true);
-
-      dispatch(fetchAbilitiesList())
-        .unwrap()
-        .then(res => {
-          dispatch(setAbilitiesList(res.list));
-        })
-        .catch(() => {
-          dispatch(showSnackbar("An error occured during the process"));
-        })
-        .finally(() => {
-          setLoadingPokemonAbilities(false);
-        });
-    }
-
-    if (pokemonList.length === 0) {
-      setLoadingPokemonList(true);
-
-      dispatch(fetchPokemonList())
-        .unwrap()
-        .then(res => {
-          dispatch(setPokemonList(res.list));
-          DefaultPokemon();
-        })
-        .catch(() => {
-          dispatch(showSnackbar("An error occured during the process"));
-        })
-        .finally(() => {
-          setLoadingPokemonList(false);
-        });
+    if (props.editMode) {
+      FetchPokemonToEditData();
     } else {
       DefaultPokemon();
     }
@@ -155,12 +98,87 @@ function PokemonForm(props: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    setSprite(shiny ? shinySpriteUrl : normalSpriteUrl);
-  }, [shiny, shinySpriteUrl, normalSpriteUrl]);
+  const FetchPokemonToEditData = () => {
+    const pokemonToEdit = nuzlocke.pokemon.find(pokemon => pokemon._id === pokemonId);
 
-  const DefaultPokemon = async () => {
-    if (!editMode) {      
+    if (!pokemonToEdit) {
+      return;
+    }
+
+    // Fetch to get info about the sprites
+    if (!pokemonToEdit.originalSpecies) {
+      dispatch(fetchPokemon(pokemonToEdit.species.codedName))
+        .unwrap()
+        .then(res => {
+          // Set the sprites URLs (normal and shiny)
+          const normalUrl = res.sprites.front_default;
+          const shinyUrl = res.sprites.front_shiny;
+
+          setNormalSpriteUrl(normalUrl ? normalUrl : "");
+          setShinySpriteUrl(shinyUrl ? shinyUrl : "");
+
+          SetPokemonToEditData(pokemonToEdit, shinyUrl);
+        })
+        .catch(() => {
+          dispatch(showSnackbar("An error occured during the process"));
+        })
+        .finally(() => {
+          setLoadingPokemonData(false);
+        });
+    } else {
+      SetPokemonToEditData(pokemonToEdit, "");
+    }
+  }
+
+  const SetPokemonToEditData = (pokemonToEdit: Pokemon, shinyUrl: string) => {
+    // Set sprite
+    setSprite(pokemonToEdit.sprite);
+
+    // Set shiny
+    if (!pokemonToEdit.originalSpecies && pokemonToEdit.sprite === shinyUrl) {
+      setShiny(true);
+    }
+
+    // Set species
+    setOriginalSpecies(pokemonToEdit.originalSpecies);
+    setSpecies(pokemonToEdit.species);
+
+    // Set first type
+    const toEditTypesFirst = pokemonTypeFilters.find((type) => type.name.toLowerCase() === pokemonToEdit.types.first) || pokemonTypeFilters[0];
+    setTypesFirst(toEditTypesFirst.name);
+
+    // Set second type
+    if (pokemonToEdit.types.second !== "") {
+      const toEditTypesSecond = pokemonTypeFilters.find((type) => type.name.toLowerCase() === pokemonToEdit.types.second) || pokemonTypeFilters[0];
+      setTypesSecond(toEditTypesSecond.name);
+    }
+    
+    // Set ability
+    setOriginalAbility(pokemonToEdit.originalAbility);
+
+    if (pokemonToEdit.originalAbility) {
+      setAbility(pokemonToEdit.ability);
+    } else {
+      if (pokemonToEdit.ability.codedName === "") {
+        setNoAbility(true);
+      } else {
+        setAbility(pokemonToEdit.ability);
+      }
+    }
+
+    // Set nickname
+    setNickname(pokemonToEdit.nickname);
+
+    // Set location
+    setLocation(pokemonToEdit.location);
+
+    // Set obtained
+    const toEditObtained = obtainedOptions.find((option) => option.toLowerCase() === pokemonToEdit.obtained) || pokemonToEdit.obtained;
+    setObtained(toEditObtained);
+  }
+
+  const DefaultPokemon = () => {
+    if (!props.editMode) {
       setSpecies(defaultSpecies);
       setAbility(defaultAbility);
       FetchPokemonData(defaultSpecies.codedName);
@@ -177,37 +195,30 @@ function PokemonForm(props: Props) {
         setNormalSpriteUrl(res.sprites.front_default ? res.sprites.front_default : "");
         setShinySpriteUrl(res.sprites.front_shiny ? res.sprites.front_shiny : "");
 
-        // Set shiny
-        if (editMode) {
-          setShiny(shinySpriteUrl === sprite);
-        }
-
-        // Set shiny as false if there is no sprite URL
-        if (shinySpriteUrl === "") {
-          setShiny(false);
+        // Set the sprite
+        if (shiny && res.sprites.front_shiny) {
+          setSprite(res.sprites.front_shiny);
+        } else {
+          setSprite(res.sprites.front_default);
         }
 
         // Set the types of the pokemon
-        if (!editMode) {
-          const firstType = pokemonTypeFilters.find((type) => type.name.toLowerCase() === res.types[0].type.name) || pokemonTypeFilters[0];
-          setTypesFirst(firstType.name); 
+        const firstType = pokemonTypeFilters.find((type) => type.name.toLowerCase() === res.types[0].type.name) || pokemonTypeFilters[0];
+        setTypesFirst(firstType.name); 
 
-          if (res.types[1]) {
-            const secondType = pokemonTypeFilters.find((type) => type.name.toLowerCase() === res.types[1].type.name) || pokemonTypeFilters[0];
-            setTypesSecond(secondType.name); 
-          } else {
-            setTypesSecond(""); 
-          }
+        if (res.types[1]) {
+          const secondType = pokemonTypeFilters.find((type) => type.name.toLowerCase() === res.types[1].type.name) || pokemonTypeFilters[0];
+          setTypesSecond(secondType.name); 
+        } else {
+          setTypesSecond(""); 
         }
 
-        // Set a default ability for the pokemon
-        if (!editMode) {
-          if (res.abilities && res.abilities[0]) {
-            const ability = abilitiesList.find((ability: Name) => ability.codedName === res.abilities[0].ability.name);
+        // Set the types of the pokemon
+        if (res.abilities && res.abilities[0]) {
+          const ability = abilitiesList.find((ability: Name) => ability.codedName === res.abilities[0].ability.name);
 
-            if (ability) {
-              setAbility(ability);
-            }
+          if (ability) {
+            setAbility(ability);
           }
         }
       })
@@ -222,7 +233,7 @@ function PokemonForm(props: Props) {
   const HandleShinyChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setShiny(target.checked)
-    setSprite(shiny ? shinySpriteUrl : normalSpriteUrl);
+    setSprite(target.checked ? shinySpriteUrl : normalSpriteUrl);
   }
 
   const HandleSpeciesChange = async (_e: SyntheticEvent, species: Name) => {
@@ -373,7 +384,7 @@ function PokemonForm(props: Props) {
       }
     }
 
-    if (editMode) {
+    if (props.editMode) {
       console.log("EDIT MODE");
     } else {
       dispatch(addPokemon(data))
@@ -417,50 +428,40 @@ function PokemonForm(props: Props) {
             <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent="center">
               <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 9 : 12}>
                 {
-                  loadingPokemonList &&
-                  <LoadingRow />
+                  originalSpecies &&
+                  <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
+                    <TextField
+                      value={species.codedName}
+                      name="species"
+                      variant="outlined"
+                      fullWidth
+                      size='small'
+                      color='secondary'
+                      disabled={loading}
+                      error={Boolean(speciesError)}
+                      helperText={speciesError}
+                      onChange={HandleOriginalSpeciesNameChange}
+                    />
+                  </Grid>
                 }
                 {
-                  !loadingPokemonList && (
-                    <>
-                      {
-                        originalSpecies &&
-                        <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-                          <TextField
-                            value={species.codedName}
-                            name="species"
-                            variant="outlined"
-                            fullWidth
-                            size='small'
-                            color='secondary'
-                            disabled={loading}
-                            error={Boolean(speciesError)}
-                            helperText={speciesError}
-                            onChange={HandleOriginalSpeciesNameChange}
-                          />
-                        </Grid>
-                      }
-                      {
-                        (!originalSpecies && pokemonList.length > 0) &&
-                        <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-                          <Autocomplete
-                            value={species}
-                            fullWidth
-                            disableClearable
-                            disabled={loading}
-                            options={pokemonList}
-                            getOptionLabel={(option: Name) => option.formattedName}
-                            isOptionEqualToValue={(option: Name, value: Name) => { return option.codedName === value.codedName }}
-                            renderOption={(props, option) => (
-                              <li {...props}>{option.formattedName}</li>
-                            )}
-                            renderInput={(params) => <TextField {...params} name="species" size='small' color="secondary" error={Boolean(speciesError)} helperText={speciesError} />}
-                            onChange={HandleSpeciesChange}
-                          />
-                        </Grid>
-                      }
-                    </>
-                  )
+                  (!originalSpecies && pokemonList.length > 0) &&
+                  <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
+                    <Autocomplete
+                      value={species}
+                      fullWidth
+                      disableClearable
+                      disabled={loading}
+                      options={pokemonList}
+                      getOptionLabel={(option: Name) => option.formattedName}
+                      isOptionEqualToValue={(option: Name, value: Name) => { return option.codedName === value.codedName }}
+                      renderOption={(props, option) => (
+                        <li {...props}>{option.formattedName}</li>
+                      )}
+                      renderInput={(params) => <TextField {...params} name="species" size='small' color="secondary" error={Boolean(speciesError)} helperText={speciesError} />}
+                      onChange={HandleSpeciesChange}
+                    />
+                  </Grid>
                 }
               </Grid>
               <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 3 : 12}>
@@ -518,14 +519,7 @@ function PokemonForm(props: Props) {
                   <>
                     <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 6 : 12}>
                       {
-                        loadingPokemonAbilities &&
-                  <LoadingRow />
-                      }
-                      {
-                        !loadingPokemonAbilities && (
-                          <>
-                            {
-                              originalAbility &&
+                        originalAbility &&
                         <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
                           <TextField
                             value={ability.codedName}
@@ -537,9 +531,9 @@ function PokemonForm(props: Props) {
                             onChange={HandleOriginalAbilityNameChange}
                           />
                         </Grid>
-                            }
-                            {
-                              (!originalAbility && abilitiesList.length > 0) &&
+                      }
+                      {
+                        (!originalAbility && abilitiesList.length > 0) &&
                         <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
                           <Autocomplete
                             value={ability}
@@ -556,9 +550,6 @@ function PokemonForm(props: Props) {
                             onChange={HandleAbilityChange}
                           />
                         </Grid>
-                            }
-                          </>
-                        )
                       }
                     </Grid>
                     <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 3 : 6}>
@@ -622,7 +613,7 @@ function PokemonForm(props: Props) {
             </Grid>
             <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <Button color='secondary' variant='contained' disabled={loading} type="submit">
-                { editMode ? "Update pokemon" : "Add pokemon" }
+                { props.editMode ? "Update pokemon" : "Add pokemon" }
               </Button>
             </Grid>
           </Grid>

@@ -85,41 +85,38 @@ function Nuzlocke(props: Props) {
 
   return (
     <>
-      {
-        nuzlocke && (
-          <>
-            <MultiuseText text={`${nuzlocke.name} - ${nuzlocke.game}`} justify="center" />
-            <Divider sx={{ margin: "12px 0" }} />
-            <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-              <Button color='secondary' variant='contained' onClick={GoToEditNuzlocke}>
+      <MultiuseText text={`${nuzlocke.name} - ${nuzlocke.game}`} justify="center" />
+      <Divider sx={{ margin: "12px 0" }} />
+      <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Button color='secondary' variant='contained' onClick={GoToEditNuzlocke}>
                 Edit nuzlocke
-              </Button>
-            </Grid>
-            <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-              <Button color='error' variant="outlined" onClick={HandleShowDeleteDialog}>
+        </Button>
+      </Grid>
+      <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Button color='error' variant="outlined" onClick={HandleShowDeleteDialog}>
                 Delete nuzlocke
-              </Button>
-            </Grid>
-            <Divider sx={{ margin: "12px 0" }} />
-            <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-              <Button color='secondary' variant='contained' onClick={GoToAddPokemon}>
+        </Button>
+      </Grid>
+      <Divider sx={{ margin: "12px 0" }} />
+      <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Button color='secondary' variant='contained' onClick={GoToAddPokemon}>
                 Add pokemon
-              </Button>
-            </Grid>
-            <Divider sx={{ margin: "12px 0" }} />
-            <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='space-around'>
-              <Button className={nuzlocke.status === "started" ? "current-status" : ""} color='secondary' variant={nuzlocke.status === "started" ? "contained" : "outlined"} disabled={loading} onClick={() => HandleUpdateStatus("started")}>
+        </Button>
+      </Grid>
+      <Divider sx={{ margin: "12px 0" }} />
+      <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='space-around'>
+        <Button className={nuzlocke.status === "started" ? "current-status" : ""} color='secondary' variant={nuzlocke.status === "started" ? "contained" : "outlined"} disabled={loading} onClick={() => HandleUpdateStatus("started")}>
                 Started
-              </Button>
-              <Button className={nuzlocke.status === "completed" ? "current-status" : ""} color='success' variant={nuzlocke.status === "completed" ? "contained" : "outlined"} disabled={loading} onClick={() => HandleUpdateStatus("completed")}>
+        </Button>
+        <Button className={nuzlocke.status === "completed" ? "current-status" : ""} color='success' variant={nuzlocke.status === "completed" ? "contained" : "outlined"} disabled={loading} onClick={() => HandleUpdateStatus("completed")}>
                 Completed
-              </Button>
-              <Button className={nuzlocke.status === "lost" ? "current-status" : ""} color='error' variant={nuzlocke.status === "lost" ? "contained" : "outlined"} disabled={loading} onClick={() => HandleUpdateStatus("lost")}>
+        </Button>
+        <Button className={nuzlocke.status === "lost" ? "current-status" : ""} color='error' variant={nuzlocke.status === "lost" ? "contained" : "outlined"} disabled={loading} onClick={() => HandleUpdateStatus("lost")}>
                 Lost
-              </Button>
-            </Grid>
-            {
-              Boolean(nuzlocke.description) &&
+        </Button>
+      </Grid>
+      {
+        Boolean(nuzlocke.description) &&
               <>
                 <Divider sx={{ margin: "12px 0" }} />
                 <CustomCardContent>
@@ -128,11 +125,8 @@ function Nuzlocke(props: Props) {
                   </span>
                 </CustomCardContent>
               </> 
-            }
-            <DeleteDialog HandleShowDeleteDialog={HandleShowDeleteDialog} HandleDelete={HandleDelete} show={showDeleteDialog} name={nuzlocke.name} loading={loading} />
-          </>
-        )
       }
+      <DeleteDialog HandleShowDeleteDialog={HandleShowDeleteDialog} HandleDelete={HandleDelete} show={showDeleteDialog} name={nuzlocke.name} loading={loading} />
     </>
   );
 }

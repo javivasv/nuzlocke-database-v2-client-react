@@ -17,6 +17,8 @@ interface Props {
 function NuzlockeForm(props: Props) {
   const { nuzlockeId } = useParams();
   const dispatch = useDispatch<AppDispatch>()
+
+  const editMode = nuzlockeId ? true : false;
   
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState('');
@@ -25,14 +27,10 @@ function NuzlockeForm(props: Props) {
   const [gameError, setGameError] = useState('');
 
   const [description, setDescription] = useState("");
-
-  const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (nuzlockeId) {
-      setEditMode(true);
-
       dispatch(fetchNuzlocke(nuzlockeId))
         .unwrap()
         .then(res => {

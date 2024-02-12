@@ -20,6 +20,8 @@ function PokemonForm(props: Props) {
   const { pokemonId } = useParams();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
 
+  const editMode = pokemonId ? true : false;
+
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -71,7 +73,7 @@ function PokemonForm(props: Props) {
   return (
     <>
       {
-        Boolean(pokemonId) &&
+        editMode &&
         <>
           <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
             <Button color='error' variant="outlined" onClick={HandleShowDeleteDialog}>

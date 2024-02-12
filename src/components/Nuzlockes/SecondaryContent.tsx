@@ -1,4 +1,6 @@
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import { CustomError } from "../../interfaces/interfaces";
 import { Grid } from "@mui/material";
 import InfoActionsCard from "../InfoActions/InfoActionsCard";
@@ -15,6 +17,7 @@ interface Props {
 
 function SecondaryContent(props: Props) {
   const location = useLocation();
+  const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke);
 
   const InfoActionCard = () => {
     const pathSplit = location.pathname.split("/").filter(Boolean);
@@ -25,9 +28,15 @@ function SecondaryContent(props: Props) {
       if (pathSplit.includes("nuzlocke-form")) {
         return <NuzlockeForm />;
       } else if (pathSplit.includes("pokemon") || pathSplit.includes("pokemon-form")) {
-        return <PokemonForm ValidateError={props.ValidateError} GoTo={props.GoTo} />
+        return (
+          nuzlocke &&
+          <PokemonForm ValidateError={props.ValidateError} GoTo={props.GoTo} />
+        );
       } else {
-        return <Nuzlocke ValidateError={props.ValidateError} GoTo={props.GoTo} />
+        return (
+          nuzlocke &&
+          <Nuzlocke ValidateError={props.ValidateError} GoTo={props.GoTo} />
+        )
       }
     }
   }
