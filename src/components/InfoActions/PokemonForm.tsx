@@ -1,14 +1,37 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
+import { deletePokemon } from "../../store/pokemon/pokemonSlice";
+import { fetchNuzlocke, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
+import { showSnackbar } from "../../store/notifications/notificationsSlice";
+import { CustomError } from "../../interfaces/interfaces";
 import { Grid, Divider, Button } from "@mui/material";
 import DeleteDialog from "../DeleteDialog";
 import CustomCardContent from "../CustomCardContent";
 
-function PokemonForm() {
+interface Props {
+  GoTo: (e: string) => void;
+  ValidateError: (e: CustomError) => void;
+}
+
+function PokemonForm(props: Props) {
+  const dispatch = useDispatch<AppDispatch>();
   const { pokemonId } = useParams();
+  const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
 
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const PokemonName = () =>{
+    const pokemon = nuzlocke.pokemon.find(pokemon => pokemon._id === pokemonId);
+
+    if (pokemon) {
+      return pokemon.nickname ? pokemon.nickname : pokemon.species.formattedName;
+    }
+
+    return "";
+  }
 
   const HandleShowDeleteDialog = () => {
     setShowDeleteDialog(!showDeleteDialog);
@@ -21,16 +44,20 @@ function PokemonForm() {
   const HandleDeletePokemon = () => {
     setLoading(true);
 
-    /*
-    dispatch(deleteNuzlocke(nuzlocke._id!))
+    const data = {
+      nuzlockeId: nuzlocke._id!,
+      pokemonId: pokemonId!,
+    }
+
+    dispatch(deletePokemon(data))
       .unwrap()
       .then(res => {
         dispatch(showSnackbar(res.msg));
-        dispatch(fetchNuzlockes())
+        dispatch(fetchNuzlocke(nuzlocke._id!))
           .unwrap()
           .then(res => {
-            dispatch(setNuzlockes(res.nuzlockes));
-            props.GoTo("nuzlockes");
+            dispatch(setNuzlocke(res.nuzlockes));
+            props.GoTo(`nuzlockes/nuzlocke/${nuzlocke._id}`);
           });
       })
       .catch(error => {
@@ -39,7 +66,6 @@ function PokemonForm() {
       .finally(() => {
         setLoading(false);
       });
-      */
   }
 
   return (
@@ -131,7 +157,10 @@ function PokemonForm() {
           </span>
         </Grid>
       </CustomCardContent>
-      <DeleteDialog HandleShowDeleteDialog={HandleShowDeleteDialog} HandleDelete={HandleDelete} show={showDeleteDialog} name={"nuzlocke.name"} loading={loading} />
+      {
+        (nuzlocke && pokemonId) &&
+        <DeleteDialog HandleShowDeleteDialog={HandleShowDeleteDialog} HandleDelete={HandleDelete} show={showDeleteDialog} name={PokemonName()} loading={loading} />
+      }
     </>
   );
 }

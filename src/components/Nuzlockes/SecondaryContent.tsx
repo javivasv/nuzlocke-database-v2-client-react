@@ -25,7 +25,7 @@ function SecondaryContent(props: Props) {
       if (pathSplit.includes("nuzlocke-form")) {
         return <NuzlockeForm />;
       } else if (pathSplit.includes("pokemon") || pathSplit.includes("pokemon-form")) {
-        return <PokemonForm />
+        return <PokemonForm ValidateError={props.ValidateError} GoTo={props.GoTo} />
       } else {
         return <Nuzlocke ValidateError={props.ValidateError} GoTo={props.GoTo} />
       }

@@ -11,6 +11,10 @@ interface Props {
 
 function DeleteModal(props: Props) {
   const HandleCloseModal = () => {
+    if (props.loading) {
+      return;
+    }
+
     props.HandleShowDeleteDialog();
   }
 
