@@ -109,6 +109,22 @@ function PokemonForm(props: Props) {
       }
     }
 
+    if (abilitiesList.length === 0) {
+      setLoadingPokemonAbilities(true);
+
+      dispatch(fetchAbilitiesList())
+        .unwrap()
+        .then(res => {
+          dispatch(setAbilitiesList(res.list));
+        })
+        .catch(() => {
+          dispatch(showSnackbar("An error occured during the process"));
+        })
+        .finally(() => {
+          setLoadingPokemonAbilities(false);
+        });
+    }
+
     if (pokemonList.length === 0) {
       setLoadingPokemonList(true);
 
@@ -128,22 +144,6 @@ function PokemonForm(props: Props) {
       DefaultPokemon();
     }
 
-    if (abilitiesList.length === 0) {
-      setLoadingPokemonAbilities(true);
-
-      dispatch(fetchAbilitiesList())
-        .unwrap()
-        .then(res => {
-          dispatch(setAbilitiesList(res.list));
-        })
-        .catch(() => {
-          dispatch(showSnackbar("An error occured during the process"));
-        })
-        .finally(() => {
-          setLoadingPokemonAbilities(false);
-        });
-    }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -156,6 +156,11 @@ function PokemonForm(props: Props) {
       setSpecies({
         codedName: "bulbasaur",
         formattedName: "Bulbasaur"
+      });
+
+      setAbility({
+        codedName: "overgrow",
+        formattedName: "Overgrow"
       });
       
       FetchPokemonData("bulbasaur");
@@ -192,6 +197,17 @@ function PokemonForm(props: Props) {
             setTypesSecond(secondType.name); 
           } else {
             setTypesSecond(""); 
+          }
+        }
+
+        // Set a default ability for the pokemon
+        if (!editMode) {
+          if (res.abilities && res.abilities[0]) {
+            const ability = abilitiesList.find((ability: Name) => ability.codedName === res.abilities[0].ability.name);
+
+            if (ability) {
+              setAbility(ability);
+            }
           }
         }
       })
