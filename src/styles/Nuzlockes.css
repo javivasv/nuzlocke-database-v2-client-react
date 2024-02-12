@@ -55,3 +55,13 @@
   pointer-events: none;
   cursor: default;
 }
+
+.type-row {
+  &.first {
+    padding-right: 12px;
+  }
+
+  &.second {
+    padding-left: 12px;
+  }
+}
