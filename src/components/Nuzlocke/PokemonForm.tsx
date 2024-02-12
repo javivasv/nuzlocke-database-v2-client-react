@@ -55,6 +55,7 @@ function PokemonForm(props: Props) {
   const [typesFirst, setTypesFirst] = useState("");
   const [typesSecond, setTypesSecond] = useState("");
   const [originalAbility, setOriginalAbility] = useState(false);
+  const [noAbility, setNoAbility] = useState(false);
 
   const [ability, setAbility] = useState(defaultAbility);
 
@@ -317,6 +318,11 @@ function PokemonForm(props: Props) {
     }
   }
 
+  const HandleNoAbilityChange = (e: SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    setNoAbility(target.checked);
+  }
+
   const HandleNicknameChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setNickname(target.value);
@@ -504,16 +510,19 @@ function PokemonForm(props: Props) {
             </Grid>
             <MultiuseText text="Ability" />
             <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent="center">
-              <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 9 : 12}>
-                {
-                  loadingPokemonAbilities &&
-                  <LoadingRow />
-                }
-                {
-                  !loadingPokemonAbilities && (
-                    <>
+              {
+                !noAbility && (
+                  <>
+                    <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 6 : 12}>
                       {
-                        originalAbility &&
+                        loadingPokemonAbilities &&
+                  <LoadingRow />
+                      }
+                      {
+                        !loadingPokemonAbilities && (
+                          <>
+                            {
+                              originalAbility &&
                         <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
                           <TextField
                             value={ability.codedName}
@@ -525,9 +534,9 @@ function PokemonForm(props: Props) {
                             onChange={HandleOriginalAbilityNameChange}
                           />
                         </Grid>
-                      }
-                      {
-                        (!originalAbility && abilitiesList.length > 0) &&
+                            }
+                            {
+                              (!originalAbility && abilitiesList.length > 0) &&
                         <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
                           <Autocomplete
                             value={ability}
@@ -544,14 +553,22 @@ function PokemonForm(props: Props) {
                             onChange={HandleAbilityChange}
                           />
                         </Grid>
+                            }
+                          </>
+                        )
                       }
-                    </>
-                  )
-                }
-              </Grid>
-              <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 3 : 12}>
+                    </Grid>
+                    <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 3 : 6}>
+                      <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
+                        <FormControlLabel control={<Checkbox checked={originalAbility} color="secondary" onChange={HandleOriginalAbilityChange} />} label={"Original ability"} sx={{ margin: "0" }} />
+                      </Grid>
+                    </Grid>
+                  </>
+                ) 
+              }
+              <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 3 : 6}>
                 <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-                  <FormControlLabel control={<Checkbox checked={originalAbility} color="secondary" onChange={HandleOriginalAbilityChange} />} label={"Original ability"} sx={{ margin: "0" }} />
+                  <FormControlLabel control={<Checkbox checked={noAbility} color="secondary" onChange={HandleNoAbilityChange} />} label={"No ability"} sx={{ margin: "0" }} />
                 </Grid>
               </Grid>
             </Grid>
