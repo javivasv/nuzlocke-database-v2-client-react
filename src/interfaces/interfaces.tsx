@@ -1,5 +1,6 @@
 import { SerializedError } from "@reduxjs/toolkit";
 
+// Authentication-related
 export interface Token {
   _id: string;
   exp: number;
@@ -28,19 +29,38 @@ export interface ResetJWT {
   email: string;
 }
 
-export interface Video {
+// Nuzlocke-related
+export interface Nuzlocke {
+  _id?: string;
   name: string;
-  channel: string;
-  url: string;
+  game: string;
+  description: string;
+  status: string;
+  user: string;
+  pokemon: Array<Pokemon>;
 }
 
-export interface SuggestionData {
+export interface NuzlockeData {
   name: string;
-  text: string;
-  email: string | null;
-  username: string | null;
+  game: string;
+  description: string;
 }
 
+export interface UpdateNuzlockeData {
+  nuzlockeId: string;
+  nuzlocke: NuzlockeData;
+}
+
+export interface NuzlockeStatus {
+  status: string;
+}
+
+export interface UpdateNuzlockeStatus {
+  nuzlockeId: string;
+  nuzlocke: NuzlockeStatus;
+}
+
+// Pokemon-related
 export interface Pokemon {
   _id?: string;
   originalSpecies: boolean;
@@ -56,6 +76,16 @@ export interface Pokemon {
   obtainedAs?: ObtainedAs;
 }
 
+export interface Name {
+  codedName: string;
+  formattedName: string;
+}
+
+export interface PokemonTypes {
+  first: string;
+  second: string;
+}
+
 export interface ObtainedAs {
   _id?: string;
   species: Name;
@@ -64,46 +94,29 @@ export interface ObtainedAs {
   ability: Name;
 }
 
-export interface PokemonTypes {
-  first: string;
-  second: string;
-}
-
-export interface Name {
-  codedName: string;
-  formattedName: string;
-}
-
-export interface Nuzlocke {
-  _id?: string;
-  name: string;
-  game: string;
-  description: string;
-  status: string;
-  user: string;
-  pokemon: Array<Pokemon>;
-}
-
-export interface UpdateNuzlockeData {
+export interface CreatePokemonData {
   nuzlockeId: string;
-  nuzlocke: NuzlockeData;
+  pokemon: Pokemon;
 }
 
-export interface NuzlockeData {
-  name: string;
-  game: string;
-  description: string;
-}
-
-export interface UpdateNuzlockeStatus {
+export interface UpdatePokemonData {
   nuzlockeId: string;
-  nuzlocke: NuzlockeStatus;
+  pokemonId: string;
+  pokemon: Pokemon;
 }
 
-export interface NuzlockeStatus {
-  status: string;
+export interface DeletePokemonData {
+  nuzlockeId: string;
+  pokemonId: string;
 }
 
+// Pokeapi-related
+export interface BasicDataFromApi {
+  name: string;
+  url: string;
+}
+
+// Filters-related
 export interface PokemonTypeFilter {
   name: string;
   value: string;
@@ -123,10 +136,18 @@ export interface ObtainedFilter {
   on: boolean;
 }
 
-export interface Settings {
+// Extra
+export interface Video {
   name: string;
-  value: string;
-  on: boolean;
+  channel: string;
+  url: string;
+}
+
+export interface SuggestionData {
+  name: string;
+  text: string;
+  email: string | null;
+  username: string | null;
 }
 
 export interface TableHeader {
@@ -135,25 +156,10 @@ export interface TableHeader {
   cols: number;
 }
 
-export interface BasicDataFromApi {
+export interface Settings {
   name: string;
-  url: string;
-}
-
-export interface CreatePokemonData {
-  nuzlockeId: string;
-  pokemon: Pokemon;
-}
-
-export interface DeletePokemonData {
-  nuzlockeId: string;
-  pokemonId: string;
-}
-
-export interface UpdatePokemonData {
-  nuzlockeId: string;
-  pokemonId: string;
-  pokemon: Pokemon;
+  value: string;
+  on: boolean;
 }
 
 export interface CustomError extends SerializedError {
