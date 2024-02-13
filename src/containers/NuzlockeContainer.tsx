@@ -36,6 +36,9 @@ function NuzlockeContainer(props: Props) {
       setLoading(false);
     }
 
+    return () => {
+      dispatch(setNuzlocke(null));
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
