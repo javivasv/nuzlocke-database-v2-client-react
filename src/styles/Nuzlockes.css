@@ -32,6 +32,7 @@
 
 .table-text {
   word-break: break-word;
+  text-align: center;
 }
 
 .table-row {

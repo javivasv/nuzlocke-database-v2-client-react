@@ -29,21 +29,21 @@ function NuzlockeRow(props: Props) {
   return (
     <Grid className="table-row" container flexDirection={"row"} onClick={CheckNuzlocke}>
       <Grid container item flexDirection={"column"} xs={6}>
-        <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-          <span>
+        <Grid className="h-100" container item flexDirection={"row"} alignItems="center" justifyContent="center">
+          <span className="table-text">
             { props.nuzlocke.name }
           </span>
         </Grid>
       </Grid>
       <Grid container item flexDirection={"column"} xs={3}>
-        <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-          <span>
+        <Grid className="h-100" container item flexDirection={"row"} alignItems="center" justifyContent="center">
+          <span className="table-text">
             { props.nuzlocke.game }
           </span>
         </Grid>
       </Grid>
       <Grid container item flexDirection={"column"} xs={3}>
-        <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
+        <Grid className="h-100" container item flexDirection={"row"} alignItems="center" justifyContent="center">
           {
             ItemIcon(props.nuzlocke.status!)
           }
