@@ -27,9 +27,9 @@ interface Props {
 }
 
 function AppRoutes(props: Props) {
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
   const isMdAndUp = useMediaQuery('(min-width:960px)');
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
