@@ -89,8 +89,10 @@ function Nuzlocke(props: Props) {
 
   return (
     <>
-      <MultiuseText text={`${nuzlocke.name} - ${nuzlocke.game}`} justify="center" textAlign="centered" />
-      <Divider sx={{ margin: "12px 0" }} />
+      <CustomCardContent>
+        <MultiuseText text={`${nuzlocke.name} - ${nuzlocke.game}`} justify="center" textAlign="centered" />
+      </CustomCardContent>
+      <Divider className="horizontal-divider" />
       <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
         <Button color='secondary' variant='contained' disabled={loading} onClick={GoToEditNuzlocke}>
           Edit nuzlocke
@@ -101,13 +103,13 @@ function Nuzlocke(props: Props) {
           Delete nuzlocke
         </Button>
       </Grid>
-      <Divider sx={{ margin: "12px 0" }} />
+      <Divider className="horizontal-divider" />
       <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
         <Button color='secondary' variant='contained' disabled={loading} onClick={GoToAddPokemon}>
           Add pokemon
         </Button>
       </Grid>
-      <Divider sx={{ margin: "12px 0" }} />
+      <Divider className="horizontal-divider" />
       <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='space-around'>
         <Button className={nuzlocke.status === "started" ? "current-status" : ""} color='secondary' variant={nuzlocke.status === "started" ? "contained" : "outlined"} disabled={loading} onClick={() => HandleUpdateStatus("started")}>
           Started
@@ -122,7 +124,7 @@ function Nuzlocke(props: Props) {
       {
         nuzlocke.description &&
         <>
-          <Divider sx={{ margin: "12px 0" }} />
+          <Divider className="horizontal-divider" />
           <CustomCardContent>
             <span className="card-text">
               { nuzlocke.description }

@@ -28,12 +28,12 @@ function Nuzlockes(props: Props) {
 
   return (
     <>
-      <Grid className="info-actions-card-title" container flexDirection={"row"} alignItems="center" justifyContent="center">
+      <CustomCardContent>
         <Button color="secondary" variant="contained" onClick={HandleClick}>
           New nuzlocke
         </Button>
-      </Grid>
-      <Divider sx={{ margin: "12px 0" }} />
+      </CustomCardContent>
+      <Divider className="horizontal-divider" />
       <MultiuseText text="Relevant websites" justify="center"/>
       <CustomCardContent>
         {

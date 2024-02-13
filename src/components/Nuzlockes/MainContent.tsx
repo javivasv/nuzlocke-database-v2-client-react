@@ -37,7 +37,7 @@ function MainContent(props: Props) {
     <>
       {
         IsRootNuzlockes() &&
-        <Grid className="back-buttton-row" container flexDirection={"row"}>
+        <Grid id="back-buttton-row" container flexDirection={"row"}>
           <IconButton onClick={HandleGoBack}>
             <ArrowBack />
           </IconButton>

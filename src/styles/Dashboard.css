@@ -63,22 +63,3 @@
   text-align: center;
   font-size: 14px;
 }
-
-.menu-container {
-  ul {
-    padding: 0;
-  }
-}
-
-.menu-card {
-  width: 420px;
-  padding: 16px;
-}
-
-.pokemon-type {
-  padding: 4px 8px;
-  border-radius: 10px;
-  color: white;
-  font-size: 12px;
-  margin: 4px;
-}

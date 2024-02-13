@@ -58,6 +58,7 @@ function NuzlockesTable(props: Props) {
     <>
       <Grid className="search-row" container flexDirection={"row"}>
         <TextField
+          className="search-input"
           value={search}
           name="search"
           placeholder="Search"

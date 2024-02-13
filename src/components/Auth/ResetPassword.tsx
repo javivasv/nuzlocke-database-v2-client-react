@@ -110,7 +110,7 @@ function ResetPassword(props: Props) {
           !errorMsg &&
           <>
             <MultiuseText text="Password" />
-            <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+            <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <TextField
                 value={password}
                 name="password"
@@ -126,7 +126,7 @@ function ResetPassword(props: Props) {
               />
             </Grid>
             <MultiuseText text="Password confirmation" />
-            <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+            <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <TextField
                 value={passwordConfirmation}
                 name="passwordConfirmation"
@@ -151,7 +151,7 @@ function ResetPassword(props: Props) {
           <span className="auth-extra-action" onClick={() => props.GoTo("login")}>
               Login
           </span>
-          <Divider orientation="vertical" flexItem sx={{ margin: "0 12px" }} />
+          <Divider className="vertical-divider" orientation="vertical" flexItem />
           <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
               Home
           </span>

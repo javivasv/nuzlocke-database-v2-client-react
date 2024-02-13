@@ -87,7 +87,7 @@ function Login(props: Props) {
     <form className="w-100" noValidate onSubmit={HandleLogin}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Email" />
-        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={email}
             name="email"
@@ -102,7 +102,7 @@ function Login(props: Props) {
           />
         </Grid>
         <MultiuseText text="Password" />
-        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={password}
             name="password"
@@ -122,19 +122,19 @@ function Login(props: Props) {
             Login
           </Button>
         </Grid>
-        <Grid className="auth-forgot-password-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <span className="auth-extra-action" onClick={() => props.GoTo("forgot-password")}>
             Forgot password
           </span>
         </Grid>
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <span className="auth-extra-action-text">
-            Don't have an account?
+          <span>
+            { "Don't have an account? " }
           </span>
           <span className="auth-extra-action" onClick={() => props.GoTo("register")}>
             Register
           </span>
-          <Divider orientation="vertical" flexItem sx={{ margin: "0 12px" }} />
+          <Divider className="vertical-divider" orientation="vertical" flexItem />
           <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
             Home
           </span>

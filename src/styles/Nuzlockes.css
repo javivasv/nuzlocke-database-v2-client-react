@@ -1,8 +1,8 @@
-.back-buttton-row {
+#back-buttton-row {
   padding: 12px 0;
 }
 
-.loading-row {
+#loading-row {
   padding: 20px 0;
 }
 
@@ -20,6 +20,25 @@
 
 .search-extra-action-button {
   margin-left: 12px !important;
+}
+
+.menu-container {
+  ul {
+    padding: 0;
+  }
+}
+
+.menu-card {
+  width: 420px;
+  padding: 16px;
+}
+
+.pokemon-type {
+  padding: 4px 8px;
+  border-radius: 10px;
+  color: white;
+  font-size: 12px;
+  margin: 4px;
 }
 
 .table-header {

@@ -1,24 +1,16 @@
-.info-actions-card-container {
+#info-actions-card-container {
   position: sticky;
   padding-top: 110.5px;
 }
 
-.pokeball {
+#pokeball {
   width: 195px;
   z-index: 100;
   position: absolute;
   top: 15px;
 }
 
-.info-actions-card {
+#info-actions-card {
   width: 100%;
   padding: 112.5px 16px 16px 16px;
-}
-
-.info-actions-card-title {
-  padding: 12px 0;
-}
-
-.info-actions-card-text {
-  text-align: start;
 }

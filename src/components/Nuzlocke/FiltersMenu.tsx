@@ -34,7 +34,7 @@ function FiltersMenu() {
           ))
         }
       </Grid>
-      <Divider sx={{ margin: "12px 0" }} />
+      <Divider className="horizontal-divider" />
       <MultiuseText text="Obtained filters" />
       <Grid container flexDirection={"row"}>
         {
@@ -45,7 +45,7 @@ function FiltersMenu() {
           ))
         }
       </Grid>
-      <Divider sx={{ margin: "12px 0" }} />
+      <Divider className="horizontal-divider" />
       <MultiuseText text="Type filters" />
       <Grid container flexDirection={"row"}>
         {

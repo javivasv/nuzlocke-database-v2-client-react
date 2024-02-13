@@ -78,7 +78,7 @@ function PokemonForm(props: Props) {
               Delete pokemon
             </Button>
           </Grid>
-          <Divider sx={{ margin: "12px 0" }} />
+          <Divider className="horizontal-divider" />
         </>        
       }
       <CustomCardContent>
@@ -140,7 +140,7 @@ function PokemonForm(props: Props) {
           </span>
         </Grid>
       </CustomCardContent>
-      <Divider sx={{ margin: "12px 0" }} />
+      <Divider className="horizontal-divider" />
       <CustomCardContent>
         <Grid className="card-text-row" container flexDirection={"row"} justifyContent="center">
           <span className="card-text">

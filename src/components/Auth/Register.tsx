@@ -111,7 +111,7 @@ function Register(props: Props) {
     <form className="w-100" noValidate onSubmit={HandleRegister}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Email" />
-        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={email}
             name="email"
@@ -126,7 +126,7 @@ function Register(props: Props) {
           />
         </Grid>
         <MultiuseText text="Username" />
-        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={username}
             name="username"
@@ -141,7 +141,7 @@ function Register(props: Props) {
           />
         </Grid>
         <MultiuseText text="Password" />
-        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={password}
             name="password"
@@ -157,7 +157,7 @@ function Register(props: Props) {
           />
         </Grid>
         <MultiuseText text="Password confirmation" />
-        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={passwordConfirmation}
             name="passwordConfirmation"
@@ -178,13 +178,13 @@ function Register(props: Props) {
           </Button>
         </Grid>
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <span className="auth-extra-action-text">
-            Already have an account?
+          <span>
+            { "Already have an account? " }
           </span>
           <span className="auth-extra-action" onClick={() => props.GoTo("login")}>
             Login
           </span>
-          <Divider orientation="vertical" flexItem sx={{ margin: "0 12px" }} />
+          <Divider className="vertical-divider" orientation="vertical" flexItem />
           <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
             Home
           </span>

@@ -72,7 +72,7 @@ function ForgotPassword(props: Props) {
     <form className="w-100" noValidate onSubmit={HandleForgotPassword}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Email" />
-        <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={email}
             name="email"
@@ -95,7 +95,7 @@ function ForgotPassword(props: Props) {
           <span className="auth-extra-action" onClick={() => props.GoTo("login")}>
             Login
           </span>
-          <Divider orientation="vertical" flexItem sx={{ margin: "0 12px" }} />
+          <Divider className="vertical-divider" orientation="vertical" flexItem />
           <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
             Home
           </span>

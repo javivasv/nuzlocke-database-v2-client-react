@@ -435,7 +435,7 @@ function PokemonForm(props: Props) {
               </Grid>
             }
             <MultiuseText text="Species" />
-            <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent="center">
+            <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent="center">
               <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 9 : 12}>
                 {
                   originalSpecies &&
@@ -480,7 +480,7 @@ function PokemonForm(props: Props) {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid className="form-input-row" container item flexDirection={"row"}>
+            <Grid className="input-row" container item flexDirection={"row"}>
               <Grid container item flexDirection={"column"} xs={6}>
                 <MultiuseText text="First type" />
                 <Grid className="type-row first" container item flexDirection={"row"}>
@@ -525,7 +525,7 @@ function PokemonForm(props: Props) {
               </Grid>
             </Grid>
             <MultiuseText text="Ability" />
-            <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent="center">
+            <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent="center">
               {
                 !noAbility &&
                 (
@@ -580,7 +580,7 @@ function PokemonForm(props: Props) {
               </Grid>
             </Grid>
             <MultiuseText text="Nickname" />
-            <Grid className="form-input-row" container item flexDirection={"row"}>
+            <Grid className="input-row" container item flexDirection={"row"}>
               <TextField
                 value={nickname}
                 variant="outlined"
@@ -592,7 +592,7 @@ function PokemonForm(props: Props) {
               />
             </Grid>
             <MultiuseText text="Location" />
-            <Grid className="form-input-row" container item flexDirection={"row"}>
+            <Grid className="input-row" container item flexDirection={"row"}>
               <TextField
                 value={location}
                 name="location"

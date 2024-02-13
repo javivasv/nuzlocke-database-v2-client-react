@@ -7,7 +7,6 @@ import { setNuzlockes } from './store/nuzlockes/nuzlockesSlice';
 import { showSnackbar } from './store/notifications/notificationsSlice';
 import { CustomError } from './interfaces/interfaces';
 import { useMediaQuery } from "@mui/material";
-import './App.css'
 import Dashboard from "./containers/Dashboard";
 import Home from "./containers/Home";
 import NuzlockesLayout from "./containers/NuzlockesLayout";

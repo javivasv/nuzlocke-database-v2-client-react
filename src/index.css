@@ -1,9 +1,9 @@
+@import "./App.css";
 @import "./styles/Auth.css";
 @import "./styles/Dashboard.css";
 @import "./styles/Sidebar.css";
 @import "./styles/Home.css";
 @import "./styles/Nuzlockes.css";
-@import "./styles/About.css";
 @import "./styles/MultiuseText.css";
 @import "./styles/InfoActionsCard.css";
 @import "./styles/ThinSCrollbar.css";

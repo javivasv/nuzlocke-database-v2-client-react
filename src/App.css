@@ -15,7 +15,7 @@ h1, h2, h3 {
   margin: 0;
 }
 
-.form-input-row {
+.input-row {
   padding-bottom: 12px;
 }
 
@@ -32,4 +32,12 @@ h1, h2, h3 {
   text-decoration: none;
   color: #1685c5;
   font-weight: 600;
+}
+
+.vertical-divider {
+  margin: 0 12px !important;
+}
+
+.horizontal-divider {
+  margin: 12px 0 !important;
 }

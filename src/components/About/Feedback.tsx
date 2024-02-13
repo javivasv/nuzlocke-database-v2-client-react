@@ -63,7 +63,7 @@ function Feedback(props: Props) {
     <form className="w-100" noValidate onSubmit={HandleSendFeedback}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Name" />
-        <Grid className="feedback-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={name}
             name="name"
@@ -76,7 +76,7 @@ function Feedback(props: Props) {
           />
         </Grid>
         <MultiuseText text="Suggestions" />
-        <Grid className="feedback-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+        <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={suggestion}
             name="suggestions"

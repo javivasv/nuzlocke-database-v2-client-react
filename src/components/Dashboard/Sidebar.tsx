@@ -88,11 +88,11 @@ function Sidebar(props: Props) {
           { isLgAndUp ? "Nuzlocke DataBase" : "NDB" }
         </h2>
       </Grid>
-      <Divider sx={{ margin: "12px 0" }} />
+      <Divider className="horizontal-divider" />
       {
         user &&
         <>
-          <Grid className="sidebar-username" container item flexDirection={"row"} justifyContent='center'>
+          <Grid id="sidebar-username" container item flexDirection={"row"} justifyContent='center'>
             {
               isLgAndUp &&
               <span>
@@ -106,7 +106,7 @@ function Sidebar(props: Props) {
               </Avatar>
             }
           </Grid>
-          <Divider sx={{ margin: "12px 0" }} />
+          <Divider className="horizontal-divider" />
         </>
       }
       {

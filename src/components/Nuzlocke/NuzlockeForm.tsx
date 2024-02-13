@@ -143,7 +143,7 @@ function NuzlockeForm(props: Props) {
         <form className="w-100" noValidate onSubmit={HandleSubmitNuzlocke}>
           <Grid container item flexDirection={"column"}>
             <MultiuseText text="Name" />
-            <Grid className="form-input-row" container item flexDirection={"row"}>
+            <Grid className="input-row" container item flexDirection={"row"}>
               <TextField
                 value={name}
                 name="name"
@@ -158,7 +158,7 @@ function NuzlockeForm(props: Props) {
               />
             </Grid>
             <MultiuseText text="Game" />
-            <Grid className="form-input-row" container item flexDirection={"row"}>
+            <Grid className="input-row" container item flexDirection={"row"}>
               <TextField
                 value={game}
                 name="game"
@@ -173,7 +173,7 @@ function NuzlockeForm(props: Props) {
               />
             </Grid>
             <MultiuseText text="Description" />
-            <Grid className="form-input-row" container item flexDirection={"row"}>
+            <Grid className="input-row" container item flexDirection={"row"}>
               <TextField
                 value={description}
                 name="description"

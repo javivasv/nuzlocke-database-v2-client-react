@@ -7,11 +7,11 @@ interface Props {
 
 function InfoActionsCard(props: Props) {
   return (
-    <div className="info-actions-card-container h-100 w-100">
+    <div id="info-actions-card-container" className="h-100 w-100">
       <Grid container flexDirection={"row"} alignItems="center" justifyContent="center">
-        <img src={pokeball} className="pokeball" />
+        <img src={pokeball} id="pokeball" />
       </Grid>
-      <Card className="info-actions-card">
+      <Card id="info-actions-card">
         { props.children }
       </Card>
     </div>
