@@ -1,6 +1,7 @@
 import { useState, SyntheticEvent, MouseEvent } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { CustomError } from "../../interfaces/interfaces";
 import { Grid, TextField, InputAdornment, IconButton, Menu } from "@mui/material";
 import { Search, FilterList, Settings } from '@mui/icons-material';
 import FiltersMenu from "./FiltersMenu";
@@ -9,6 +10,7 @@ import TableHeaders from "../TableHeaders";
 import PokemonRow from "./PokemonRow";
 
 interface Props {
+  ValidateError: (e: CustomError) => void;
   GoTo: (e: string) => void;
   isMdAndUp: boolean;
 }
@@ -193,7 +195,7 @@ function PokemonTable(props: Props) {
                 {
                   FilteredPokemon().map(pokemon => (
                     <Grid key={pokemon._id} container item flexDirection={"row"}>
-                      <PokemonRow GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} pokemon={pokemon} />
+                      <PokemonRow ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} pokemon={pokemon} />
                     </Grid>
                   ))
                 }

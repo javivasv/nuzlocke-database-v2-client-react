@@ -1,21 +1,27 @@
 import { useState, MouseEvent } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { Pokemon, PokemonTypes } from "../../interfaces/interfaces";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { updatePokemon } from "../../store/pokemon/pokemonSlice";
+import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
+import { showSnackbar } from "../../store/notifications/notificationsSlice";
+import { Pokemon, PokemonTypes, CustomError } from "../../interfaces/interfaces";
 import { Grid, IconButton } from "@mui/material";
 import { CatchingPokemon, CardGiftcard, Egg, SyncAlt, Block, Favorite, HeartBroken } from '@mui/icons-material';
 import PokemonType from "../PokemonType";
 
 interface Props {
+  ValidateError: (e: CustomError) => void;
   GoTo: (e: string) => void;
   isMdAndUp: boolean;
   pokemon: Pokemon;
 }
 
 function PokemonRow(props: Props) {
+  const dispatch = useDispatch<AppDispatch>();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
   const showAsObtained = useSelector((state: RootState) => state.settings.settings[0].on);
 
+  const [loading, setLoading] = useState(false);
   const [statusButtonHover, setStatusButtonHover] = useState(false);
   
   const PokemonRowClassName = () => {
@@ -86,12 +92,43 @@ function PokemonRow(props: Props) {
   }
 
   const CheckPokemon = () => {
+    if (loading) {
+      return;
+    }
+
     props.GoTo(`nuzlockes/nuzlocke/${nuzlocke._id}/pokemon/${props.pokemon._id}`);
   }
 
-  const ChangePokemonStatus = (e: MouseEvent<HTMLButtonElement>) => {
+  const ChangePokemonStatus = (e: MouseEvent<HTMLButtonElement>, pokemon: Pokemon) => {
     e.stopPropagation();
-    console.log("CHANGE POKEMON STATUS");
+
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+
+    const data = {
+      nuzlockeId: nuzlocke._id!,
+      pokemonId: pokemon._id!,
+      pokemon: {
+        ...pokemon,
+        fainted: !pokemon.fainted,
+      }
+    }
+
+    dispatch(updatePokemon(data))
+      .unwrap()
+      .then(res => {
+        dispatch(setNuzlocke(res.nuzlocke));
+        dispatch(showSnackbar(res.msg));
+      })
+      .catch(error => {
+        props.ValidateError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   return (
@@ -163,9 +200,9 @@ function PokemonRow(props: Props) {
           }
           {
             props.pokemon.obtained !== "not" &&
-              <IconButton onClick={ChangePokemonStatus} onMouseEnter={() => setStatusButtonHover(true)} onMouseLeave={() => setStatusButtonHover(false)}>
-                { StatusIcon() }
-              </IconButton>
+            <IconButton disabled={loading} onClick={(e) => ChangePokemonStatus(e, props.pokemon)} onMouseEnter={() => setStatusButtonHover(true)} onMouseLeave={() => setStatusButtonHover(false)}>
+              { StatusIcon() }
+            </IconButton>
           }
         </Grid>
       </Grid>
