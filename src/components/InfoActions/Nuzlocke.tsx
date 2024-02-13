@@ -74,6 +74,11 @@ function Nuzlocke(props: Props) {
       .then(res => {
         dispatch(setNuzlocke(res.nuzlocke));
         dispatch(showSnackbar(res.msg));
+        dispatch(fetchNuzlockes())
+          .unwrap()
+          .then(res => {
+            dispatch(setNuzlockes(res.nuzlockes));
+          });
       })
       .catch(error => {
         props.ValidateError(error);
