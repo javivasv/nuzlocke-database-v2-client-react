@@ -5,4 +5,8 @@
 .multiuse-text {
   font-size: 14px;
   font-weight: 600;
+
+  &.centered {
+    text-align: center;
+  }
 }

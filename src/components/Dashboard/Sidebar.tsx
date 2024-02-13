@@ -2,8 +2,9 @@ import { useEffect, useState, SyntheticEvent } from 'react';
 import { useLocation } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { RootState } from "../../store/store";
-import { useMediaQuery, Grid, Divider, Button, Switch } from '@mui/material';
+import { useMediaQuery, Grid, Divider, Button, Switch, Avatar } from '@mui/material';
 import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login, Logout } from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 function Sidebar(props: Props) {
+  const theme = useTheme();
   const location = useLocation();
   const user = useSelector((state: RootState) => state.auth.user);
   const isLgAndUp = useMediaQuery('(min-width:1280px)');
@@ -88,6 +90,26 @@ function Sidebar(props: Props) {
         </h2>
       </Grid>
       <Divider sx={{ margin: "12px 0" }} />
+      {
+        user &&
+        <>
+          <Grid className="sidebar-username" container item flexDirection={"row"} justifyContent='center'>
+            {
+              isLgAndUp &&
+              <span>
+                { user.username }
+              </span>
+            }
+            {
+              !isLgAndUp &&
+              <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                { user.username[0].toUpperCase() }
+              </Avatar>
+            }
+          </Grid>
+          <Divider sx={{ margin: "12px 0" }} />
+        </>
+      }
       {
         sidebarItems.map(item => (
           (item.name !== "nuzlockes" || (item.name === "nuzlockes" && user)) &&

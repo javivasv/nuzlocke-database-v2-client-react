@@ -90,7 +90,7 @@ function Nuzlocke(props: Props) {
 
   return (
     <>
-      <MultiuseText text={`${nuzlocke.name} - ${nuzlocke.game}`} justify="center" />
+      <MultiuseText text={`${nuzlocke.name} - ${nuzlocke.game}`} justify="center" textAlign="centered" />
       <Divider sx={{ margin: "12px 0" }} />
       <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
         <Button color='secondary' variant='contained' disabled={loading} onClick={GoToEditNuzlocke}>
