@@ -6,7 +6,7 @@ function MainContent() {
   return (
     <Grid container flexDirection={"row"}>
       <Card className='main-content-card top-card'>
-        <CustomCardHeader title="About"></CustomCardHeader>
+        <CustomCardHeader title="About" />
         <CustomCardContent>
           My name is Javier Vivas and I am a Computer/Software Engineer graduated
           at Universidad Simón Bolívar in Caracas, Venezuela. I live in the USA

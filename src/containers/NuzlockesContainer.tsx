@@ -14,7 +14,6 @@ interface Props {
 function NuzlockesContainer(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const nuzlockes = useSelector((state: RootState) => state.nuzlockes.nuzlockes);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -33,7 +32,6 @@ function NuzlockesContainer(props: Props) {
           setLoading(false);
         });
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

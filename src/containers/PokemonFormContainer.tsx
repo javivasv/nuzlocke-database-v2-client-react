@@ -19,11 +19,9 @@ function PokemonFormContainer(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const abilitiesList = useSelector((state: RootState) => state.pokeapi.abilities);
   const pokemonList = useSelector((state: RootState) => state.pokeapi.pokemon);
-
-  const editMode = pokemonId ? true : false;
-
   const [loadingPokemonAbilities, setLoadingPokemonAbilities] = useState(true);
   const [loadingPokemonList, setLoadingPokemonList] = useState(true);
+  const editMode = pokemonId ? true : false;
 
   useEffect(() => {
     if (abilitiesList.length === 0) {
@@ -37,7 +35,6 @@ function PokemonFormContainer(props: Props) {
     } else {
       setLoadingPokemonList(false);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

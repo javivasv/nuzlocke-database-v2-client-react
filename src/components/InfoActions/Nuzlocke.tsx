@@ -17,7 +17,6 @@ interface Props {
 function Nuzlocke(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
-
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -121,7 +120,7 @@ function Nuzlocke(props: Props) {
         </Button>
       </Grid>
       {
-        Boolean(nuzlocke.description) &&
+        nuzlocke.description &&
         <>
           <Divider sx={{ margin: "12px 0" }} />
           <CustomCardContent>

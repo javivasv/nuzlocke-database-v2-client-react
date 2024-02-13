@@ -14,11 +14,8 @@ interface Props {
 function Feedback(props: Props) {
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((state: RootState) => state.auth.user);
-
   const [name, setName] = useState("");
-
   const [suggestion, setSuggestion] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const HandleNameChange = (e: SyntheticEvent) => {
@@ -65,7 +62,7 @@ function Feedback(props: Props) {
   return (
     <form className="w-100" noValidate onSubmit={HandleSendFeedback}>
       <Grid container item flexDirection={"column"}>
-        <MultiuseText text="Name"></MultiuseText>
+        <MultiuseText text="Name" />
         <Grid className="feedback-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={name}
@@ -78,7 +75,7 @@ function Feedback(props: Props) {
             onChange={HandleNameChange}
           />
         </Grid>
-        <MultiuseText text="Suggestions"></MultiuseText>
+        <MultiuseText text="Suggestions" />
         <Grid className="feedback-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={suggestion}

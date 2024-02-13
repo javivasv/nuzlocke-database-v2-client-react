@@ -24,12 +24,10 @@ function About(props: Props) {
       }
       {
         !props.isMdAndUp &&
-        <>
-          <Grid className="only-content" container item flexDirection={"column"} xs={12}>
-            <MainContent />
-            <SecondaryContent ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} />
-          </Grid>
-        </>
+        <Grid className="only-content" container item flexDirection={"column"} xs={12}>
+          <MainContent />
+          <SecondaryContent ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} />
+        </Grid>
       }
     </Grid>
   );

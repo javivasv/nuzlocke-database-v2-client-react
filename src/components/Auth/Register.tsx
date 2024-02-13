@@ -14,20 +14,15 @@ interface Props {
 
 function Register(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
-
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState('');
-
   const [username, setUsername] = useState("");
-  const [usernameError, setUsernameError] = useState('');
-
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState('');
-
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [passwordConfirmationError, setPasswordConfirmationError] = useState('');
-
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordConfirmationError, setPasswordConfirmationError] = useState('');
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
@@ -50,12 +45,10 @@ function Register(props: Props) {
     const usernameError = await validateField('username', username);
     const passwordError = await validateField('password', password);
     const passwordConfirmationError = await validateField('passwordConfirmation', passwordConfirmation);
-
     setEmailError(emailError);
     setUsernameError(usernameError);
     setPasswordError(passwordError);
     setPasswordConfirmationError(passwordConfirmationError);
-
     return !emailError && !usernameError && !passwordError && !passwordConfirmationError;
   };
 
@@ -88,7 +81,6 @@ function Register(props: Props) {
 
   const HandleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const isValid = await validateForm();
 
     if (!isValid) {
@@ -118,7 +110,7 @@ function Register(props: Props) {
   return (
     <form className="w-100" noValidate onSubmit={HandleRegister}>
       <Grid container item flexDirection={"column"}>
-        <MultiuseText text="Email"></MultiuseText>
+        <MultiuseText text="Email" />
         <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={email}
@@ -133,7 +125,7 @@ function Register(props: Props) {
             onChange={HandleEmailChange}
           />
         </Grid>
-        <MultiuseText text="Username"></MultiuseText>
+        <MultiuseText text="Username" />
         <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={username}
@@ -148,7 +140,7 @@ function Register(props: Props) {
             onChange={HandleUsernameChange}
           />
         </Grid>
-        <MultiuseText text="Password"></MultiuseText>
+        <MultiuseText text="Password" />
         <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={password}
@@ -164,7 +156,7 @@ function Register(props: Props) {
             onChange={HandlePasswordChange}
           />
         </Grid>
-        <MultiuseText text="Password confirmation"></MultiuseText>
+        <MultiuseText text="Password confirmation" />
         <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={passwordConfirmation}

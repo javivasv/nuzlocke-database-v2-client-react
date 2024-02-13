@@ -8,7 +8,6 @@ interface Props {
 }
 
 function NuzlockeRow(props: Props) {
-
   const CheckNuzlocke = () => {
     props.GoTo(`nuzlockes/nuzlocke/${props.nuzlocke._id}`);
   }

@@ -19,7 +19,7 @@ function Nuzlockes(props: Props) {
             {
               nuzlockes.length === 0 && 
               <Grid container item flexDirection={"row"}>
-                <CustomCardHeader title="There are no nuzlockes registered yet"></CustomCardHeader>
+                <CustomCardHeader title="There are no nuzlockes registered yet" />
               </Grid>
             }
             {

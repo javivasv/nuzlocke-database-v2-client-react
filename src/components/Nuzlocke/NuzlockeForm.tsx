@@ -1,12 +1,12 @@
 import { useState, useEffect, SyntheticEvent, FormEvent } from "react";
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import * as Yup from 'yup';
 import { AppDispatch } from "../../store/store";
 import { fetchNuzlocke, createNuzlocke, updateNuzlocke, setNuzlockes, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
-import { Grid, Card, TextField, Button } from "@mui/material";
 import { CustomError } from "../../interfaces/interfaces";
+import { Grid, Card, TextField, Button } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 
 interface Props {
@@ -17,17 +17,13 @@ interface Props {
 function NuzlockeForm(props: Props) {
   const { nuzlockeId } = useParams();
   const dispatch = useDispatch<AppDispatch>()
-
-  const editMode = nuzlockeId ? true : false;
-  
   const [name, setName] = useState("");
-  const [nameError, setNameError] = useState('');
-
   const [game, setGame] = useState("");
-  const [gameError, setGameError] = useState('');
-
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const [nameError, setNameError] = useState('');
+  const [gameError, setGameError] = useState('');  
+  const editMode = nuzlockeId ? true : false;
 
   useEffect(() => {
     if (nuzlockeId) {
@@ -63,10 +59,8 @@ function NuzlockeForm(props: Props) {
   const validateForm = async () => {
     const nameError = await validateField('name', name);
     const gameError = await validateField('game', game);
-
     setNameError(nameError);
     setGameError(gameError);
-
     return !nameError && !gameError;
   };
 
@@ -91,7 +85,6 @@ function NuzlockeForm(props: Props) {
 
   const HandleSubmitNuzlocke = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const isValid = await validateForm();
 
     if (!isValid) {
@@ -149,7 +142,7 @@ function NuzlockeForm(props: Props) {
       <Card className='main-content-card'>
         <form className="w-100" noValidate onSubmit={HandleSubmitNuzlocke}>
           <Grid container item flexDirection={"column"}>
-            <MultiuseText text="Name"></MultiuseText>
+            <MultiuseText text="Name" />
             <Grid className="form-input-row" container item flexDirection={"row"}>
               <TextField
                 value={name}
@@ -164,7 +157,7 @@ function NuzlockeForm(props: Props) {
                 onChange={HandleNameChange}
               />
             </Grid>
-            <MultiuseText text="Game"></MultiuseText>
+            <MultiuseText text="Game" />
             <Grid className="form-input-row" container item flexDirection={"row"}>
               <TextField
                 value={game}
@@ -179,7 +172,7 @@ function NuzlockeForm(props: Props) {
                 onChange={HandleGameChange}
               />
             </Grid>
-            <MultiuseText text="Description"></MultiuseText>
+            <MultiuseText text="Description" />
             <Grid className="form-input-row" container item flexDirection={"row"}>
               <TextField
                 value={description}

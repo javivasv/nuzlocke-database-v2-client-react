@@ -20,13 +20,15 @@ function PokemonTable(props: Props) {
   const statusFilters = useSelector((state: RootState) => state.filters.statusFilters).filter(filter => filter.on).map(filter => filter.value);
   const obtainedFilters = useSelector((state: RootState) => state.filters.obtainedFilters).filter(filter => filter.on).map(filter => filter.value);
   const pokemonTypeFilters = useSelector((state: RootState) => state.filters.pokemonTypeFilters).filter(filter => filter.on).map(filter => filter.value);
-
   const [search, setSearch] = useState("");
-
   const [filtersAnchorEl, setFiltersAnchorEl] = useState<null | HTMLElement>(null);
-  const openFilters = Boolean(filtersAnchorEl);
-
   const [settingsAnchorEl, setSettingsAnchorEl] = useState<null | HTMLElement>(null);
+  const openFilters = Boolean(filtersAnchorEl);
+  const openSettings = Boolean(settingsAnchorEl);
+
+  const tableContentStyle = {
+    maxHeight: window.innerHeight - 296 + "px",
+  }
 
   const headers = [
     {
@@ -71,6 +73,7 @@ function PokemonTable(props: Props) {
 
   const FilteredPokemon = () => {
     const pokemonList = pokemon.filter(pokemonInst => {
+      // Filter by search word
       if (
         search !== "" &&
         !pokemonInst.nickname.toLowerCase().includes(search) &&
@@ -80,6 +83,7 @@ function PokemonTable(props: Props) {
         return false;
       }
 
+      // Filter by status
       if (statusFilters.length > 0) {
         if (!pokemonInst.fainted && !statusFilters.includes("alive")) {
           return false;
@@ -90,6 +94,7 @@ function PokemonTable(props: Props) {
         }
       }
 
+      // Filter by obtained
       if (
         obtainedFilters.length > 0 &&
         !obtainedFilters.includes(pokemonInst.obtained)
@@ -97,6 +102,7 @@ function PokemonTable(props: Props) {
         return false;
       }
 
+      // Filter by type
       if (
         pokemonTypeFilters.length > 0 &&
         !pokemonTypeFilters.includes(pokemonInst.types.first)
@@ -114,11 +120,6 @@ function PokemonTable(props: Props) {
     })
     
     return pokemonList;
-  }
-  const openSettings = Boolean(settingsAnchorEl);
-
-  const tableContentStyle = {
-    maxHeight: window.innerHeight - 296 + "px",
   }
 
   const HandleSearchChange = (e: SyntheticEvent) => {

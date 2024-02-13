@@ -16,14 +16,12 @@ interface Props {
 }
 
 function PokemonForm(props: Props) {
-  const dispatch = useDispatch<AppDispatch>();
   const { pokemonId } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
-
-  const editMode = pokemonId ? true : false;
-
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+  const editMode = pokemonId ? true : false;
 
   const PokemonName = () =>{
     const pokemon = nuzlocke.pokemon.find(pokemon => pokemon._id === pokemonId);
@@ -77,7 +75,7 @@ function PokemonForm(props: Props) {
         <>
           <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
             <Button color='error' variant="outlined" onClick={HandleShowDeleteDialog}>
-            Delete pokemon
+              Delete pokemon
             </Button>
           </Grid>
           <Divider sx={{ margin: "12px 0" }} />

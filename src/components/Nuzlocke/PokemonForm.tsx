@@ -1,14 +1,14 @@
 import { useState, useEffect, SyntheticEvent, FormEvent } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from 'yup';
 import { AppDispatch, RootState } from "../../store/store";
 import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { fetchPokemon } from "../../store/pokeapi/pokeapiSlice";
 import { addPokemon, updatePokemon } from "../../store/pokemon/pokemonSlice";
 import { showSnackbar } from "../../store/notifications/notificationsSlice";
-import { Grid, Card, TextField, Button, FormControlLabel, Checkbox, Autocomplete, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import { Name, Pokemon, CustomError } from "../../interfaces/interfaces";
+import { Grid, Card, TextField, Button, FormControlLabel, Checkbox, Autocomplete, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import LoadingRow from "../LoadingRow";
 
@@ -20,49 +20,44 @@ interface Props {
 }
 
 function PokemonForm(props: Props) {
-  const { nuzlockeId } = useParams();
-  const { pokemonId } = useParams();
+  const { nuzlockeId, pokemonId } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
   const pokemonList = useSelector((state: RootState) => state.pokeapi.pokemon);
   const abilitiesList = useSelector((state: RootState) => state.pokeapi.abilities);
   const pokemonTypeFilters = useSelector((state: RootState) => state.filters.pokemonTypeFilters);
-  const dispatch = useDispatch<AppDispatch>();
+  const [sprite, setSprite] = useState("");
+  const [normalSpriteUrl, setNormalSpriteUrl] = useState("");
+  const [shinySpriteUrl, setShinySpriteUrl] = useState("");
+  const [shiny, setShiny] = useState(false);
+  const [originalSpecies, setOriginalSpecies] = useState(false);  
+  const [typesFirst, setTypesFirst] = useState("");
+  const [typesSecond, setTypesSecond] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [originalAbility, setOriginalAbility] = useState(false);
+  const [noAbility, setNoAbility] = useState(false);
+  const [location, setLocation] = useState("");
+  const [fainted, setFainted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [loadingPokemonData, setLoadingPokemonData] = useState(false);
+  const [speciesError, setSpeciesError] = useState('');
+  const [locationError, setLocationError] = useState('');
+  const obtainedOptions = ["Caught", "Gifted", "Hatched", "Traded", "Not"]
 
   const defaultSpecies = {
     codedName: "bulbasaur",
     formattedName: "Bulbasaur",
   }
+  const [species, setSpecies] = useState(defaultSpecies);
 
   const defaultAbility = {
     codedName: "overgrow",
     formattedName: "Overgrow",
   }
+  const [ability, setAbility] = useState(defaultAbility);
 
   const defaultObtained = "Caught";
-
-  const obtainedOptions = ["Caught", "Gifted", "Hatched", "Traded", "Not"]
-
-  const [loading, setLoading] = useState(false);
-  const [loadingPokemonData, setLoadingPokemonData] = useState(false);
-
-  const [sprite, setSprite] = useState("");
-  const [normalSpriteUrl, setNormalSpriteUrl] = useState("");
-  const [shinySpriteUrl, setShinySpriteUrl] = useState("");
-  const [shiny, setShiny] = useState(false);
-  const [species, setSpecies] = useState(defaultSpecies);
-  const [originalSpecies, setOriginalSpecies] = useState(false);  
-  const [typesFirst, setTypesFirst] = useState("");
-  const [typesSecond, setTypesSecond] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [ability, setAbility] = useState(defaultAbility);
-  const [originalAbility, setOriginalAbility] = useState(false);
-  const [noAbility, setNoAbility] = useState(false);
-  const [location, setLocation] = useState("");
   const [obtained, setObtained] = useState(defaultObtained);
-  const [fainted, setFainted] = useState(false);
-
-  const [speciesError, setSpeciesError] = useState('');
-  const [locationError, setLocationError] = useState('');
 
   const validationSchema = Yup.object({
     species: Yup.string().required('Species is required'),
@@ -81,10 +76,8 @@ function PokemonForm(props: Props) {
   const validateForm = async () => {
     const speciesError = await validateField('species', species.codedName);
     const locationError = await validateField('location', location);
-
     setSpeciesError(speciesError);
     setLocationError(locationError);
-
     return !speciesError && !locationError;
   };
 
@@ -94,7 +87,6 @@ function PokemonForm(props: Props) {
     } else {
       DefaultPokemon();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -113,10 +105,8 @@ function PokemonForm(props: Props) {
           // Set the sprites URLs (normal and shiny)
           const normalUrl = res.sprites.front_default;
           const shinyUrl = res.sprites.front_shiny;
-
           setNormalSpriteUrl(normalUrl ? normalUrl : "");
           setShinySpriteUrl(shinyUrl ? shinyUrl : "");
-
           SetPokemonToEditData(pokemonToEdit, shinyUrl);
         })
         .catch(() => {
@@ -216,7 +206,7 @@ function PokemonForm(props: Props) {
           setTypesSecond(""); 
         }
 
-        // Set the types of the pokemon
+        // Set the ability of the pokemon
         if (res.abilities && res.abilities[0]) {
           const ability = abilitiesList.find((ability: Name) => ability.codedName === res.abilities[0].ability.name);
 
@@ -356,7 +346,6 @@ function PokemonForm(props: Props) {
 
   const HandleSubmitPokemon = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const isValid = await validateForm();
 
     if (!isValid) {
@@ -433,13 +422,13 @@ function PokemonForm(props: Props) {
               <LoadingRow />
             }
             {
-              (!loadingPokemonData && Boolean(sprite)) &&
+              (!loadingPokemonData && sprite) &&
               <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
                 <img src={sprite} height="150px" />
               </Grid>
             }
             {
-              Boolean(shinySpriteUrl) &&
+              shinySpriteUrl &&
               <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
                 <FormControlLabel control={<Checkbox checked={shiny} color="secondary" disabled={loading} onChange={HandleShinyChange} />} label="Shiny" sx={{ margin: "0" }} />
               </Grid>
@@ -537,7 +526,8 @@ function PokemonForm(props: Props) {
             <MultiuseText text="Ability" />
             <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent="center">
               {
-                !noAbility && (
+                !noAbility &&
+                (
                   <>
                     <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 6 : 12}>
                       {

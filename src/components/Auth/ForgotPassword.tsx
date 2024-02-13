@@ -13,11 +13,9 @@ interface Props {
 
 function ForgotPassword(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
-
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState('');
-
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState('');
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
@@ -34,9 +32,7 @@ function ForgotPassword(props: Props) {
 
   const validateForm = async () => {
     const emailError = await validateField('email', email);
-
     setEmailError(emailError);
-
     return !emailError;
   };
 
@@ -49,7 +45,6 @@ function ForgotPassword(props: Props) {
 
   const HandleForgotPassword = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const isValid = await validateForm();
 
     if (!isValid) {
@@ -76,7 +71,7 @@ function ForgotPassword(props: Props) {
   return (
     <form className="w-100" noValidate onSubmit={HandleForgotPassword}>
       <Grid container item flexDirection={"column"}>
-        <MultiuseText text="Email"></MultiuseText>
+        <MultiuseText text="Email" />
         <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={email}

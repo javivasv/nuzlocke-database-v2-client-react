@@ -10,7 +10,7 @@ function SecondaryContent(props: Props) {
   return (
     <Grid className={props.isMdAndUp ? "" : "only-content-second-half"} container flexDirection={"row"}>
       <Card className='secondary-content-card top-card'>
-        <MultiuseText text="Nuzlocke Basic Rules" justify="center"></MultiuseText>
+        <MultiuseText text="Nuzlocke Basic Rules" justify="center" />
         <CustomCardContent>
           Any Pokémon that faints is considered dead, and must be released
           or put in the Pokémon Storage System permanently (or may be
@@ -29,7 +29,7 @@ function SecondaryContent(props: Props) {
         </CustomCardContent>
       </Card>
       <Card className='secondary-content-card'>
-        <MultiuseText text="Commonly accepted extra rules" justify="center"></MultiuseText>
+        <MultiuseText text="Commonly accepted extra rules" justify="center" />
         <CustomCardContent>
           The two basic rules are not in effect until the player has gained
           their first Poké Balls and thus the ability to catch Pokémon.

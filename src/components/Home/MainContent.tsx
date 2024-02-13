@@ -9,7 +9,6 @@ import Carousel from 'react-material-ui-carousel'
 
 function MainContent() {
   const videos = useSelector((state: RootState) => state.videos.videos);
-
   const [currentVideo, setCurrentVideo] = useState(0);
 
   const HandleChangeVideo = (e: number | undefined) => {
@@ -19,7 +18,7 @@ function MainContent() {
   return (
     <Grid container flexDirection={"row"}>
       <Card className='main-content-card top-card'>
-        <CustomCardHeader title="Welcome to the Nuzlocke DataBase!"></CustomCardHeader>
+        <CustomCardHeader title="Welcome to the Nuzlocke DataBase!" />
         <CustomCardContent>
           Here you can keep track of all of your pokemon nuzlockes. You will be
           able to register a nuzlocke of a preexisting game, a romhack or a
@@ -27,7 +26,7 @@ function MainContent() {
           pokemon you obtain (or not) during the run, as well as change its status
           (alive or fainted), in order to keep it organized and updated.
         </CustomCardContent>
-        <MultiuseText text="What is a nuzlocke?" justify="center"></MultiuseText>
+        <MultiuseText text="What is a nuzlocke?" justify="center" />
         <CustomCardContent>
           A nuzlocke is a set of rules intended to create a higher level of
           difficulty while playing the Pokémon games. Many challengers feel that
@@ -38,7 +37,7 @@ function MainContent() {
         </CustomCardContent>
       </Card>
       <Card className='main-content-card'>
-        <CustomCardHeader title="Relevant Nuzlocke Videos"></CustomCardHeader>
+        <CustomCardHeader title="Relevant Nuzlocke Videos" />
         <Carousel autoPlay={false} onChange={(e) => HandleChangeVideo(e)}>
           {
             videos.map((video, i) => (
@@ -49,7 +48,7 @@ function MainContent() {
                 src={`https://www.youtube.com/embed/${video.url}`}
                 title="video.name"
                 allowFullScreen
-              ></iframe>
+              />
             ))
           }
         </Carousel>

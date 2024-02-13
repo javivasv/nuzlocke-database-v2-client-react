@@ -1,8 +1,8 @@
 import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from "../store/store";
-import { CustomError } from '../interfaces/interfaces';
 import { fetchVideos, setVideos } from '../store/videos/videosSlice';
+import { CustomError } from '../interfaces/interfaces';
 import { Grid } from "@mui/material";
 import MainContent from "../components/Home/MainContent";
 import SecondaryContent from "../components/Home/SecondaryContent";
@@ -47,12 +47,10 @@ function Home(props: Props) {
       }
       {
         !props.isMdAndUp &&
-        <>
-          <Grid className="only-content" container item flexDirection={"column"} xs={12}>
-            <MainContent />
-            <SecondaryContent isMdAndUp={props.isMdAndUp} />
-          </Grid>
-        </>
+        <Grid className="only-content" container item flexDirection={"column"} xs={12}>
+          <MainContent />
+          <SecondaryContent isMdAndUp={props.isMdAndUp} />
+        </Grid>
       }
     </Grid>
   );

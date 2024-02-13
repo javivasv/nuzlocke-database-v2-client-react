@@ -7,7 +7,6 @@ interface Props {
 }
 
 function TabPanel(props: Props) {
-
   return (
     <Grid container flexDirection={"row"} role="tabpanel" hidden={props.value !== props.index}>
       {

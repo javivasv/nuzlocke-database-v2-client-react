@@ -2,9 +2,9 @@ import { useEffect, useState, SyntheticEvent } from 'react';
 import { useLocation } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { RootState } from "../../store/store";
+import { useTheme } from '@mui/material/styles';
 import { useMediaQuery, Grid, Divider, Button, Switch, Avatar } from '@mui/material';
 import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login, Logout } from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
@@ -13,11 +13,10 @@ interface Props {
 }
 
 function Sidebar(props: Props) {
-  const theme = useTheme();
   const location = useLocation();
-  const user = useSelector((state: RootState) => state.auth.user);
+  const theme = useTheme();
   const isLgAndUp = useMediaQuery('(min-width:1280px)');
-
+  const user = useSelector((state: RootState) => state.auth.user);
   const [darkTheme, setDarkTheme] = useState(false);
 
   const sidebarItems = [
@@ -86,7 +85,7 @@ function Sidebar(props: Props) {
     <Grid id="sidebar" container item flexDirection={"column"}>
       <Grid id="title-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
         <h2>
-          {isLgAndUp ? "Nuzlocke DataBase" : "NDB" }
+          { isLgAndUp ? "Nuzlocke DataBase" : "NDB" }
         </h2>
       </Grid>
       <Divider sx={{ margin: "12px 0" }} />
@@ -114,21 +113,21 @@ function Sidebar(props: Props) {
         sidebarItems.map(item => (
           (item.name !== "nuzlockes" || (item.name === "nuzlockes" && user)) &&
           <Grid key={item.name} className={IsSidebarItemActive(item.name) ? 'sidebar-item active' : 'sidebar-item'} container item flexDirection={"row"} justifyContent='center' onClick={() => ChangeView(item.name)}>
-            {ItemIcon(item.name)}
+            { ItemIcon(item.name) }
             { 
               isLgAndUp && 
               <span className='sidebar-item-title'>
-                {item.title}
+                { item.title }
               </span>
             }
           </Grid>
         ))
       }
       <Grid id="title-container" container item flexDirection={"row"} alignItems="center" justifyContent='end'>
-        <Switch checked={darkTheme} onChange={(e) => ChangeTheme(e)}></Switch>
+        <Switch checked={darkTheme} onChange={(e) => ChangeTheme(e)} />
         <DarkMode />
       </Grid>
-      <div className="empty-space"></div>
+      <div className="empty-space" />
       <Grid id="log-button-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
         <Button className="w-100" color='primary' variant="contained" onClick={HandleLog}>
           {

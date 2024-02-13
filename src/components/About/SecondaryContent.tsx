@@ -1,8 +1,8 @@
 import { CustomError } from '../../interfaces/interfaces';
 import { Grid, Card } from "@mui/material";
-import MultiuseText from "../MultiuseText";
 import Feedback from "./Feedback";
 import CustomCardContent from '../CustomCardContent';
+import MultiuseText from "../MultiuseText";
 
 interface Props {
   ValidateError: (e: CustomError) => void;
@@ -32,11 +32,11 @@ function SecondaryContent(props: Props) {
   return (
     <Grid className={props.isMdAndUp ? "" : "only-content-second-half"} container flexDirection={"row"}>
       <Card className='secondary-content-card top-card'>
-        <MultiuseText text="Feedback" justify="center"></MultiuseText>
+        <MultiuseText text="Feedback" justify="center" />
         <Feedback ValidateError={props.ValidateError} />
       </Card>
       <Card className='secondary-content-card'>
-        <MultiuseText text="Contact" justify="center"></MultiuseText>
+        <MultiuseText text="Contact" justify="center" />
         <CustomCardContent>
           {
             websites.map(website => (
@@ -46,7 +46,7 @@ function SecondaryContent(props: Props) {
                   href={website.url}
                   target="_blank"
                 >
-                  {website.name}
+                  { website.name }
                 </a>
               </Grid>
             ))

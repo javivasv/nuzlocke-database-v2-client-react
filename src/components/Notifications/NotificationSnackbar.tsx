@@ -1,14 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from "../../store/store";
-import { Snackbar } from '@mui/material';
-import { AppDispatch } from '../../store/store';
+import { AppDispatch, RootState } from "../../store/store";
 import { hideSnackbar } from '../../store/notifications/notificationsSlice';
+import { Snackbar } from '@mui/material';
 
 function NotificationSnackbar() {
   const dispatch = useDispatch<AppDispatch>();
   const notifications = useSelector((state: RootState) => state.notifications);
 
-  const handleCloseSnackbar = () => {
+  const HandleCloseSnackbar = () => {
     dispatch(hideSnackbar());
   }
 
@@ -25,7 +24,7 @@ function NotificationSnackbar() {
           minWidth: "0px !important"
         }
       }}
-      onClose={handleCloseSnackbar}
+      onClose={HandleCloseSnackbar}
     />
   )
 }

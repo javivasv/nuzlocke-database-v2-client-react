@@ -15,7 +15,6 @@ interface Props {
 
 function Nuzlocke(props: Props) {
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
-
   const [tab, setTab] = useState(0);
 
   const HandleTabChange = (_event: ChangeEvent<unknown>, tab: number) => {
@@ -35,7 +34,7 @@ function Nuzlocke(props: Props) {
             {
               nuzlocke.pokemon.length === 0 && 
               <Grid container item flexDirection={"row"}>
-                <CustomCardHeader title="There are no pokemon registered yet"></CustomCardHeader>
+                <CustomCardHeader title="There are no pokemon registered yet" />
               </Grid>
             }
             {

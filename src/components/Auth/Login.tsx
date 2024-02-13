@@ -14,14 +14,11 @@ interface Props {
 
 function Login(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
-
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState('');
-
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState('');
-
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
@@ -40,10 +37,8 @@ function Login(props: Props) {
   const validateForm = async () => {
     const emailError = await validateField('email', email);
     const passwordError = await validateField('password', password);
-
     setEmailError(emailError);
     setPasswordError(passwordError);
-
     return !emailError && !passwordError;
   };
 
@@ -63,7 +58,6 @@ function Login(props: Props) {
 
   const HandleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const isValid = await validateForm();
 
     if (!isValid) {
@@ -92,7 +86,7 @@ function Login(props: Props) {
   return (
     <form className="w-100" noValidate onSubmit={HandleLogin}>
       <Grid container item flexDirection={"column"}>
-        <MultiuseText text="Email"></MultiuseText>
+        <MultiuseText text="Email" />
         <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={email}
@@ -107,7 +101,7 @@ function Login(props: Props) {
             onChange={HandleEmailChange}
           />
         </Grid>
-        <MultiuseText text="Password"></MultiuseText>
+        <MultiuseText text="Password" />
         <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
           <TextField
             value={password}

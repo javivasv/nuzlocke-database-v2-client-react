@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent, SyntheticEvent } from 'react';
-import { useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { validateResetToken, resetPassword } from '../../store/auth/authSlice';
@@ -24,21 +24,17 @@ function ResetPassword(props: Props) {
       })
       .catch(error => {
         dispatch(showSnackbar(error.msg));
-        setErrorMsg(error);
+        setErrorMsg(error.msg);
       })
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const [email, setEmail] = useState("");
-  
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState('');
-
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [passwordConfirmationError, setPasswordConfirmationError] = useState('');
-
   const [loading, setLoading] = useState(false);
-
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordConfirmationError, setPasswordConfirmationError] = useState('');
   const [errorMsg, setErrorMsg] = useState("");
 
   const validationSchema = Yup.object({
@@ -58,10 +54,8 @@ function ResetPassword(props: Props) {
   const validateForm = async () => {
     const passwordError = await validateField('password', password);
     const passwordConfirmationError = await validateField('passwordConfirmation', passwordConfirmation);
-
     setPasswordError(passwordError);
     setPasswordConfirmationError(passwordConfirmationError);
-
     return !passwordError && !passwordConfirmationError;
   };
 
@@ -80,7 +74,6 @@ function ResetPassword(props: Props) {
 
   const HandleResetPassword = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const isValid = await validateForm();
 
     if (!isValid) {
@@ -111,12 +104,12 @@ function ResetPassword(props: Props) {
       <Grid container item flexDirection={"column"}>
         {
           errorMsg &&
-          <MultiuseText text={errorMsg} justify='center'></MultiuseText>
+          <MultiuseText text={errorMsg} justify='center' />
         }
         {
           !errorMsg &&
           <>
-            <MultiuseText text="Password"></MultiuseText>
+            <MultiuseText text="Password" />
             <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <TextField
                 value={password}
@@ -132,7 +125,7 @@ function ResetPassword(props: Props) {
                 onChange={HandlePasswordChange}
               />
             </Grid>
-            <MultiuseText text="Password confirmation"></MultiuseText>
+            <MultiuseText text="Password confirmation" />
             <Grid className="form-input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
               <TextField
                 value={passwordConfirmation}

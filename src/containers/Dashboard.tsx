@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import { Grid } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
+import { Grid } from "@mui/material";
 import Sidebar from '../components/Dashboard/Sidebar';
 
 interface Props {

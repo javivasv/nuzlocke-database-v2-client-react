@@ -8,7 +8,7 @@ function CustomCardHeader(props: Props) {
   return (
     <Grid className="custom-card-header" container flexDirection={"row"} justifyContent="center">
       <span className="custom-card-header-text">
-        {props.title}
+        { props.title }
       </span>
     </Grid>
   );

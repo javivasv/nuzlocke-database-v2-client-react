@@ -14,7 +14,6 @@ function NuzlockeContainer(props: Props) {
   const { nuzlockeId } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

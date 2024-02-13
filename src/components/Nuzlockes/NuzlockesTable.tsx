@@ -1,7 +1,7 @@
 import { useState, SyntheticEvent } from "react";
 import { useSelector } from "react-redux";
-import { Nuzlocke } from "../../interfaces/interfaces";
 import { RootState } from "../../store/store";
+import { Nuzlocke } from "../../interfaces/interfaces";
 import { Grid, TextField, InputAdornment } from "@mui/material";
 import { Search } from '@mui/icons-material';
 import NuzlockeRow from "./NuzlockeRow";
@@ -14,6 +14,10 @@ interface Props {
 function NuzlockesTable(props: Props) {
   const nuzlockes = useSelector((state: RootState) => state.nuzlockes.nuzlockes);
   const [search, setSearch] = useState("");
+
+  const tableContentStyle = {
+    maxHeight: window.innerHeight - 172 + "px",
+  }
 
   const headers = [
     {
@@ -43,10 +47,6 @@ function NuzlockesTable(props: Props) {
         nuzlocke.name.toLowerCase().includes(search) ||
         nuzlocke.game.toLowerCase().includes(search)
     );
-  }
-
-  const tableContentStyle = {
-    maxHeight: window.innerHeight - 172 + "px",
   }
 
   const HandleSearchChange = (e: SyntheticEvent) => {

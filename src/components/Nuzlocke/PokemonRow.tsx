@@ -20,9 +20,8 @@ function PokemonRow(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
   const showAsObtained = useSelector((state: RootState) => state.settings.settings[0].on);
-
-  const [loading, setLoading] = useState(false);
   const [statusButtonHover, setStatusButtonHover] = useState(false);
+  const [loading, setLoading] = useState(false);
   
   const PokemonRowClassName = () => {
     let className = "table-row";
@@ -147,11 +146,11 @@ function PokemonRow(props: Props) {
         </Grid>
         <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
           {
-            Boolean(Type("first")) &&
+            Type("first") &&
             <PokemonType type={Type("first")} />
           }
           {
-            Boolean(Type("second")) &&
+            Type("second") &&
             <PokemonType type={Type("second")} />
           }
         </Grid>

@@ -44,7 +44,9 @@ function SecondaryContent(props: Props) {
   return (
     <Grid className={props.isMdAndUp ? "" : "only-content-second-half"} container flexDirection={"row"}>
       <InfoActionsCard>
-        { InfoActionCard() }
+        {
+          InfoActionCard()
+        }
       </InfoActionsCard>
     </Grid>
   );
