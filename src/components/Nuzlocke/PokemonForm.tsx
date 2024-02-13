@@ -94,6 +94,7 @@ function PokemonForm(props: Props) {
     const pokemonToEdit = nuzlocke.pokemon.find(pokemon => pokemon._id === pokemonId);
 
     if (!pokemonToEdit) {
+      props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
       return;
     }
 
