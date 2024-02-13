@@ -10,14 +10,14 @@ import { useMediaQuery } from "@mui/material";
 import './App.css'
 import Dashboard from "./containers/Dashboard";
 import Home from "./containers/Home";
-import NuzlockesContainer from "./containers/NuzlockesContainer";
+import NuzlockesLayout from "./containers/NuzlockesLayout";
 import About from "./containers/About";
 import Auth from "./containers/Auth";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import ResetPassword from "./components/Auth/ResetPassword";
-import Nuzlockes from "./components/Nuzlockes/Nuzlockes";
+import NuzlockesContainer from './containers/NuzlockesContainer';
 import NuzlockeForm from "./components/Nuzlocke/NuzlockeForm";
 import Nuzlocke from "./components/Nuzlocke/Nuzlocke";
 import NuzlockeContainer from './containers/NuzlockeContainer';
@@ -77,8 +77,8 @@ function AppRoutes(props: Props) {
     <Routes>
       <Route element={<Dashboard ToggleTheme={props.ToggleTheme} GoTo={GoTo} Logout={Logout} />}>
         <Route index path="home" element={<Home ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
-        <Route path="nuzlockes" element={<NuzlockesContainer ValidateError={ValidateError} GoTo={GoTo} isMdAndUp={isMdAndUp} />}>
-          <Route index path="" element={<Nuzlockes ValidateError={ValidateError} GoTo={GoTo} />} />
+        <Route path="nuzlockes" element={<NuzlockesLayout ValidateError={ValidateError} GoTo={GoTo} isMdAndUp={isMdAndUp} />}>
+          <Route index path="" element={<NuzlockesContainer ValidateError={ValidateError} GoTo={GoTo} />} />
           <Route path="nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} GoTo={GoTo} />} />
           <Route path="nuzlocke" element={<NuzlockeContainer ValidateError={ValidateError} />}>
             <Route path=":nuzlockeId/nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} GoTo={GoTo} />} />

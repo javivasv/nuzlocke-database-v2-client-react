@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { fetchNuzlocke, setNuzlocke } from "../store/nuzlockes/nuzlockesSlice";
 import { CustomError } from "../interfaces/interfaces";
+import LoadingRow from '../components/LoadingRow';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
@@ -14,10 +15,10 @@ function NuzlockeContainer(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
 
-  //const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    //setLoading(true);
+    setLoading(true);
 
     if (nuzlockeId) {
       dispatch(fetchNuzlocke(nuzlockeId!))
@@ -29,18 +30,26 @@ function NuzlockeContainer(props: Props) {
           props.ValidateError(error);
         })
         .finally(() => {
-          //setLoading(false);
+          setLoading(false);
         });
     } else {
-      //setLoading(false);
+      setLoading(false);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    nuzlocke &&
-    <Outlet />
+    <>
+      {
+        loading &&
+        <LoadingRow />
+      }
+      {
+        (!loading && nuzlocke) &&
+        <Outlet />
+      }
+    </>
   );
 }
   

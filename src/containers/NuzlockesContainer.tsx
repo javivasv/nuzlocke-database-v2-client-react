@@ -1,38 +1,53 @@
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../store/store';
+import { fetchNuzlockes, setNuzlockes } from '../store/nuzlockes/nuzlockesSlice';
 import { CustomError } from "../interfaces/interfaces";
-import { Grid } from "@mui/material";
-import MainContent from "../components/Nuzlockes/MainContent";
-import SecondaryContent from "../components/Nuzlockes/SecondaryContent";
+import LoadingRow from '../components/LoadingRow';
+import Nuzlockes from '../components/Nuzlockes/Nuzlockes';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
   GoTo: (e: string) => void;
-  isMdAndUp: boolean;
 }
 
 function NuzlockesContainer(props: Props) {
+  const dispatch = useDispatch<AppDispatch>();
+  const nuzlockes = useSelector((state: RootState) => state.nuzlockes.nuzlockes);
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (nuzlockes.length === 0) {
+      setLoading(true);
+
+      dispatch(fetchNuzlockes())
+        .unwrap()
+        .then(res => {
+          dispatch(setNuzlockes(res.nuzlockes));
+        })
+        .catch(error => {
+          props.ValidateError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <Grid className="h-100 w-100" container flexDirection={"row"}>
+    <>
       {
-        props.isMdAndUp &&
-        <>
-          <Grid className="main-content" container item flexDirection={"column"} xs={8}>
-            <MainContent GoTo={props.GoTo} />
-          </Grid>
-          <Grid className="secondary-content" container item flexDirection={"column"} xs={4}>
-            <SecondaryContent ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
-          </Grid>
-        </>
+        loading &&
+        <LoadingRow />
       }
       {
-        !props.isMdAndUp &&
-        <>
-          <Grid className="only-content" container item flexDirection={"column"} xs={12}>
-            <MainContent GoTo={props.GoTo} />
-            <SecondaryContent ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
-          </Grid>
-        </>
+        (!loading && nuzlockes) &&
+        <Nuzlockes GoTo={props.GoTo} />
       }
-    </Grid>
+    </>
   );
 }
   

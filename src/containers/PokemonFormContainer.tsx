@@ -6,6 +6,7 @@ import { fetchPokemonList, fetchAbilitiesList, setPokemonList, setAbilitiesList 
 import { showSnackbar } from '../store/notifications/notificationsSlice';
 import { CustomError } from "../interfaces/interfaces";
 import PokemonForm from '../components/Nuzlocke/PokemonForm';
+import LoadingRow from '../components/LoadingRow';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
@@ -73,8 +74,17 @@ function PokemonFormContainer(props: Props) {
   }
 
   return (
-    (!loadingPokemonAbilities && !loadingPokemonList) &&
-    <PokemonForm ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} editMode={editMode} />
+    <>
+      {
+        (loadingPokemonAbilities || loadingPokemonList) &&
+        <LoadingRow />
+      }
+      {
+        (!loadingPokemonAbilities && !loadingPokemonList) &&
+        <PokemonForm ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} editMode={editMode} />    
+      }
+    </>
+    
   );
 }
   
