@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { AppDispatch, RootState } from "../../store/store";
 import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { fetchPokemon } from "../../store/pokeapi/pokeapiSlice";
-import { addPokemon } from "../../store/pokemon/pokemonSlice";
+import { addPokemon, updatePokemon } from "../../store/pokemon/pokemonSlice";
 import { showSnackbar } from "../../store/notifications/notificationsSlice";
 import { Grid, Card, TextField, Button, FormControlLabel, Checkbox, Autocomplete, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import { Name, Pokemon, CustomError } from "../../interfaces/interfaces";
@@ -59,7 +59,7 @@ function PokemonForm(props: Props) {
   const [noAbility, setNoAbility] = useState(false);
   const [location, setLocation] = useState("");
   const [obtained, setObtained] = useState(defaultObtained);
-  //const [fainted, setFainted] = useState(false);
+  const [fainted, setFainted] = useState(false);
 
   const [speciesError, setSpeciesError] = useState('');
   const [locationError, setLocationError] = useState('');
@@ -175,6 +175,9 @@ function PokemonForm(props: Props) {
     // Set obtained
     const toEditObtained = obtainedOptions.find((option) => option.toLowerCase() === pokemonToEdit.obtained) || pokemonToEdit.obtained;
     setObtained(toEditObtained);
+
+    // Set fainted
+    setFainted(pokemonToEdit.fainted);
   }
 
   const DefaultPokemon = () => {
@@ -371,7 +374,7 @@ function PokemonForm(props: Props) {
         location,
         obtained: obtained.toLowerCase(),
         sprite,
-        fainted: false,
+        fainted,
         types: {
           first: typesFirst.toLowerCase(),
           second: typesSecond.toLowerCase(),
@@ -385,7 +388,24 @@ function PokemonForm(props: Props) {
     }
 
     if (props.editMode) {
-      console.log("EDIT MODE");
+      const editData = {
+        ...data,
+        pokemonId: pokemonId!,
+      }
+
+      dispatch(updatePokemon(editData))
+        .unwrap()
+        .then(res => {
+          dispatch(setNuzlocke(res.nuzlocke));
+          dispatch(showSnackbar(res.msg));
+          props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+        })
+        .catch(error => {
+          props.ValidateError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     } else {
       dispatch(addPokemon(data))
         .unwrap()

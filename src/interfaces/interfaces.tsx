@@ -150,6 +150,12 @@ export interface DeletePokemonData {
   pokemonId: string;
 }
 
+export interface UpdatePokemonData {
+  nuzlockeId: string;
+  pokemonId: string;
+  pokemon: Pokemon;
+}
+
 export interface CustomError extends SerializedError {
   msg?: string;
   status?: number;
