@@ -1,11 +1,11 @@
 import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useValidateError from '../../customHooks/useValidateError';
 import { AppDispatch, RootState } from '../../store/store';
 import { sendFeedback } from '../../store/suggestions/suggestionsSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Grid, TextField, Button } from "@mui/material";
 import MultiuseText from "../MultiuseText";
-import useValidateError from '../../customHooks/useValidateError';
 
 function Feedback() {
   const dispatch = useDispatch<AppDispatch>()

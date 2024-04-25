@@ -1,7 +1,7 @@
+import useGoTo from '../../customHooks/useGoTo';
 import { Nuzlocke } from "../../interfaces/interfaces";
 import { Grid } from "@mui/material";
 import { Flag, Done, Close } from '@mui/icons-material';
-import useGoTo from '../../customHooks/useGoTo';
 
 interface Props {
   nuzlocke: Nuzlocke;

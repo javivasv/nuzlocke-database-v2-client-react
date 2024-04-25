@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import useGoTo from '../../customHooks/useGoTo';
+import useValidateError from '../../customHooks/useValidateError';
 import { RootState, AppDispatch } from "../../store/store";
 import { deleteNuzlocke, updateNuzlocke, fetchNuzlockes, setNuzlockes, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { showSnackbar } from "../../store/notifications/notificationsSlice";
@@ -7,8 +9,6 @@ import { Grid, Button, Divider } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import DeleteDialog from "../DeleteDialog";
 import CustomCardContent from "../CustomCardContent";
-import useGoTo from '../../customHooks/useGoTo';
-import useValidateError from '../../customHooks/useValidateError';
 
 function Nuzlocke() {
   const dispatch = useDispatch<AppDispatch>();

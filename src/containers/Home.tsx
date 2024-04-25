@@ -1,11 +1,11 @@
 import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useValidateError from '../customHooks/useValidateError';
 import { AppDispatch, RootState } from "../store/store";
 import { fetchVideos, setVideos } from '../store/videos/videosSlice';
 import { Grid } from "@mui/material";
 import MainContent from "../components/Home/MainContent";
 import SecondaryContent from "../components/Home/SecondaryContent";
-import useValidateError from '../customHooks/useValidateError';
 
 interface Props {
   isMdAndUp: boolean;

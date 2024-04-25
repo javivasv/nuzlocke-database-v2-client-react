@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useValidateError from '../customHooks/useValidateError';
 import { AppDispatch, RootState } from '../store/store';
 import { fetchNuzlockes, setNuzlockes } from '../store/nuzlockes/nuzlockesSlice';
 import LoadingRow from '../components/LoadingRow';
 import Nuzlockes from '../components/Nuzlockes/Nuzlockes';
-import useValidateError from '../customHooks/useValidateError';
 
 function NuzlockesContainer() {
   const dispatch = useDispatch<AppDispatch>();

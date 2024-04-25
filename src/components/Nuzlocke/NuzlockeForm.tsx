@@ -1,14 +1,14 @@
 import { useState, useEffect, SyntheticEvent, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import useGoTo from '../../customHooks/useGoTo';
+import useValidateError from '../../customHooks/useValidateError';
 import * as Yup from 'yup';
 import { AppDispatch } from "../../store/store";
 import { fetchNuzlocke, createNuzlocke, updateNuzlocke, setNuzlockes, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Grid, Card, TextField, Button } from "@mui/material";
 import MultiuseText from "../MultiuseText";
-import useGoTo from '../../customHooks/useGoTo';
-import useValidateError from '../../customHooks/useValidateError';
 
 function NuzlockeForm() {
   const { nuzlockeId } = useParams();

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import useValidateError from '../customHooks/useValidateError';
 import { AppDispatch, RootState } from "../store/store";
 import { fetchNuzlocke, setNuzlocke } from "../store/nuzlockes/nuzlockesSlice";
 import LoadingRow from '../components/LoadingRow';
-import useValidateError from '../customHooks/useValidateError';
 
 function NuzlockeContainer() {
   const { nuzlockeId } = useParams();

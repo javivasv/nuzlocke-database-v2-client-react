@@ -1,13 +1,13 @@
 
 import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
+import useGoTo from '../../customHooks/useGoTo';
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { login, setUser } from '../../store/auth/authSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
-import useGoTo from '../../customHooks/useGoTo';
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>();

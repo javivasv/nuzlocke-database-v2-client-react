@@ -1,7 +1,7 @@
 import { useLocation, useParams, Outlet } from 'react-router-dom';
+import useGoTo from '../../customHooks/useGoTo';
 import { Grid, IconButton } from "@mui/material";
 import { ArrowBack } from '@mui/icons-material';
-import useGoTo from '../../customHooks/useGoTo';
 
 function MainContent() {
   const location = useLocation();

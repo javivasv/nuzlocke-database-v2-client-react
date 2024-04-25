@@ -1,12 +1,12 @@
 import { useEffect, useState, SyntheticEvent } from 'react';
 import { useLocation } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import useGoTo from '../../customHooks/useGoTo';
+import useLogout from '../../customHooks/useLogout';
 import { RootState } from "../../store/store";
 import { useTheme } from '@mui/material/styles';
 import { useMediaQuery, Grid, Divider, Button, Switch, Avatar } from '@mui/material';
 import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login, Logout } from '@mui/icons-material';
-import useGoTo from '../../customHooks/useGoTo';
-import useLogout from '../../customHooks/useLogout';
 
 interface Props {
   ToggleTheme: (e: boolean) => void;

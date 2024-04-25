@@ -1,5 +1,7 @@
 import { useState, MouseEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import useGoTo from '../../customHooks/useGoTo';
+import useValidateError from '../../customHooks/useValidateError';
 import { AppDispatch, RootState } from "../../store/store";
 import { updatePokemon } from "../../store/pokemon/pokemonSlice";
 import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
@@ -8,8 +10,6 @@ import { Pokemon, PokemonTypes } from "../../interfaces/interfaces";
 import { Grid, IconButton } from "@mui/material";
 import { CatchingPokemon, CardGiftcard, Egg, SyncAlt, Block, Favorite, HeartBroken } from '@mui/icons-material';
 import PokemonType from "../PokemonType";
-import useGoTo from '../../customHooks/useGoTo';
-import useValidateError from '../../customHooks/useValidateError';
 
 interface Props {
   isMdAndUp: boolean;

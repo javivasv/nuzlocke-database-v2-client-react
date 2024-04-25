@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import useGoTo from '../../customHooks/useGoTo';
+import useValidateError from '../../customHooks/useValidateError';
 import { RootState, AppDispatch } from "../../store/store";
 import { deletePokemon } from "../../store/pokemon/pokemonSlice";
 import { fetchNuzlocke, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
@@ -8,8 +10,6 @@ import { showSnackbar } from "../../store/notifications/notificationsSlice";
 import { Grid, Divider, Button } from "@mui/material";
 import DeleteDialog from "../DeleteDialog";
 import CustomCardContent from "../CustomCardContent";
-import useGoTo from '../../customHooks/useGoTo';
-import useValidateError from '../../customHooks/useValidateError';
 
 function PokemonForm() {
   const { pokemonId } = useParams();

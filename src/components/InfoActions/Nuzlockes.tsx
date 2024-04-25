@@ -1,7 +1,7 @@
+import useGoTo from '../../customHooks/useGoTo';
 import { Grid, Button, Divider } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import CustomCardContent from "../CustomCardContent";
-import useGoTo from '../../customHooks/useGoTo';
 
 function Nuzlockes() {
   const goTo = useGoTo();

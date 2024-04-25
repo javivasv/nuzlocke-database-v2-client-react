@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import useValidateError from './customHooks/useValidateError';
 import { AppDispatch, RootState } from "./store/store";
 import { validateSession, setUser } from './store/auth/authSlice';
 import { showSnackbar } from './store/notifications/notificationsSlice';
@@ -19,7 +20,6 @@ import NuzlockeForm from "./components/Nuzlocke/NuzlockeForm";
 import Nuzlocke from "./components/Nuzlocke/Nuzlocke";
 import NuzlockeContainer from './containers/NuzlockeContainer';
 import PokemonFormContainer from './containers/PokemonFormContainer';
-import useValidateError from './customHooks/useValidateError';
 
 interface Props {
   ToggleTheme: (e: boolean) => void;

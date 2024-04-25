@@ -1,6 +1,8 @@
 import { useState, useEffect, SyntheticEvent, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import useGoTo from '../../customHooks/useGoTo';
+import useValidateError from '../../customHooks/useValidateError';
 import * as Yup from 'yup';
 import { AppDispatch, RootState } from "../../store/store";
 import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
@@ -11,8 +13,6 @@ import { Name, Pokemon } from "../../interfaces/interfaces";
 import { Grid, Card, TextField, Button, FormControlLabel, Checkbox, Autocomplete, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import LoadingRow from "../LoadingRow";
-import useGoTo from '../../customHooks/useGoTo';
-import useValidateError from '../../customHooks/useValidateError';
 
 interface Props {
   isMdAndUp: boolean;
