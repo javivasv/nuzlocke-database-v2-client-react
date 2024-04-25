@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from "./store/store";
 import { validateSession, setUser } from './store/auth/authSlice';
-import { setNuzlockes } from './store/nuzlockes/nuzlockesSlice';
 import { showSnackbar } from './store/notifications/notificationsSlice';
 import { useMediaQuery } from "@mui/material";
 import Dashboard from "./containers/Dashboard";
@@ -20,7 +19,6 @@ import NuzlockeForm from "./components/Nuzlocke/NuzlockeForm";
 import Nuzlocke from "./components/Nuzlocke/Nuzlocke";
 import NuzlockeContainer from './containers/NuzlockeContainer';
 import PokemonFormContainer from './containers/PokemonFormContainer';
-import useGoTo from './customHooks/useGoTo';
 import useValidateError from './customHooks/useValidateError';
 
 interface Props {
@@ -31,7 +29,6 @@ function AppRoutes(props: Props) {
   const isMdAndUp = useMediaQuery('(min-width:960px)');
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
-  const goTo = useGoTo();
   const validateError = useValidateError();
 
   useEffect(() => {
@@ -47,16 +44,9 @@ function AppRoutes(props: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const Logout = () => {
-    window.localStorage.removeItem("ndb_token");
-    dispatch(setUser(null));
-    dispatch(setNuzlockes([]));
-    goTo("home");
-  }
-
   return (
     <Routes>
-      <Route element={<Dashboard ToggleTheme={props.ToggleTheme} Logout={Logout} />}>
+      <Route element={<Dashboard ToggleTheme={props.ToggleTheme} />}>
         <Route index path="home" element={<Home isMdAndUp={isMdAndUp} />} />
         <Route path="nuzlockes" element={<NuzlockesLayout isMdAndUp={isMdAndUp} />}>
           <Route index path="" element={<NuzlockesContainer />} />

@@ -6,10 +6,10 @@ import { useTheme } from '@mui/material/styles';
 import { useMediaQuery, Grid, Divider, Button, Switch, Avatar } from '@mui/material';
 import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login, Logout } from '@mui/icons-material';
 import useGoTo from '../../customHooks/useGoTo';
+import useLogout from '../../customHooks/useLogout';
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
-  Logout: () => void;
 }
 
 function Sidebar(props: Props) {
@@ -19,6 +19,7 @@ function Sidebar(props: Props) {
   const user = useSelector((state: RootState) => state.auth.user);
   const [darkTheme, setDarkTheme] = useState(false);
   const goTo = useGoTo();
+  const logout = useLogout();
 
   const sidebarItems = [
     {
@@ -75,7 +76,7 @@ function Sidebar(props: Props) {
 
   const HandleLog = () => {
     if (user) {
-      props.Logout();
+      logout();
       goTo("home")
     } else {
       goTo("login")
