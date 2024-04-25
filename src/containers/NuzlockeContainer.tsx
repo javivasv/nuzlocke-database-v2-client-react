@@ -3,18 +3,15 @@ import { useParams, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { fetchNuzlocke, setNuzlocke } from "../store/nuzlockes/nuzlockesSlice";
-import { CustomError } from "../interfaces/interfaces";
 import LoadingRow from '../components/LoadingRow';
+import useValidateError from '../customHooks/useValidateError';
 
-interface Props {
-  ValidateError: (e: CustomError) => void;
-}
-
-function NuzlockeContainer(props: Props) {
+function NuzlockeContainer() {
   const { nuzlockeId } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
   const [loading, setLoading] = useState(false);
+  const validateError = useValidateError();
 
   useEffect(() => {
     setLoading(true);
@@ -26,7 +23,7 @@ function NuzlockeContainer(props: Props) {
           dispatch(setNuzlocke(res.nuzlocke));
         })
         .catch(error => {
-          props.ValidateError(error);
+          validateError(error);
         })
         .finally(() => {
           setLoading(false);

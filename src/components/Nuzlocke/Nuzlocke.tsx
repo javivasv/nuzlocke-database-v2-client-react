@@ -1,14 +1,12 @@
 import { useState, ChangeEvent } from 'react';
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { CustomError } from '../../interfaces/interfaces';
 import { Grid, Card, Tabs, Tab } from "@mui/material";
 import CustomCardHeader from '../CustomCardHeader';
 import PokemonTable from './PokemonTable';
 import TabPanel from './TabPanel';
 
 interface Props {
-  ValidateError: (e: CustomError) => void;
   isMdAndUp: boolean;
 }
 
@@ -39,7 +37,7 @@ function Nuzlocke(props: Props) {
             {
               nuzlocke.pokemon.length > 0 &&
               <TabPanel value={tab} index={0}>
-                <PokemonTable ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} />
+                <PokemonTable isMdAndUp={props.isMdAndUp} />
               </TabPanel>
             }             
           </Grid>

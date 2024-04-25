@@ -7,14 +7,14 @@ import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { fetchPokemon } from "../../store/pokeapi/pokeapiSlice";
 import { addPokemon, updatePokemon } from "../../store/pokemon/pokemonSlice";
 import { showSnackbar } from "../../store/notifications/notificationsSlice";
-import { Name, Pokemon, CustomError } from "../../interfaces/interfaces";
+import { Name, Pokemon } from "../../interfaces/interfaces";
 import { Grid, Card, TextField, Button, FormControlLabel, Checkbox, Autocomplete, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import LoadingRow from "../LoadingRow";
 import useGoTo from '../../customHooks/useGoTo';
+import useValidateError from '../../customHooks/useValidateError';
 
 interface Props {
-  ValidateError: (e: CustomError) => void;
   isMdAndUp: boolean;
   editMode: boolean;
 }
@@ -43,6 +43,7 @@ function PokemonForm(props: Props) {
   const [speciesError, setSpeciesError] = useState('');
   const [locationError, setLocationError] = useState('');
   const goTo = useGoTo();
+  const validateError = useValidateError();
   const obtainedOptions = ["Caught", "Gifted", "Hatched", "Traded", "Not"]
 
   const defaultSpecies = {
@@ -392,7 +393,7 @@ function PokemonForm(props: Props) {
           goTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
         })
         .catch(error => {
-          props.ValidateError(error);
+          validateError(error);
         })
         .finally(() => {
           setLoading(false);
@@ -406,7 +407,7 @@ function PokemonForm(props: Props) {
           goTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
         })
         .catch(error => {
-          props.ValidateError(error);
+          validateError(error);
         })
         .finally(() => {
           setLoading(false);

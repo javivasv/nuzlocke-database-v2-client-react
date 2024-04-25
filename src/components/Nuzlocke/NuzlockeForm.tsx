@@ -5,16 +5,12 @@ import * as Yup from 'yup';
 import { AppDispatch } from "../../store/store";
 import { fetchNuzlocke, createNuzlocke, updateNuzlocke, setNuzlockes, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
-import { CustomError } from "../../interfaces/interfaces";
 import { Grid, Card, TextField, Button } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import useGoTo from '../../customHooks/useGoTo';
+import useValidateError from '../../customHooks/useValidateError';
 
-interface Props {
-  ValidateError: (e: CustomError) => void;
-}
-
-function NuzlockeForm(props: Props) {
+function NuzlockeForm() {
   const { nuzlockeId } = useParams();
   const dispatch = useDispatch<AppDispatch>()
   const [name, setName] = useState("");
@@ -24,6 +20,7 @@ function NuzlockeForm(props: Props) {
   const [nameError, setNameError] = useState('');
   const [gameError, setGameError] = useState('');
   const goTo = useGoTo();
+  const validateError = useValidateError();
   const editMode = nuzlockeId ? true : false;
 
   useEffect(() => {
@@ -37,7 +34,7 @@ function NuzlockeForm(props: Props) {
           setDescription(res.nuzlocke.description);
         })
         .catch(error => {
-          props.ValidateError(error);
+          validateError(error);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -116,7 +113,7 @@ function NuzlockeForm(props: Props) {
           goTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
         })
         .catch(error => {
-          props.ValidateError(error);
+          validateError(error);
         })
         .finally(() => {
           setLoading(false);
@@ -130,7 +127,7 @@ function NuzlockeForm(props: Props) {
           goTo("nuzlockes");
         })
         .catch(error => {
-          props.ValidateError(error);
+          validateError(error);
         })
         .finally(() => {
           setLoading(false);

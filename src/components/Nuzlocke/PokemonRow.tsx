@@ -4,14 +4,14 @@ import { AppDispatch, RootState } from "../../store/store";
 import { updatePokemon } from "../../store/pokemon/pokemonSlice";
 import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { showSnackbar } from "../../store/notifications/notificationsSlice";
-import { Pokemon, PokemonTypes, CustomError } from "../../interfaces/interfaces";
+import { Pokemon, PokemonTypes } from "../../interfaces/interfaces";
 import { Grid, IconButton } from "@mui/material";
 import { CatchingPokemon, CardGiftcard, Egg, SyncAlt, Block, Favorite, HeartBroken } from '@mui/icons-material';
 import PokemonType from "../PokemonType";
 import useGoTo from '../../customHooks/useGoTo';
+import useValidateError from '../../customHooks/useValidateError';
 
 interface Props {
-  ValidateError: (e: CustomError) => void;
   isMdAndUp: boolean;
   pokemon: Pokemon;
 }
@@ -23,6 +23,7 @@ function PokemonRow(props: Props) {
   const [statusButtonHover, setStatusButtonHover] = useState(false);
   const [loading, setLoading] = useState(false);
   const goTo = useGoTo();
+  const validateError = useValidateError();
   
   const PokemonRowClassName = () => {
     let className = "table-row";
@@ -124,7 +125,7 @@ function PokemonRow(props: Props) {
         dispatch(showSnackbar(res.msg));
       })
       .catch(error => {
-        props.ValidateError(error);
+        validateError(error);
       })
       .finally(() => {
         setLoading(false);

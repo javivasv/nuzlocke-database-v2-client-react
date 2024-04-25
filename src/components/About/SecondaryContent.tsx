@@ -1,11 +1,9 @@
-import { CustomError } from '../../interfaces/interfaces';
 import { Grid, Card } from "@mui/material";
 import Feedback from "./Feedback";
 import CustomCardContent from '../CustomCardContent';
 import MultiuseText from "../MultiuseText";
 
 interface Props {
-  ValidateError: (e: CustomError) => void;
   isMdAndUp: boolean;
 }
 
@@ -33,7 +31,7 @@ function SecondaryContent(props: Props) {
     <Grid className={props.isMdAndUp ? "" : "only-content-second-half"} container flexDirection={"row"}>
       <Card className='secondary-content-card top-card'>
         <MultiuseText text="Feedback" justify="center" />
-        <Feedback ValidateError={props.ValidateError} />
+        <Feedback />
       </Card>
       <Card className='secondary-content-card'>
         <MultiuseText text="Contact" justify="center" />

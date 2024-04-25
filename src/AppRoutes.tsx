@@ -5,7 +5,6 @@ import { AppDispatch, RootState } from "./store/store";
 import { validateSession, setUser } from './store/auth/authSlice';
 import { setNuzlockes } from './store/nuzlockes/nuzlockesSlice';
 import { showSnackbar } from './store/notifications/notificationsSlice';
-import { CustomError } from './interfaces/interfaces';
 import { useMediaQuery } from "@mui/material";
 import Dashboard from "./containers/Dashboard";
 import Home from "./containers/Home";
@@ -22,6 +21,7 @@ import Nuzlocke from "./components/Nuzlocke/Nuzlocke";
 import NuzlockeContainer from './containers/NuzlockeContainer';
 import PokemonFormContainer from './containers/PokemonFormContainer';
 import useGoTo from './customHooks/useGoTo';
+import useValidateError from './customHooks/useValidateError';
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
@@ -32,6 +32,7 @@ function AppRoutes(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
   const goTo = useGoTo();
+  const validateError = useValidateError();
 
   useEffect(() => {
     dispatch(validateSession())
@@ -41,7 +42,7 @@ function AppRoutes(props: Props) {
       })
       .catch(error => {
         dispatch(showSnackbar(error.msg));
-        ValidateError(error);
+        validateError(error);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -53,37 +54,21 @@ function AppRoutes(props: Props) {
     goTo("home");
   }
 
-  const ValidateError = (error: CustomError) => {
-    if (!error.status || !error.msg) {
-      return;
-    }
-
-    if (
-      error.status === 401 ||
-      error.status === 403 ||
-      error.status === 404
-    ) {
-      Logout();
-    }
-
-    dispatch(showSnackbar(error.msg));
-  }
-
   return (
     <Routes>
       <Route element={<Dashboard ToggleTheme={props.ToggleTheme} Logout={Logout} />}>
-        <Route index path="home" element={<Home ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
-        <Route path="nuzlockes" element={<NuzlockesLayout ValidateError={ValidateError} isMdAndUp={isMdAndUp} />}>
-          <Route index path="" element={<NuzlockesContainer ValidateError={ValidateError} />} />
-          <Route path="nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} />} />
-          <Route path="nuzlocke" element={<NuzlockeContainer ValidateError={ValidateError} />}>
-            <Route path=":nuzlockeId/nuzlocke-form" element={<NuzlockeForm ValidateError={ValidateError} />} />
-            <Route path=":nuzlockeId" element={<Nuzlocke ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
-            <Route path=":nuzlockeId/pokemon-form" element={<PokemonFormContainer ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
-            <Route path=":nuzlockeId/pokemon/:pokemonId" element={<PokemonFormContainer ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
+        <Route index path="home" element={<Home isMdAndUp={isMdAndUp} />} />
+        <Route path="nuzlockes" element={<NuzlockesLayout isMdAndUp={isMdAndUp} />}>
+          <Route index path="" element={<NuzlockesContainer />} />
+          <Route path="nuzlocke-form" element={<NuzlockeForm />} />
+          <Route path="nuzlocke" element={<NuzlockeContainer />}>
+            <Route path=":nuzlockeId/nuzlocke-form" element={<NuzlockeForm />} />
+            <Route path=":nuzlockeId" element={<Nuzlocke isMdAndUp={isMdAndUp} />} />
+            <Route path=":nuzlockeId/pokemon-form" element={<PokemonFormContainer isMdAndUp={isMdAndUp} />} />
+            <Route path=":nuzlockeId/pokemon/:pokemonId" element={<PokemonFormContainer isMdAndUp={isMdAndUp} />} />
           </Route>
         </Route>
-        <Route path="about" element={<About ValidateError={ValidateError} isMdAndUp={isMdAndUp} />} />
+        <Route path="about" element={<About isMdAndUp={isMdAndUp} />} />
       </Route>
       {!user && 
         <Route element={<Auth />}>

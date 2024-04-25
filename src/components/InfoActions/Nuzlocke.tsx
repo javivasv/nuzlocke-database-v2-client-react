@@ -3,23 +3,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 import { deleteNuzlocke, updateNuzlocke, fetchNuzlockes, setNuzlockes, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { showSnackbar } from "../../store/notifications/notificationsSlice";
-import { CustomError } from '../../interfaces/interfaces';
 import { Grid, Button, Divider } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import DeleteDialog from "../DeleteDialog";
 import CustomCardContent from "../CustomCardContent";
 import useGoTo from '../../customHooks/useGoTo';
+import useValidateError from '../../customHooks/useValidateError';
 
-interface Props {
-  ValidateError: (e: CustomError) => void;
-}
-
-function Nuzlocke(props: Props) {
+function Nuzlocke() {
   const dispatch = useDispatch<AppDispatch>();
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const goTo = useGoTo();
+  const validateError = useValidateError();
 
   const GoToEditNuzlocke = () => {
     goTo(`nuzlockes/nuzlocke/${nuzlocke._id}/nuzlocke-form`);
@@ -52,7 +49,7 @@ function Nuzlocke(props: Props) {
           });
       })
       .catch(error => {
-        props.ValidateError(error);
+        validateError(error);
       })
       .finally(() => {
         setLoading(false);
@@ -81,7 +78,7 @@ function Nuzlocke(props: Props) {
           });
       })
       .catch(error => {
-        props.ValidateError(error);
+        validateError(error);
       })
       .finally(() => {
         setLoading(false);

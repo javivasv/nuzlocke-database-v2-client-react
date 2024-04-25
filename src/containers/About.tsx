@@ -1,10 +1,8 @@
-import { CustomError } from '../interfaces/interfaces';
 import { Grid } from "@mui/material";
 import MainContent from "../components/About/MainContent";
 import SecondaryContent from "../components/About/SecondaryContent";
 
 interface Props {
-  ValidateError: (e: CustomError) => void;
   isMdAndUp: boolean;
 }
 
@@ -18,7 +16,7 @@ function About(props: Props) {
             <MainContent />
           </Grid>
           <Grid className="secondary-content" container item flexDirection={"column"} xs={4}>
-            <SecondaryContent ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} />
+            <SecondaryContent isMdAndUp={props.isMdAndUp} />
           </Grid>
         </>
       }
@@ -26,7 +24,7 @@ function About(props: Props) {
         !props.isMdAndUp &&
         <Grid className="only-content" container item flexDirection={"column"} xs={12}>
           <MainContent />
-          <SecondaryContent ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} />
+          <SecondaryContent isMdAndUp={props.isMdAndUp} />
         </Grid>
       }
     </Grid>

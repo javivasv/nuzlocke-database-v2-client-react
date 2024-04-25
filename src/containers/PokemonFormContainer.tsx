@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { fetchPokemonList, fetchAbilitiesList, setPokemonList, setAbilitiesList } from "../store/pokeapi/pokeapiSlice";
 import { showSnackbar } from '../store/notifications/notificationsSlice';
-import { CustomError } from "../interfaces/interfaces";
 import PokemonForm from '../components/Nuzlocke/PokemonForm';
 import LoadingRow from '../components/LoadingRow';
 
 interface Props {
-  ValidateError: (e: CustomError) => void;
   isMdAndUp: boolean;
 }
 
@@ -77,7 +75,7 @@ function PokemonFormContainer(props: Props) {
       }
       {
         (!loadingPokemonAbilities && !loadingPokemonList) &&
-        <PokemonForm ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} editMode={editMode} />    
+        <PokemonForm isMdAndUp={props.isMdAndUp} editMode={editMode} />    
       }
     </>
     

@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { CustomError } from "../../interfaces/interfaces";
 import { Grid } from "@mui/material";
 import InfoActionsCard from "../InfoActions/InfoActionsCard";
 import Nuzlockes from "../InfoActions/Nuzlockes";
@@ -10,7 +9,6 @@ import Nuzlocke from "../InfoActions/Nuzlocke";
 import PokemonForm from "../InfoActions/PokemonForm";
 
 interface Props {
-  ValidateError: (e: CustomError) => void;
   isMdAndUp: boolean;
 }
 
@@ -29,12 +27,12 @@ function SecondaryContent(props: Props) {
       } else if (pathSplit.includes("pokemon") || pathSplit.includes("pokemon-form")) {
         return (
           nuzlocke &&
-          <PokemonForm ValidateError={props.ValidateError} />
+          <PokemonForm />
         );
       } else {
         return (
           nuzlocke &&
-          <Nuzlocke ValidateError={props.ValidateError} />
+          <Nuzlocke />
         )
       }
     }

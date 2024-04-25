@@ -1,22 +1,19 @@
 import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
-import { CustomError } from '../../interfaces/interfaces';
 import { sendFeedback } from '../../store/suggestions/suggestionsSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Grid, TextField, Button } from "@mui/material";
 import MultiuseText from "../MultiuseText";
+import useValidateError from '../../customHooks/useValidateError';
 
-interface Props {
-  ValidateError: (e: CustomError) => void;
-}
-
-function Feedback(props: Props) {
+function Feedback() {
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((state: RootState) => state.auth.user);
   const [name, setName] = useState("");
   const [suggestion, setSuggestion] = useState("");
   const [loading, setLoading] = useState(false);
+  const validateError = useValidateError();
 
   const HandleNameChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
@@ -52,7 +49,7 @@ function Feedback(props: Props) {
         setSuggestion("");
       })
       .catch(error => {
-        props.ValidateError(error);
+        validateError(error);
       })
       .finally(() => {
         setLoading(false);
