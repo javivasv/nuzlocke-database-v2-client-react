@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authReducer from "./auth/authSlice"
-import notificationsReducer from './notifications/notificationsSlice'
+import authSlice from "./auth/authSlice"
+import notificationsSlice from './notifications/notificationsSlice'
 import videosSlice from './videos/videosSlice'
 import suggestionsSlice from './suggestions/suggestionsSlice'
 import nuzlockesSlice from './nuzlockes/nuzlockesSlice'
@@ -11,8 +11,8 @@ import pokemonSlice from './pokemon/pokemonSlice'
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
-    notifications: notificationsReducer,
+    auth: authSlice,
+    notifications: notificationsSlice,
     videos: videosSlice,
     suggestions: suggestionsSlice,
     nuzlockes: nuzlockesSlice,
