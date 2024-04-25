@@ -7,18 +7,16 @@ import { login, setUser } from '../../store/auth/authSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
+import useGoTo from '../../customHooks/useGoTo';
 
-interface Props {
-  GoTo: (e: string) => void;
-}
-
-function Login(props: Props) {
+function Login() {
   const dispatch = useDispatch<AppDispatch>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const goTo = useGoTo();
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
@@ -73,7 +71,7 @@ function Login(props: Props) {
       .unwrap()
       .then(res => {
         dispatch(setUser(res));
-        props.GoTo("home");
+        goTo("home");
       })
       .catch(error => {
         dispatch(showSnackbar(error.msg));
@@ -123,7 +121,7 @@ function Login(props: Props) {
           </Button>
         </Grid>
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <span className="auth-extra-action" onClick={() => props.GoTo("forgot-password")}>
+          <span className="auth-extra-action" onClick={() => goTo("forgot-password")}>
             Forgot password
           </span>
         </Grid>
@@ -131,11 +129,11 @@ function Login(props: Props) {
           <span>
             { "Don't have an account? " }
           </span>
-          <span className="auth-extra-action" onClick={() => props.GoTo("register")}>
+          <span className="auth-extra-action" onClick={() => goTo("register")}>
             Register
           </span>
           <Divider className="vertical-divider" orientation="vertical" flexItem />
-          <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
+          <span className="auth-extra-action" onClick={() => goTo("home")}>
             Home
           </span>
         </Grid>

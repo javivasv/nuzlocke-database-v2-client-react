@@ -5,10 +5,10 @@ import { RootState } from "../../store/store";
 import { useTheme } from '@mui/material/styles';
 import { useMediaQuery, Grid, Divider, Button, Switch, Avatar } from '@mui/material';
 import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login, Logout } from '@mui/icons-material';
+import useGoTo from '../../customHooks/useGoTo';
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
-  GoTo: (e: string) => void;
   Logout: () => void;
 }
 
@@ -18,6 +18,7 @@ function Sidebar(props: Props) {
   const isLgAndUp = useMediaQuery('(min-width:1280px)');
   const user = useSelector((state: RootState) => state.auth.user);
   const [darkTheme, setDarkTheme] = useState(false);
+  const goTo = useGoTo();
 
   const sidebarItems = [
     {
@@ -50,7 +51,7 @@ function Sidebar(props: Props) {
   }
 
   const ChangeView = (itemName: string) => {
-    props.GoTo(`${itemName}`);
+    goTo(`${itemName}`);
   }
 
   const ItemIcon = (itemName: string) => {
@@ -75,9 +76,9 @@ function Sidebar(props: Props) {
   const HandleLog = () => {
     if (user) {
       props.Logout();
-      props.GoTo("home")
+      goTo("home")
     } else {
-      props.GoTo("login")
+      goTo("login")
     }
   }
 

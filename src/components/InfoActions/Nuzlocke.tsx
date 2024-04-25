@@ -8,9 +8,9 @@ import { Grid, Button, Divider } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import DeleteDialog from "../DeleteDialog";
 import CustomCardContent from "../CustomCardContent";
+import useGoTo from '../../customHooks/useGoTo';
 
 interface Props {
-  GoTo: (e: string) => void;
   ValidateError: (e: CustomError) => void;
 }
 
@@ -19,13 +19,14 @@ function Nuzlocke(props: Props) {
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+  const goTo = useGoTo();
 
   const GoToEditNuzlocke = () => {
-    props.GoTo(`nuzlockes/nuzlocke/${nuzlocke._id}/nuzlocke-form`);
+    goTo(`nuzlockes/nuzlocke/${nuzlocke._id}/nuzlocke-form`);
   }
 
   const GoToAddPokemon = () => {
-    props.GoTo(`nuzlockes/nuzlocke/${nuzlocke._id}/pokemon-form`);
+    goTo(`nuzlockes/nuzlocke/${nuzlocke._id}/pokemon-form`);
   }
 
   const HandleShowDeleteDialog = () => {
@@ -47,7 +48,7 @@ function Nuzlocke(props: Props) {
           .unwrap()
           .then(res => {
             dispatch(setNuzlockes(res.nuzlockes));
-            props.GoTo("nuzlockes");
+            goTo("nuzlockes");
           });
       })
       .catch(error => {

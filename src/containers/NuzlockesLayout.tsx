@@ -5,7 +5,6 @@ import SecondaryContent from "../components/Nuzlockes/SecondaryContent";
 
 interface Props {
   ValidateError: (e: CustomError) => void;
-  GoTo: (e: string) => void;
   isMdAndUp: boolean;
 }
 
@@ -16,18 +15,18 @@ function NuzlockesLayout(props: Props) {
         props.isMdAndUp &&
         <>
           <Grid className="main-content" container item flexDirection={"column"} xs={8}>
-            <MainContent GoTo={props.GoTo} />
+            <MainContent />
           </Grid>
           <Grid className="secondary-content" container item flexDirection={"column"} xs={4}>
-            <SecondaryContent ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
+            <SecondaryContent ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} />
           </Grid>
         </>
       }
       {
         !props.isMdAndUp &&
         <Grid className="only-content" container item flexDirection={"column"} xs={12}>
-          <MainContent GoTo={props.GoTo} />
-          <SecondaryContent ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
+          <MainContent />
+          <SecondaryContent ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} />
         </Grid>
       }
     </Grid>

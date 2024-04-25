@@ -1,12 +1,11 @@
 import { Grid, Button, Divider } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import CustomCardContent from "../CustomCardContent";
+import useGoTo from '../../customHooks/useGoTo';
 
-interface Props {
-  GoTo: (e: string) => void;
-}
+function Nuzlockes() {
+  const goTo = useGoTo();
 
-function Nuzlockes(props: Props) {
   const websites = [
     {
       name: "Bulbapedia",
@@ -23,7 +22,7 @@ function Nuzlockes(props: Props) {
   ]
 
   const HandleClick = () => {
-    props.GoTo("nuzlockes/nuzlocke-form");
+    goTo("nuzlockes/nuzlocke-form");
   }
 
   return (

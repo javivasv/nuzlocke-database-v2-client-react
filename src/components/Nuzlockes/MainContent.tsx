@@ -1,14 +1,12 @@
 import { useLocation, useParams, Outlet } from 'react-router-dom';
 import { Grid, IconButton } from "@mui/material";
 import { ArrowBack } from '@mui/icons-material';
+import useGoTo from '../../customHooks/useGoTo';
 
-interface Props {
-  GoTo: (e: string) => void;
-}
-
-function MainContent(props: Props) {
+function MainContent() {
   const location = useLocation();
   const { nuzlockeId } = useParams();
+  const goTo = useGoTo();
 
   const IsRootNuzlockes = () => {
     const pathSplit = location.pathname.split("/").filter(Boolean);
@@ -20,15 +18,15 @@ function MainContent(props: Props) {
 
     if (pathSplit.includes("nuzlocke-form")) {
       if (pathSplit.length === 2) {
-        props.GoTo("nuzlockes");
+        goTo("nuzlockes");
       } else {
-        props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+        goTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
       }
     } else {
       if (pathSplit.length === 3) {
-        props.GoTo("nuzlockes");
+        goTo("nuzlockes");
       } else {
-        props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+        goTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
       }
     }
   }

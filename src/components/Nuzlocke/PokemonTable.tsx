@@ -11,7 +11,6 @@ import PokemonRow from "./PokemonRow";
 
 interface Props {
   ValidateError: (e: CustomError) => void;
-  GoTo: (e: string) => void;
   isMdAndUp: boolean;
 }
 
@@ -196,7 +195,7 @@ function PokemonTable(props: Props) {
                 {
                   FilteredPokemon().map(pokemon => (
                     <Grid key={pokemon._id} container item flexDirection={"row"}>
-                      <PokemonRow ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} pokemon={pokemon} />
+                      <PokemonRow ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} pokemon={pokemon} />
                     </Grid>
                   ))
                 }

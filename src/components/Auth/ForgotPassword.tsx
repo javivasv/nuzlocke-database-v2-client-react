@@ -6,16 +6,14 @@ import { forgotPassword } from '../../store/auth/authSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
+import useGoTo from '../../customHooks/useGoTo';
 
-interface Props {
-  GoTo: (e: string) => void;
-}
-
-function ForgotPassword(props: Props) {
+function ForgotPassword() {
   const dispatch = useDispatch<AppDispatch>();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState('');
+  const goTo = useGoTo();
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
@@ -92,11 +90,11 @@ function ForgotPassword(props: Props) {
           </Button>
         </Grid>
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <span className="auth-extra-action" onClick={() => props.GoTo("login")}>
+          <span className="auth-extra-action" onClick={() => goTo("login")}>
             Login
           </span>
           <Divider className="vertical-divider" orientation="vertical" flexItem />
-          <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
+          <span className="auth-extra-action" onClick={() => goTo("home")}>
             Home
           </span>
         </Grid>

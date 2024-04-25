@@ -7,12 +7,9 @@ import { register } from '../../store/auth/authSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
+import useGoTo from '../../customHooks/useGoTo';
 
-interface Props {
-  GoTo: (e: string) => void;
-}
-
-function Register(props: Props) {
+function Register() {
   const dispatch = useDispatch<AppDispatch>();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -23,6 +20,7 @@ function Register(props: Props) {
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordConfirmationError, setPasswordConfirmationError] = useState('');
+  const goTo = useGoTo();
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
@@ -97,7 +95,7 @@ function Register(props: Props) {
       .unwrap()
       .then(res => {
         dispatch(showSnackbar(res.msg));
-        props.GoTo("login");
+        goTo("login");
       })
       .catch(error => {
         dispatch(showSnackbar(error.msg));
@@ -181,11 +179,11 @@ function Register(props: Props) {
           <span>
             { "Already have an account? " }
           </span>
-          <span className="auth-extra-action" onClick={() => props.GoTo("login")}>
+          <span className="auth-extra-action" onClick={() => goTo("login")}>
             Login
           </span>
           <Divider className="vertical-divider" orientation="vertical" flexItem />
-          <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
+          <span className="auth-extra-action" onClick={() => goTo("home")}>
             Home
           </span>
         </Grid>

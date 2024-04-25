@@ -8,7 +8,6 @@ import Nuzlockes from '../components/Nuzlockes/Nuzlockes';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
-  GoTo: (e: string) => void;
 }
 
 function NuzlockesContainer(props: Props) {
@@ -43,7 +42,7 @@ function NuzlockesContainer(props: Props) {
       }
       {
         (!loading && nuzlockes) &&
-        <Nuzlockes GoTo={props.GoTo} />
+        <Nuzlockes />
       }
     </>
   );

@@ -9,7 +9,6 @@ import TabPanel from './TabPanel';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
-  GoTo: (e: string) => void;
   isMdAndUp: boolean;
 }
 
@@ -40,7 +39,7 @@ function Nuzlocke(props: Props) {
             {
               nuzlocke.pokemon.length > 0 &&
               <TabPanel value={tab} index={0}>
-                <PokemonTable ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} />
+                <PokemonTable ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} />
               </TabPanel>
             }             
           </Grid>

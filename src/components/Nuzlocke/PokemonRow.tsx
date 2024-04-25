@@ -8,10 +8,10 @@ import { Pokemon, PokemonTypes, CustomError } from "../../interfaces/interfaces"
 import { Grid, IconButton } from "@mui/material";
 import { CatchingPokemon, CardGiftcard, Egg, SyncAlt, Block, Favorite, HeartBroken } from '@mui/icons-material';
 import PokemonType from "../PokemonType";
+import useGoTo from '../../customHooks/useGoTo';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
-  GoTo: (e: string) => void;
   isMdAndUp: boolean;
   pokemon: Pokemon;
 }
@@ -22,6 +22,7 @@ function PokemonRow(props: Props) {
   const showAsObtained = useSelector((state: RootState) => state.settings.settings[0].on);
   const [statusButtonHover, setStatusButtonHover] = useState(false);
   const [loading, setLoading] = useState(false);
+  const goTo = useGoTo();
   
   const PokemonRowClassName = () => {
     let className = "table-row";
@@ -95,7 +96,7 @@ function PokemonRow(props: Props) {
       return;
     }
 
-    props.GoTo(`nuzlockes/nuzlocke/${nuzlocke._id}/pokemon/${props.pokemon._id}`);
+    goTo(`nuzlockes/nuzlocke/${nuzlocke._id}/pokemon/${props.pokemon._id}`);
   }
 
   const ChangePokemonStatus = (e: MouseEvent<HTMLButtonElement>, pokemon: Pokemon) => {

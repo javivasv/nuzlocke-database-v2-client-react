@@ -4,11 +4,7 @@ import { Grid, Card } from "@mui/material";
 import CustomCardHeader from '../CustomCardHeader';
 import NuzlockesTable from "./NuzlockesTable";
 
-interface Props {
-  GoTo: (e: string) => void;
-}
-
-function Nuzlockes(props: Props) {
+function Nuzlockes() {
   const nuzlockes = useSelector((state: RootState) => state.nuzlockes.nuzlockes);
 
   return (
@@ -24,7 +20,7 @@ function Nuzlockes(props: Props) {
             }
             {
               nuzlockes.length > 0 &&
-              <NuzlockesTable GoTo={props.GoTo} />
+              <NuzlockesTable />
             }
           </Grid>
         </Grid>

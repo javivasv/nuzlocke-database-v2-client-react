@@ -7,11 +7,7 @@ import { Search } from '@mui/icons-material';
 import NuzlockeRow from "./NuzlockeRow";
 import TableHeaders from "../TableHeaders";
 
-interface Props {
-  GoTo: (e: string) => void;
-}
-
-function NuzlockesTable(props: Props) {
+function NuzlockesTable() {
   const nuzlockes = useSelector((state: RootState) => state.nuzlockes.nuzlockes);
   const [search, setSearch] = useState("");
 
@@ -84,7 +80,7 @@ function NuzlockesTable(props: Props) {
               {
                 FilteredNuzlockes().map(nuzlocke => (
                   <Grid key={nuzlocke._id} container item flexDirection={"row"}>
-                    <NuzlockeRow GoTo={props.GoTo} nuzlocke={nuzlocke} />
+                    <NuzlockeRow nuzlocke={nuzlocke} />
                   </Grid>
                 ))
               }

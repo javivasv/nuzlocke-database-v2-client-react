@@ -7,14 +7,12 @@ import { validateResetToken, resetPassword } from '../../store/auth/authSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
+import useGoTo from '../../customHooks/useGoTo';
 
-interface Props {
-  GoTo: (e: string) => void;
-}
-
-function ResetPassword(props: Props) {
+function ResetPassword() {
   const { resetToken } = useParams();
   const dispatch = useDispatch<AppDispatch>();
+  const goTo = useGoTo();
 
   useEffect(() => {
     dispatch(validateResetToken(resetToken || ""))
@@ -89,7 +87,7 @@ function ResetPassword(props: Props) {
       .unwrap()
       .then(res => {
         dispatch(showSnackbar(res.msg));
-        props.GoTo("login");
+        goTo("login");
       })
       .catch(error => {
         dispatch(showSnackbar(error.msg));
@@ -148,11 +146,11 @@ function ResetPassword(props: Props) {
             </Grid></>
         }
         <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <span className="auth-extra-action" onClick={() => props.GoTo("login")}>
+          <span className="auth-extra-action" onClick={() => goTo("login")}>
               Login
           </span>
           <Divider className="vertical-divider" orientation="vertical" flexItem />
-          <span className="auth-extra-action" onClick={() => props.GoTo("home")}>
+          <span className="auth-extra-action" onClick={() => goTo("home")}>
               Home
           </span>
         </Grid>

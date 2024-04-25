@@ -1,15 +1,17 @@
 import { Nuzlocke } from "../../interfaces/interfaces";
 import { Grid } from "@mui/material";
 import { Flag, Done, Close } from '@mui/icons-material';
+import useGoTo from '../../customHooks/useGoTo';
 
 interface Props {
-  GoTo: (e: string) => void;
   nuzlocke: Nuzlocke;
 }
 
 function NuzlockeRow(props: Props) {
+  const goTo = useGoTo();
+
   const CheckNuzlocke = () => {
-    props.GoTo(`nuzlockes/nuzlocke/${props.nuzlocke._id}`);
+    goTo(`nuzlockes/nuzlocke/${props.nuzlocke._id}`);
   }
 
   const ItemIcon = (itemStatus: string) => {

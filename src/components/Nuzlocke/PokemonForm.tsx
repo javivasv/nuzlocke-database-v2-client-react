@@ -11,10 +11,10 @@ import { Name, Pokemon, CustomError } from "../../interfaces/interfaces";
 import { Grid, Card, TextField, Button, FormControlLabel, Checkbox, Autocomplete, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import LoadingRow from "../LoadingRow";
+import useGoTo from '../../customHooks/useGoTo';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
-  GoTo: (e: string) => void;
   isMdAndUp: boolean;
   editMode: boolean;
 }
@@ -42,6 +42,7 @@ function PokemonForm(props: Props) {
   const [loadingPokemonData, setLoadingPokemonData] = useState(false);
   const [speciesError, setSpeciesError] = useState('');
   const [locationError, setLocationError] = useState('');
+  const goTo = useGoTo();
   const obtainedOptions = ["Caught", "Gifted", "Hatched", "Traded", "Not"]
 
   const defaultSpecies = {
@@ -94,7 +95,7 @@ function PokemonForm(props: Props) {
     const pokemonToEdit = nuzlocke.pokemon.find(pokemon => pokemon._id === pokemonId);
 
     if (!pokemonToEdit) {
-      props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+      goTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
       return;
     }
 
@@ -388,7 +389,7 @@ function PokemonForm(props: Props) {
         .then(res => {
           dispatch(setNuzlocke(res.nuzlocke));
           dispatch(showSnackbar(res.msg));
-          props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+          goTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
         })
         .catch(error => {
           props.ValidateError(error);
@@ -402,7 +403,7 @@ function PokemonForm(props: Props) {
         .then(res => {
           dispatch(setNuzlocke(res.nuzlocke));
           dispatch(showSnackbar(res.msg));
-          props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+          goTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
         })
         .catch(error => {
           props.ValidateError(error);

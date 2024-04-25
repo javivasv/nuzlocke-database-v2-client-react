@@ -9,9 +9,9 @@ import { CustomError } from "../../interfaces/interfaces";
 import { Grid, Divider, Button } from "@mui/material";
 import DeleteDialog from "../DeleteDialog";
 import CustomCardContent from "../CustomCardContent";
+import useGoTo from '../../customHooks/useGoTo';
 
 interface Props {
-  GoTo: (e: string) => void;
   ValidateError: (e: CustomError) => void;
 }
 
@@ -21,6 +21,7 @@ function PokemonForm(props: Props) {
   const nuzlocke = useSelector((state: RootState) => state.nuzlockes.nuzlocke)!;
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+  const goTo = useGoTo();
   const editMode = pokemonId ? true : false;
 
   const PokemonName = () =>{
@@ -57,7 +58,7 @@ function PokemonForm(props: Props) {
           .unwrap()
           .then(res => {
             dispatch(setNuzlocke(res.nuzlocke));
-            props.GoTo(`nuzlockes/nuzlocke/${nuzlocke._id}`);
+            goTo(`nuzlockes/nuzlocke/${nuzlocke._id}`);
           });
       })
       .catch(error => {

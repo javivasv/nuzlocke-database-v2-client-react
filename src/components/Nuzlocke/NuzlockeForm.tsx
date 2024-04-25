@@ -8,10 +8,10 @@ import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { CustomError } from "../../interfaces/interfaces";
 import { Grid, Card, TextField, Button } from "@mui/material";
 import MultiuseText from "../MultiuseText";
+import useGoTo from '../../customHooks/useGoTo';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
-  GoTo: (e: string) => void;
 }
 
 function NuzlockeForm(props: Props) {
@@ -22,7 +22,8 @@ function NuzlockeForm(props: Props) {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [nameError, setNameError] = useState('');
-  const [gameError, setGameError] = useState('');  
+  const [gameError, setGameError] = useState('');
+  const goTo = useGoTo();
   const editMode = nuzlockeId ? true : false;
 
   useEffect(() => {
@@ -112,7 +113,7 @@ function NuzlockeForm(props: Props) {
         .then(res => {
           dispatch(setNuzlocke(res.nuzlocke));
           dispatch(showSnackbar(res.msg));
-          props.GoTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
+          goTo(`nuzlockes/nuzlocke/${nuzlockeId}`);
         })
         .catch(error => {
           props.ValidateError(error);
@@ -126,7 +127,7 @@ function NuzlockeForm(props: Props) {
         .then(res => {
           dispatch(setNuzlockes(res.nuzlockes));
           dispatch(showSnackbar(res.msg));
-          props.GoTo("nuzlockes");
+          goTo("nuzlockes");
         })
         .catch(error => {
           props.ValidateError(error);

@@ -10,7 +10,6 @@ import LoadingRow from '../components/LoadingRow';
 
 interface Props {
   ValidateError: (e: CustomError) => void;
-  GoTo: (e: string) => void;
   isMdAndUp: boolean;
 }
 
@@ -78,7 +77,7 @@ function PokemonFormContainer(props: Props) {
       }
       {
         (!loadingPokemonAbilities && !loadingPokemonList) &&
-        <PokemonForm ValidateError={props.ValidateError} GoTo={props.GoTo} isMdAndUp={props.isMdAndUp} editMode={editMode} />    
+        <PokemonForm ValidateError={props.ValidateError} isMdAndUp={props.isMdAndUp} editMode={editMode} />    
       }
     </>
     

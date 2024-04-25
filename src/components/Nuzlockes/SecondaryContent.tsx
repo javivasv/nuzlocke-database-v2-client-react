@@ -11,7 +11,6 @@ import PokemonForm from "../InfoActions/PokemonForm";
 
 interface Props {
   ValidateError: (e: CustomError) => void;
-  GoTo: (e: string) => void;
   isMdAndUp: boolean;
 }
 
@@ -23,19 +22,19 @@ function SecondaryContent(props: Props) {
     const pathSplit = location.pathname.split("/").filter(Boolean);
 
     if (pathSplit.length === 1) {
-      return <Nuzlockes GoTo={props.GoTo} />;
+      return <Nuzlockes />;
     } else {
       if (pathSplit.includes("nuzlocke-form")) {
         return <NuzlockeForm />;
       } else if (pathSplit.includes("pokemon") || pathSplit.includes("pokemon-form")) {
         return (
           nuzlocke &&
-          <PokemonForm ValidateError={props.ValidateError} GoTo={props.GoTo} />
+          <PokemonForm ValidateError={props.ValidateError} />
         );
       } else {
         return (
           nuzlocke &&
-          <Nuzlocke ValidateError={props.ValidateError} GoTo={props.GoTo} />
+          <Nuzlocke ValidateError={props.ValidateError} />
         )
       }
     }
