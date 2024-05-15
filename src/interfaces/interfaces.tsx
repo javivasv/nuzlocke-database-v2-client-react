@@ -38,6 +38,8 @@ export interface Nuzlocke {
   status: string;
   user: string;
   pokemon: Array<Pokemon>;
+  createDate?: Date;
+  updateDate?: Date;
 }
 
 export interface NuzlockeData {
