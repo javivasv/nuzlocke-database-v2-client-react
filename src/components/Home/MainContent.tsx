@@ -38,7 +38,7 @@ function MainContent() {
       </Card>
       <Card className='main-content-card'>
         <CustomCardHeader title="Relevant Nuzlocke Videos" />
-        <Carousel autoPlay={false} onChange={(e) => HandleChangeVideo(e)}>
+        <Carousel autoPlay={false} fullHeightHover={false} onChange={(e) => HandleChangeVideo(e)}>
           {
             videos.map((video, i) => (
               currentVideo === i && 
@@ -46,7 +46,7 @@ function MainContent() {
                 key={video.url}
                 className="video-iframe"
                 src={`https://www.youtube.com/embed/${video.url}`}
-                title="video.name"
+                title={video.name}
                 allowFullScreen
               />
             ))
