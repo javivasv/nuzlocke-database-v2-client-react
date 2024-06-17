@@ -1,3 +1,9 @@
+#dashboard-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
 #sidebar-container {
   height: 100%;
   padding: 8px;
