@@ -96,6 +96,7 @@ function Login() {
             disabled={loading}
             error={Boolean(emailError)}
             helperText={emailError}
+            inputProps={{ "data-testid": "test-email-input" }}
             onChange={HandleEmailChange}
           />
         </Grid>
@@ -112,6 +113,7 @@ function Login() {
             disabled={loading}
             error={Boolean(passwordError)}
             helperText={passwordError}
+            inputProps={{ "data-testid": "test-password-input" }}
             onChange={HandlePasswordChange}
           />
         </Grid>
