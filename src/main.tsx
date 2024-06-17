@@ -6,6 +6,10 @@ import App from './App'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
-    <App />
+    <div id="app-wrapper">
+      <div id="app-main">
+        <App />
+      </div>
+    </div>
   </Provider>,
 )

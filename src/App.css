@@ -1,6 +1,31 @@
 #root {
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  display: flex;
+  position: relative;
+}
+
+#app-wrapper {
+  -webkit-box-flex: 1;
+  flex: 1 1 auto;
+  backface-visibility: hidden;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 100%;
+  position: relative;
+}
+
+#app-main {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  -webkit-box-flex: 1;
+  flex: 1 0 auto;
+  max-width: 100%;
 }
 
 .h-100 {
