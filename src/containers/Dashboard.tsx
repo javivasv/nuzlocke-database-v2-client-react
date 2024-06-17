@@ -11,7 +11,7 @@ function Dashboard(props: Props) {
   const theme = useTheme();
 
   return (
-    <Grid id="dashboard-container" container flexDirection={"row"}>
+    <Grid className="h-100" container flexDirection={"row"}>
       <Grid id="sidebar-container" className={theme.palette.mode} container item flexDirection={"column"} xs={2} md={1} lg={2}>
         <Grid className="h-100" container item flexDirection={"row"}>
           <Sidebar ToggleTheme={props.ToggleTheme} />
