@@ -1,5 +1,5 @@
 import { expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import TestWrapper from '../../../TestWrapper';
 import Login from '../Login';
@@ -77,11 +77,11 @@ test("Password input values", async () => {
     </TestWrapper>
   );
 
-  // Check email render
+  // Check password render
   const passwordInput = screen.getByTestId("test-password-input");
   expect(passwordInput).toBeInTheDocument();
 
-  // Empty email input
+  // Empty password input
   await user.clear(passwordInput);
   await user.type(passwordInput, 'test');
   await user.clear(passwordInput);
@@ -90,9 +90,45 @@ test("Password input values", async () => {
   const emptyPasswordMessage = screen.getByText('Password is required');
   expect(emptyPasswordMessage).toBeInTheDocument();
 
-  // Valid email input
+  // Valid password input
   await user.clear(passwordInput);
   await user.type(passwordInput, 'test');
   expect(passwordInput).toHaveValue('test');
   expect(emptyPasswordMessage).not.toBeInTheDocument();
+});
+
+test("Successful login", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <TestWrapper>
+      <Login />
+    </TestWrapper>
+  );
+
+  // Check email render
+  const emailInput = screen.getByTestId("test-email-input");
+  expect(emailInput).toBeInTheDocument();
+
+  // Valid email input
+  await user.clear(emailInput);
+  await user.type(emailInput, 'test@test.com');
+  expect(emailInput).toHaveValue('test@test.com');
+
+  // Check password render
+  const passwordInput = screen.getByTestId("test-password-input");
+  expect(passwordInput).toBeInTheDocument();
+
+  // Valid password input
+  await user.clear(passwordInput);
+  await user.type(passwordInput, 'test');
+  expect(passwordInput).toHaveValue('test');
+
+  // Check login button render
+  const loginButton = screen.getByRole("button", { name: /login/i, });
+  expect(loginButton).toBeInTheDocument();
+  
+  // Get login form to submit - Using fireEvent because userEvent does not have submit
+  const form = screen.getByTestId("login-form");
+  fireEvent.submit(form);
 });
