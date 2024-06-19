@@ -10,7 +10,7 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
-interface AuthState {
+export interface AuthState {
   user: User | null;
 }
 

@@ -1,5 +1,5 @@
 import { expect } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import TestWrapper from '../../../TestWrapper';
 import Login from '../Login';
@@ -97,6 +97,10 @@ test("Password input values", async () => {
   expect(emptyPasswordMessage).not.toBeInTheDocument();
 });
 
+////////////////////////////////////////////////////////////////
+import { store } from '../../../store/store';
+import { AuthState } from '../../../store/auth/authSlice';
+
 test("Successful login", async () => {
   const user = userEvent.setup();
 
@@ -127,8 +131,23 @@ test("Successful login", async () => {
   // Check login button render
   const loginButton = screen.getByRole("button", { name: /login/i, });
   expect(loginButton).toBeInTheDocument();
-  
+
+  // Validate auth initial state
+  const initialState = store.getState() as { auth: AuthState };
+  expect(initialState.auth.user).toEqual(null);
+
   // Get login form to submit - Using fireEvent because userEvent does not have submit
   const form = screen.getByTestId("login-form");
   fireEvent.submit(form);
+
+  await waitFor(() => {
+    const state = store.getState() as { auth: AuthState };
+
+    // Validate auth state after login
+    expect(state.auth.user).toEqual({
+      _id: "0000",
+      email: "test@test.com",
+      username: "test",
+    });
+  })
 });
