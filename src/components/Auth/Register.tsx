@@ -70,6 +70,7 @@ function Register() {
     const error = await validateField('password', target.value);
     setPasswordError(error);
   }
+
   const HandlePasswordConfirmationChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setPasswordConfirmation(target.value);
@@ -106,7 +107,7 @@ function Register() {
   }
 
   return (
-    <form className="w-100" noValidate onSubmit={HandleRegister}>
+    <form className="w-100" data-testid="register-form" noValidate onSubmit={HandleRegister}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Email" />
         <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
@@ -120,6 +121,7 @@ function Register() {
             disabled={loading}
             error={Boolean(emailError)}
             helperText={emailError}
+            inputProps={{ "data-testid": "test-email-input" }}
             onChange={HandleEmailChange}
           />
         </Grid>
@@ -135,6 +137,7 @@ function Register() {
             disabled={loading}
             error={Boolean(usernameError)}
             helperText={usernameError}
+            inputProps={{ "data-testid": "test-username-input" }}
             onChange={HandleUsernameChange}
           />
         </Grid>
@@ -151,6 +154,7 @@ function Register() {
             disabled={loading}
             error={Boolean(passwordError)}
             helperText={passwordError}
+            inputProps={{ "data-testid": "test-password-input" }}
             onChange={HandlePasswordChange}
           />
         </Grid>
@@ -167,6 +171,7 @@ function Register() {
             disabled={loading}
             error={Boolean(passwordConfirmationError)}
             helperText={passwordConfirmationError}
+            inputProps={{ "data-testid": "test-password-confirmation-input" }}
             onChange={HandlePasswordConfirmationChange}
           />
         </Grid>

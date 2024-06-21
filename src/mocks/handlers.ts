@@ -14,7 +14,7 @@ export const handlers = [
       const token = sign({
         _id: "0000",
         email: "success@test.com",
-        username: "test",
+        username: "test username",
       },
       tokenKey,
       {

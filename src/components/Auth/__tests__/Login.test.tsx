@@ -49,26 +49,27 @@ test("Email input values", async () => {
 
   // Invalid email input
   await user.clear(emailInput);
-  await user.type(emailInput, 'test');
-  expect(emailInput).toHaveValue('test');
+  await user.type(emailInput, 'test email');
+  expect(emailInput).toHaveValue('test email');
 
-  const invalidEmailMessage = screen.getByText('Invalid email address');
+  // Validate email format input error message
+  const invalidEmailMessage = screen.queryByText('Invalid email address');
   expect(invalidEmailMessage).toBeInTheDocument();
 
   // Empty email input
   await user.clear(emailInput);
   expect(emailInput).toHaveValue('');
 
-  // Validate input error message
-  const emptyEmailMessage = screen.getByText('Email is required');
-  expect(emptyEmailMessage).toBeInTheDocument();
+  // Validate required input error message
+  const requiredEmailMessage = screen.queryByText('Email is required');
+  expect(requiredEmailMessage).toBeInTheDocument();
 
   // Valid email input
   await user.clear(emailInput);
-  await user.type(emailInput, 'test@test.com');
-  expect(emailInput).toHaveValue('test@test.com');
+  await user.type(emailInput, 'valid@test.com');
+  expect(emailInput).toHaveValue('valid@test.com');
   expect(invalidEmailMessage).not.toBeInTheDocument();
-  expect(emptyEmailMessage).not.toBeInTheDocument();
+  expect(requiredEmailMessage).not.toBeInTheDocument();
 });
 
 test("Password input values", async () => {
@@ -86,19 +87,19 @@ test("Password input values", async () => {
 
   // Empty password input
   await user.clear(passwordInput);
-  await user.type(passwordInput, 'test');
+  await user.type(passwordInput, 'test password');
   await user.clear(passwordInput);
   expect(passwordInput).toHaveValue('');
 
-  // Validate input error message
-  const emptyPasswordMessage = screen.getByText('Password is required');
-  expect(emptyPasswordMessage).toBeInTheDocument();
+  // Validate required input error message
+  const requiredPasswordMessage = screen.queryByText('Password is required');
+  expect(requiredPasswordMessage).toBeInTheDocument();
 
   // Valid password input
   await user.clear(passwordInput);
-  await user.type(passwordInput, 'test');
-  expect(passwordInput).toHaveValue('test');
-  expect(emptyPasswordMessage).not.toBeInTheDocument();
+  await user.type(passwordInput, 'test password');
+  expect(passwordInput).toHaveValue('test password');
+  expect(requiredPasswordMessage).not.toBeInTheDocument();
 });
 
 test("Submit empty login form", async () => {
@@ -135,13 +136,12 @@ test("Submit empty login form", async () => {
   fireEvent.submit(form);
 
   await waitFor(() => {
-    // Validate input error message
-    const emptyEmailMessage = screen.getByText('Email is required');
-    expect(emptyEmailMessage).toBeInTheDocument();
+    // Validate required input error messages
+    const requiredEmailMessage = screen.getByText('Email is required');
+    expect(requiredEmailMessage).toBeInTheDocument();
 
-    // Validate input error message
-    const emptyPasswordMessage = screen.getByText('Password is required');
-    expect(emptyPasswordMessage).toBeInTheDocument();
+    const requiredPasswordMessage = screen.getByText('Password is required');
+    expect(requiredPasswordMessage).toBeInTheDocument();
   })
 });
 
@@ -169,8 +169,8 @@ test("Invalid credentials", async () => {
 
   // Valid password input
   await user.clear(passwordInput);
-  await user.type(passwordInput, 'test');
-  expect(passwordInput).toHaveValue('test');
+  await user.type(passwordInput, 'test password');
+  expect(passwordInput).toHaveValue('test password');
 
   // Check login button render
   const loginButton = screen.getByRole("button", { name: /login/i, });
@@ -215,8 +215,8 @@ test("Server error", async () => {
 
   // Valid password input
   await user.clear(passwordInput);
-  await user.type(passwordInput, 'test');
-  expect(passwordInput).toHaveValue('test');
+  await user.type(passwordInput, 'test password');
+  expect(passwordInput).toHaveValue('test password');
 
   // Check login button render
   const loginButton = screen.getByRole("button", { name: /login/i, });
@@ -261,8 +261,8 @@ test("Successful login", async () => {
 
   // Valid password input
   await user.clear(passwordInput);
-  await user.type(passwordInput, 'test');
-  expect(passwordInput).toHaveValue('test');
+  await user.type(passwordInput, 'test password');
+  expect(passwordInput).toHaveValue('test password');
 
   // Check login button render
   const loginButton = screen.getByRole("button", { name: /login/i, });
@@ -283,7 +283,7 @@ test("Successful login", async () => {
     expect(state.auth.user).toEqual({
       _id: "0000",
       email: "success@test.com",
-      username: "test",
+      username: "test username",
     });
   })
 });
