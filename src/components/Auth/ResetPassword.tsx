@@ -15,7 +15,11 @@ function ResetPassword() {
   const goTo = useGoTo();
 
   useEffect(() => {
-    dispatch(validateResetToken(resetToken || ""))
+    const data = {
+      resetToken: resetToken || "",
+    }
+
+    dispatch(validateResetToken(data))
       .unwrap()
       .then(res => {
         setEmail(res);
@@ -98,7 +102,7 @@ function ResetPassword() {
   }
 
   return (
-    <form className="w-100" noValidate onSubmit={HandleResetPassword}>
+    <form className="w-100" data-testid="reset-password-form" noValidate onSubmit={HandleResetPassword}>
       <Grid container item flexDirection={"column"}>
         {
           errorMsg &&
@@ -120,6 +124,7 @@ function ResetPassword() {
                 disabled={loading}
                 error={Boolean(passwordError)}
                 helperText={passwordError}
+                inputProps={{ "data-testid": "test-password-input" }}
                 onChange={HandlePasswordChange}
               />
             </Grid>
@@ -136,6 +141,7 @@ function ResetPassword() {
                 disabled={loading}
                 error={Boolean(passwordConfirmationError)}
                 helperText={passwordConfirmationError}
+                inputProps={{ "data-testid": "test-password-confirmation-input" }}
                 onChange={HandlePasswordConfirmationChange}
               />
             </Grid>

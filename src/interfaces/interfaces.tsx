@@ -29,6 +29,10 @@ export interface ResetJWT {
   email: string;
 }
 
+export interface ResetToken {
+  resetToken: string;
+}
+
 // Nuzlocke-related
 export interface Nuzlocke {
   _id?: string;

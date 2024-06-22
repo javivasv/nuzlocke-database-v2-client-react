@@ -1,19 +1,22 @@
 import { ReactNode } from 'react';
-import { BrowserRouter } from "react-router-dom";
+import { MemoryRouter, Routes } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { store } from "./store/store";
 import NotificationSnackbar from './components/Notifications/NotificationSnackbar';
 
 interface Props {
   children: ReactNode;
+  initialEntries?: string[];
 }
 
-function TestWrapper({ children }: Props) {
+function TestWrapper({ children, initialEntries }: Props) {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        { children }
-      </BrowserRouter>
+      <MemoryRouter initialEntries={initialEntries}>
+        <Routes>
+          {children}
+        </Routes>
+      </MemoryRouter>
       <NotificationSnackbar />
     </Provider>
   )

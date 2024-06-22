@@ -1,13 +1,14 @@
 import { expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Route } from 'react-router-dom';
 import TestWrapper from '../../../TestWrapper';
 import ForgotPassword from '../ForgotPassword';
 
 test("Forgot password elements render", () => {
   render(
-    <TestWrapper>
-      <ForgotPassword />
+    <TestWrapper initialEntries={['/forgot-password']}>
+      <Route path="forgot-password" element={<ForgotPassword />}></Route>
     </TestWrapper>
   );
 
@@ -29,8 +30,8 @@ test("Submit empty forgot password form", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <ForgotPassword />
+    <TestWrapper initialEntries={['/forgot-password']}>
+      <Route path="forgot-password" element={<ForgotPassword />}></Route>
     </TestWrapper>
   );
 
@@ -61,8 +62,8 @@ test("Invalid email", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <ForgotPassword />
+    <TestWrapper initialEntries={['/forgot-password']}>
+      <Route path="forgot-password" element={<ForgotPassword />}></Route>
     </TestWrapper>
   );
 
@@ -94,8 +95,8 @@ test("Server error", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <ForgotPassword />
+    <TestWrapper initialEntries={['/forgot-password']}>
+      <Route path="forgot-password" element={<ForgotPassword />}></Route>
     </TestWrapper>
   );
 
@@ -127,8 +128,8 @@ test("Successful forgot password", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <ForgotPassword />
+    <TestWrapper initialEntries={['/forgot-password']}>
+      <Route path="forgot-password" element={<ForgotPassword />}></Route>
     </TestWrapper>
   );
 

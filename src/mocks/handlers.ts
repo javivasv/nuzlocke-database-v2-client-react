@@ -1,7 +1,7 @@
 
 import { http, HttpResponse } from "msw";
 import { sign } from "jsonwebtoken";
-import { UserData, EmailData } from "../interfaces/interfaces";
+import { UserData, EmailData, ResetToken } from "../interfaces/interfaces";
 
 const baseURL = import.meta.env.VITE_API;
 const tokenKey = import.meta.env.VITE_TOKEN_KEY;
@@ -95,5 +95,33 @@ export const handlers = [
         status: 500,
       });
     }
+  }),
+  http.post(`${baseURL}/validate-reset-token`, async ({ request }) => {
+    const body = await request.json() as ResetToken;
+
+    if (body.resetToken === "valid-token") {
+      return HttpResponse.json({
+        msg: "Valid reset token",
+      },
+      {
+        status: 200,
+      });
+    } else {
+      return HttpResponse.json({
+        msg: "Server error",
+      },
+      {
+        status: 500,
+      });
+    }
+  }),
+  http.get(`${baseURL}/videos`, async () => {
+    return HttpResponse.json({
+      videos: [],
+      msg: "Videos found",
+    },
+    {
+      status: 200,
+    });
   }),
 ];

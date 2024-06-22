@@ -1,13 +1,15 @@
 import { expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Route } from 'react-router-dom';
 import TestWrapper from '../../../TestWrapper';
 import Register from '../Register';
+import Login from '../Login';
 
 test("Register elements render", () => {
   render(
-    <TestWrapper>
-      <Register />
+    <TestWrapper initialEntries={['/register']}>
+      <Route path="register" element={<Register />}></Route>
     </TestWrapper>
   );
 
@@ -31,7 +33,7 @@ test("Register elements render", () => {
   const passwordConfirmationInput = screen.getByTestId("test-password-confirmation-input");
   expect(passwordConfirmationInput).toBeInTheDocument();
 
-  // Check login button render
+  // Check register button render
   const registerButton = screen.getByRole("button", { name: /register/i, });
   expect(registerButton).toBeInTheDocument();
 
@@ -45,8 +47,8 @@ test("Email input values", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Register />
+    <TestWrapper initialEntries={['/register']}>
+      <Route path="register" element={<Register />}></Route>
     </TestWrapper>
   );
 
@@ -83,8 +85,8 @@ test("Username input values", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Register />
+    <TestWrapper initialEntries={['/register']}>
+      <Route path="register" element={<Register />}></Route>
     </TestWrapper>
   );
 
@@ -113,8 +115,8 @@ test("Password input values", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Register />
+    <TestWrapper initialEntries={['/register']}>
+      <Route path="register" element={<Register />}></Route>
     </TestWrapper>
   );
 
@@ -143,8 +145,8 @@ test("Password confirmation input values", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Register />
+    <TestWrapper initialEntries={['/register']}>
+      <Route path="register" element={<Register />}></Route>
     </TestWrapper>
   );
 
@@ -192,8 +194,8 @@ test("Submit empty register form", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Register />
+    <TestWrapper initialEntries={['/register']}>
+      <Route path="register" element={<Register />}></Route>
     </TestWrapper>
   );
 
@@ -261,8 +263,8 @@ test("Users exists", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Register />
+    <TestWrapper initialEntries={['/register']}>
+      <Route path="register" element={<Register />}></Route>
     </TestWrapper>
   );
 
@@ -321,8 +323,8 @@ test("Server error", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Register />
+    <TestWrapper initialEntries={['/register']}>
+      <Route path="register" element={<Register />}></Route>
     </TestWrapper>
   );
 
@@ -381,8 +383,9 @@ test("Successful register", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Register />
+    <TestWrapper initialEntries={['/register']}>
+      <Route path="register" element={<Register />}></Route>
+      <Route path="login" element={<Login />}></Route>
     </TestWrapper>
   );
 

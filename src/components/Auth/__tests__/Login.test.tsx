@@ -1,15 +1,17 @@
 import { expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Route } from 'react-router-dom';
 import { store } from '../../../store/store';
 import { AuthState } from '../../../store/auth/authSlice';
 import TestWrapper from '../../../TestWrapper';
 import Login from '../Login';
+import Home from '../../../containers/Home';
 
 test("Login elements render", () => {
   render(
-    <TestWrapper>
-      <Login />
+    <TestWrapper initialEntries={['/login']}>
+      <Route path="login" element={<Login />}></Route>
     </TestWrapper>
   );
 
@@ -38,8 +40,8 @@ test("Email input values", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Login />
+    <TestWrapper initialEntries={['/login']}>
+      <Route path="login" element={<Login />}></Route>
     </TestWrapper>
   );
 
@@ -76,8 +78,8 @@ test("Password input values", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Login />
+    <TestWrapper initialEntries={['/login']}>
+      <Route path="login" element={<Login />}></Route>
     </TestWrapper>
   );
 
@@ -106,8 +108,8 @@ test("Submit empty login form", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Login />
+    <TestWrapper initialEntries={['/login']}>
+      <Route path="login" element={<Login />}></Route>
     </TestWrapper>
   );
 
@@ -149,8 +151,8 @@ test("Invalid credentials", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Login />
+    <TestWrapper initialEntries={['/login']}>
+      <Route path="login" element={<Login />}></Route>
     </TestWrapper>
   );
 
@@ -191,8 +193,8 @@ test("Server error", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Login />
+    <TestWrapper initialEntries={['/login']}>
+      <Route path="login" element={<Login />}></Route>
     </TestWrapper>
   );
 
@@ -233,8 +235,9 @@ test("Successful login", async () => {
   const user = userEvent.setup();
 
   render(
-    <TestWrapper>
-      <Login />
+    <TestWrapper initialEntries={['/login']}>
+      <Route path="login" element={<Login />}></Route>
+      <Route index path="home" element={<Home isMdAndUp={false} />} />
     </TestWrapper>
   );
 
@@ -277,5 +280,7 @@ test("Successful login", async () => {
       email: "success@test.com",
       username: "test username",
     });
+
+    expect(screen.getByText("Welcome to the Nuzlocke DataBase!"));
   })
 });

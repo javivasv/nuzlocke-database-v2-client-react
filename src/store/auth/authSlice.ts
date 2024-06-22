@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { jwtDecode } from "jwt-decode";
-import { Token, User, UserData, EmailData, ResetJWT, CustomError } from "../../interfaces/interfaces";
+import { Token, User, UserData, EmailData, ResetJWT, ResetToken, CustomError } from "../../interfaces/interfaces";
 
 const baseURL = import.meta.env.VITE_API;
 
@@ -119,14 +119,10 @@ export const forgotPassword = createAsyncThunk(
 
 export const validateResetToken = createAsyncThunk(
   "auth/validateResetTokenAsync",
-  async (resetToken: string, { rejectWithValue }) => {
-    const data = {
-      resetToken,
-    };
-
+  async (data: ResetToken, { rejectWithValue }) => {
     try {
       await axios.post(`${baseURL}/validate-reset-token`, data);
-      const token = jwtDecode(resetToken) as ResetJWT;
+      const token = jwtDecode(data.resetToken) as ResetJWT;
       return token.email;
     } catch(error) {
       const axiosError = error as AxiosError<CustomError>;
