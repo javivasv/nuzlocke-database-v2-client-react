@@ -67,7 +67,7 @@ function ForgotPassword() {
   }
 
   return (
-    <form className="w-100" noValidate onSubmit={HandleForgotPassword}>
+    <form className="w-100" data-testid="forgot-password-form" noValidate onSubmit={HandleForgotPassword}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Email" />
         <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
@@ -81,6 +81,7 @@ function ForgotPassword() {
             disabled={loading}
             error={Boolean(emailError)}
             helperText={emailError}
+            inputProps={{ "data-testid": "test-email-input" }}
             onChange={HandleEmailChange}
           />
         </Grid>
