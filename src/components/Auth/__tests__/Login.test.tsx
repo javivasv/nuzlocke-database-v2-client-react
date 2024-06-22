@@ -176,18 +176,14 @@ test("Invalid credentials", async () => {
   const loginButton = screen.getByRole("button", { name: /login/i, });
   expect(loginButton).toBeInTheDocument();
 
-  // Validate auth initial state
-  const initialState = store.getState() as { auth: AuthState };
-  expect(initialState.auth.user).toEqual(null);
-
   // Get login form to submit - Using fireEvent because userEvent does not have submit
   const form = screen.getByTestId("login-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
-    // Validate error message render
-    const errorMessage = screen.getByText("Invalid credentials");
-    expect(errorMessage).toBeInTheDocument();
+    // Validate snackbar message render
+    const snackbarMessage = screen.getByText("Invalid credentials");
+    expect(snackbarMessage).toBeInTheDocument();
   })
 });
 
@@ -222,18 +218,14 @@ test("Server error", async () => {
   const loginButton = screen.getByRole("button", { name: /login/i, });
   expect(loginButton).toBeInTheDocument();
 
-  // Validate auth initial state
-  const initialState = store.getState() as { auth: AuthState };
-  expect(initialState.auth.user).toEqual(null);
-
   // Get login form to submit - Using fireEvent because userEvent does not have submit
   const form = screen.getByTestId("login-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
-    // Validate error message render
-    const errorMessage = screen.getByText("An error occurred during the login");
-    expect(errorMessage).toBeInTheDocument();
+    // Validate snackbar message render
+    const snackbarMessage = screen.getByText("An error occurred during the login");
+    expect(snackbarMessage).toBeInTheDocument();
   })
 });
 

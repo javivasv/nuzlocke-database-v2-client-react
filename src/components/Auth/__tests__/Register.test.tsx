@@ -1,8 +1,6 @@
 import { expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-//import { store } from '../../../store/store';
-//import { AuthState } from '../../../store/auth/authSlice';
 import TestWrapper from '../../../TestWrapper';
 import Register from '../Register';
 
@@ -258,7 +256,7 @@ test("Submit empty register form", async () => {
     expect(requiredPasswordConfirmationMessage).toBeInTheDocument();
   })
 });
-/*
+
 test("Users exists", async () => {
   const user = userEvent.setup();
 
@@ -284,7 +282,7 @@ test("Users exists", async () => {
   // Valid username input
   await user.clear(usernameInput);
   await user.type(usernameInput, 'test username');
-  expect(emailInput).toHaveValue('test username');
+  expect(usernameInput).toHaveValue('test username');
 
   // Check password render
   const passwordInput = screen.getByTestId("test-password-input");
@@ -295,22 +293,146 @@ test("Users exists", async () => {
   await user.type(passwordInput, 'test password');
   expect(passwordInput).toHaveValue('test password');
 
-  // Check login button render
-  const loginButton = screen.getByRole("button", { name: /login/i, });
-  expect(loginButton).toBeInTheDocument();
+  // Check password confirmation render
+  const passwordConfirmationInput = screen.getByTestId("test-password-confirmation-input");
+  expect(passwordConfirmationInput).toBeInTheDocument();
 
-  // Validate auth initial state
-  const initialState = store.getState() as { auth: AuthState };
-  expect(initialState.auth.user).toEqual(null);
+  // Valid password confirmation input
+  await user.clear(passwordConfirmationInput);
+  await user.type(passwordConfirmationInput, 'test password');
+  expect(passwordConfirmationInput).toHaveValue('test password');
 
-  // Get login form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("login-form");
+  // Check register button render
+  const registerButton = screen.getByRole("button", { name: /register/i, });
+  expect(registerButton).toBeInTheDocument();
+
+  // Get register form to submit - Using fireEvent because userEvent does not have submit
+  const form = screen.getByTestId("register-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
-    // Validate error message render
-    const errorMessage = screen.getByText("Invalid credentials");
-    expect(errorMessage).toBeInTheDocument();
+    // Validate snackbar message render
+    const snackbarMessage = screen.getByText("User already exists");
+    expect(snackbarMessage).toBeInTheDocument();
   })
 });
-*/
+
+test("Server error", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <TestWrapper>
+      <Register />
+    </TestWrapper>
+  );
+
+  // Check email render
+  const emailInput = screen.getByTestId("test-email-input");
+  expect(emailInput).toBeInTheDocument();
+
+  // Valid email input
+  await user.clear(emailInput);
+  await user.type(emailInput, 'server@test.com');
+  expect(emailInput).toHaveValue('server@test.com');
+
+  // Check username render
+  const usernameInput = screen.getByTestId("test-username-input");
+  expect(usernameInput).toBeInTheDocument();
+
+  // Valid username input
+  await user.clear(usernameInput);
+  await user.type(usernameInput, 'test username');
+  expect(usernameInput).toHaveValue('test username');
+
+  // Check password render
+  const passwordInput = screen.getByTestId("test-password-input");
+  expect(passwordInput).toBeInTheDocument();
+
+  // Valid password input
+  await user.clear(passwordInput);
+  await user.type(passwordInput, 'test password');
+  expect(passwordInput).toHaveValue('test password');
+
+  // Check password confirmation render
+  const passwordConfirmationInput = screen.getByTestId("test-password-confirmation-input");
+  expect(passwordConfirmationInput).toBeInTheDocument();
+
+  // Valid password confirmation input
+  await user.clear(passwordConfirmationInput);
+  await user.type(passwordConfirmationInput, 'test password');
+  expect(passwordConfirmationInput).toHaveValue('test password');
+
+  // Check register button render
+  const registerButton = screen.getByRole("button", { name: /register/i, });
+  expect(registerButton).toBeInTheDocument();
+
+  // Get register form to submit - Using fireEvent because userEvent does not have submit
+  const form = screen.getByTestId("register-form");
+  fireEvent.submit(form);
+
+  await waitFor(() => {
+    // Validate snackbar message render
+    const snackbarMessage = screen.getByText("An error occurred during the creation");
+    expect(snackbarMessage).toBeInTheDocument();
+  })
+});
+
+test("Successful register", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <TestWrapper>
+      <Register />
+    </TestWrapper>
+  );
+
+  // Check email render
+  const emailInput = screen.getByTestId("test-email-input");
+  expect(emailInput).toBeInTheDocument();
+
+  // Valid email input
+  await user.clear(emailInput);
+  await user.type(emailInput, 'success@test.com');
+  expect(emailInput).toHaveValue('success@test.com');
+
+  // Check username render
+  const usernameInput = screen.getByTestId("test-username-input");
+  expect(usernameInput).toBeInTheDocument();
+
+  // Valid username input
+  await user.clear(usernameInput);
+  await user.type(usernameInput, 'test username');
+  expect(usernameInput).toHaveValue('test username');
+
+  // Check password render
+  const passwordInput = screen.getByTestId("test-password-input");
+  expect(passwordInput).toBeInTheDocument();
+
+  // Valid password input
+  await user.clear(passwordInput);
+  await user.type(passwordInput, 'test password');
+  expect(passwordInput).toHaveValue('test password');
+
+  // Check password confirmation render
+  const passwordConfirmationInput = screen.getByTestId("test-password-confirmation-input");
+  expect(passwordConfirmationInput).toBeInTheDocument();
+
+  // Valid password confirmation input
+  await user.clear(passwordConfirmationInput);
+  await user.type(passwordConfirmationInput, 'test password');
+  expect(passwordConfirmationInput).toHaveValue('test password');
+
+  // Check register button render
+  const registerButton = screen.getByRole("button", { name: /register/i, });
+  expect(registerButton).toBeInTheDocument();
+
+  // Get register form to submit - Using fireEvent because userEvent does not have submit
+  const form = screen.getByTestId("register-form");
+  fireEvent.submit(form);
+
+  await waitFor(() => {
+    // Validate snackbar message render
+    const snackbarMessage = screen.getByText("User created successfully");
+    expect(snackbarMessage).toBeInTheDocument();
+  })
+});
