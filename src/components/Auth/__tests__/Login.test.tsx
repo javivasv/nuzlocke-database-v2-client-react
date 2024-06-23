@@ -8,7 +8,7 @@ import TestWrapper from '../../../TestWrapper';
 import Login from '../Login';
 import Home from '../../../containers/Home';
 
-test("Login elements render", () => {
+test("Elements renderization", () => {
   render(
     <TestWrapper initialEntries={['/login']}>
       <Route path="login" element={<Login />}></Route>
@@ -104,7 +104,7 @@ test("Password input values", async () => {
   expect(requiredPasswordMessage).not.toBeInTheDocument();
 });
 
-test("Submit empty login form", async () => {
+test("Submit - Empty form", async () => {
   const user = userEvent.setup();
 
   render(
@@ -147,7 +147,7 @@ test("Submit empty login form", async () => {
   })
 });
 
-test("Invalid credentials", async () => {
+test("Submit - Invalid credentials", async () => {
   const user = userEvent.setup();
 
   render(
@@ -189,7 +189,7 @@ test("Invalid credentials", async () => {
   })
 });
 
-test("Server error", async () => {
+test("Submit - Server error", async () => {
   const user = userEvent.setup();
 
   render(
@@ -231,7 +231,7 @@ test("Server error", async () => {
   })
 });
 
-test("Successful login", async () => {
+test("Submit - Successful", async () => {
   const user = userEvent.setup();
 
   render(

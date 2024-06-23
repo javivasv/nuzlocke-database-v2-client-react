@@ -6,7 +6,7 @@ import TestWrapper from '../../../TestWrapper';
 import Register from '../Register';
 import Login from '../Login';
 
-test("Register elements render", () => {
+test("Elements renderization", () => {
   render(
     <TestWrapper initialEntries={['/register']}>
       <Route path="register" element={<Register />}></Route>
@@ -190,7 +190,7 @@ test("Password confirmation input values", async () => {
   expect(matchPasswordConfirmationMessageSecond).not.toBeInTheDocument();
 });
 
-test("Submit empty register form", async () => {
+test("Submit - Empty form", async () => {
   const user = userEvent.setup();
 
   render(
@@ -214,10 +214,6 @@ test("Submit empty register form", async () => {
   // Empty username input
   await user.clear(usernameInput);
   expect(usernameInput).toHaveValue('');
-
-  // Empty email input
-  await user.clear(emailInput);
-  expect(emailInput).toHaveValue('');
 
   // Check password render
   const passwordInput = screen.getByTestId("test-password-input");
@@ -259,7 +255,7 @@ test("Submit empty register form", async () => {
   })
 });
 
-test("Users exists", async () => {
+test("Submit - User exists", async () => {
   const user = userEvent.setup();
 
   render(
@@ -319,7 +315,7 @@ test("Users exists", async () => {
   })
 });
 
-test("Server error", async () => {
+test("Submit - Server error", async () => {
   const user = userEvent.setup();
 
   render(
@@ -379,7 +375,7 @@ test("Server error", async () => {
   })
 });
 
-test("Successful register", async () => {
+test("Submit - Successful", async () => {
   const user = userEvent.setup();
 
   render(

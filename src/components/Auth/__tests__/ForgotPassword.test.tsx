@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom';
 import TestWrapper from '../../../TestWrapper';
 import ForgotPassword from '../ForgotPassword';
 
-test("Forgot password elements render", () => {
+test("Elements renderization", () => {
   render(
     <TestWrapper initialEntries={['/forgot-password']}>
       <Route path="forgot-password" element={<ForgotPassword />}></Route>
@@ -26,7 +26,7 @@ test("Forgot password elements render", () => {
   expect(screen.getByText("Home"));
 });
 
-test("Submit empty forgot password form", async () => {
+test("Submit - Empty form", async () => {
   const user = userEvent.setup();
 
   render(
@@ -58,7 +58,7 @@ test("Submit empty forgot password form", async () => {
   })
 });
 
-test("Invalid email", async () => {
+test("Submit - Inexistent email", async () => {
   const user = userEvent.setup();
 
   render(
@@ -73,8 +73,8 @@ test("Invalid email", async () => {
 
   // Valid email input
   await user.clear(emailInput);
-  await user.type(emailInput, 'invalid@test.com');
-  expect(emailInput).toHaveValue('invalid@test.com');
+  await user.type(emailInput, 'inexistent@test.com');
+  expect(emailInput).toHaveValue('inexistent@test.com');
 
   // Check send email button render
   const sendEmailButton = screen.getByRole("button", { name: /send email/i, });
@@ -91,7 +91,7 @@ test("Invalid email", async () => {
   })
 });
 
-test("Server error", async () => {
+test("Submit - Server error", async () => {
   const user = userEvent.setup();
 
   render(
@@ -124,7 +124,7 @@ test("Server error", async () => {
   })
 });
 
-test("Successful forgot password", async () => {
+test("Submit - Successful", async () => {
   const user = userEvent.setup();
 
   render(
