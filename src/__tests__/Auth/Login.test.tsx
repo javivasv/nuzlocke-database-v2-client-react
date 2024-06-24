@@ -1,17 +1,21 @@
-import { expect } from 'vitest';
+import { expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
-import { store } from '../../../store/store';
-import { AuthState } from '../../../store/auth/authSlice';
-import TestWrapper from '../../../TestWrapper';
-import Login from '../Login';
-import Home from '../../../containers/Home';
+import { store } from '../../store/store';
+import { AuthState } from '../../store/auth/authSlice';
+import TestWrapper from '../../TestWrapper';
+import Auth from '../../containers/Auth';
+import Login from '../../components/Auth/Login';
+import Dashboard from '../../containers/Dashboard';
+import Home from '../../containers/Home';
 
 test("Elements renderization", () => {
   render(
     <TestWrapper initialEntries={['/login']}>
-      <Route path="login" element={<Login />}></Route>
+      <Route element={<Auth />}>
+        <Route path="login" element={<Login />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -41,7 +45,9 @@ test("Email input values", async () => {
 
   render(
     <TestWrapper initialEntries={['/login']}>
-      <Route path="login" element={<Login />}></Route>
+      <Route element={<Auth />}>
+        <Route path="login" element={<Login />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -79,7 +85,9 @@ test("Password input values", async () => {
 
   render(
     <TestWrapper initialEntries={['/login']}>
-      <Route path="login" element={<Login />}></Route>
+      <Route element={<Auth />}>
+        <Route path="login" element={<Login />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -109,7 +117,9 @@ test("Submit - Empty form", async () => {
 
   render(
     <TestWrapper initialEntries={['/login']}>
-      <Route path="login" element={<Login />}></Route>
+      <Route element={<Auth />}>
+        <Route path="login" element={<Login />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -134,7 +144,7 @@ test("Submit - Empty form", async () => {
   expect(loginButton).toBeInTheDocument();
 
   // Get login form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("login-form");
+  const form = screen.getByTestId("test-login-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -152,7 +162,9 @@ test("Submit - Invalid credentials", async () => {
 
   render(
     <TestWrapper initialEntries={['/login']}>
-      <Route path="login" element={<Login />}></Route>
+      <Route element={<Auth />}>
+        <Route path="login" element={<Login />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -179,7 +191,7 @@ test("Submit - Invalid credentials", async () => {
   expect(loginButton).toBeInTheDocument();
 
   // Get login form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("login-form");
+  const form = screen.getByTestId("test-login-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -194,7 +206,9 @@ test("Submit - Server error", async () => {
 
   render(
     <TestWrapper initialEntries={['/login']}>
-      <Route path="login" element={<Login />}></Route>
+      <Route element={<Auth />}>
+        <Route path="login" element={<Login />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -221,7 +235,7 @@ test("Submit - Server error", async () => {
   expect(loginButton).toBeInTheDocument();
 
   // Get login form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("login-form");
+  const form = screen.getByTestId("test-login-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -232,12 +246,17 @@ test("Submit - Server error", async () => {
 });
 
 test("Submit - Successful", async () => {
+  const mockToggleTheme = vi.fn();
   const user = userEvent.setup();
 
   render(
     <TestWrapper initialEntries={['/login']}>
-      <Route path="login" element={<Login />}></Route>
-      <Route index path="home" element={<Home isMdAndUp={false} />} />
+      <Route element={<Auth />}>
+        <Route path="login" element={<Login />}></Route>
+      </Route>
+      <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
+        <Route index path="home" element={<Home isMdAndUp={true} />} />
+      </Route>
     </TestWrapper>
   );
 
@@ -268,7 +287,7 @@ test("Submit - Successful", async () => {
   expect(initialState.auth.user).toEqual(null);
 
   // Get login form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("login-form");
+  const form = screen.getByTestId("test-login-form");
   fireEvent.submit(form);
 
   await waitFor(() => {

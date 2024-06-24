@@ -107,7 +107,7 @@ function ResetPassword() {
   }
 
   return (
-    <form className="w-100" data-testid="reset-password-form" noValidate onSubmit={HandleResetPassword}>
+    <form className="w-100" data-testid="test-reset-password-form" noValidate onSubmit={HandleResetPassword}>
       <Grid container item flexDirection={"column"}>
         {
           loadingToken &&

@@ -2,13 +2,16 @@ import { expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
-import TestWrapper from '../../../TestWrapper';
-import ForgotPassword from '../ForgotPassword';
+import TestWrapper from '../../TestWrapper';
+import Auth from '../../containers/Auth';
+import ForgotPassword from '../../components/Auth/ForgotPassword';
 
 test("Elements renderization", () => {
   render(
     <TestWrapper initialEntries={['/forgot-password']}>
-      <Route path="forgot-password" element={<ForgotPassword />}></Route>
+      <Route element={<Auth />}>
+        <Route path="forgot-password" element={<ForgotPassword />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -31,7 +34,9 @@ test("Submit - Empty form", async () => {
 
   render(
     <TestWrapper initialEntries={['/forgot-password']}>
-      <Route path="forgot-password" element={<ForgotPassword />}></Route>
+      <Route element={<Auth />}>
+        <Route path="forgot-password" element={<ForgotPassword />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -48,7 +53,7 @@ test("Submit - Empty form", async () => {
   expect(sendEmailButton).toBeInTheDocument();
 
   // Get forgot password form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("forgot-password-form");
+  const form = screen.getByTestId("test-forgot-password-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -63,7 +68,9 @@ test("Submit - Inexistent email", async () => {
 
   render(
     <TestWrapper initialEntries={['/forgot-password']}>
-      <Route path="forgot-password" element={<ForgotPassword />}></Route>
+      <Route element={<Auth />}>
+        <Route path="forgot-password" element={<ForgotPassword />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -81,7 +88,7 @@ test("Submit - Inexistent email", async () => {
   expect(sendEmailButton).toBeInTheDocument();
 
   // Get forgot password form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("forgot-password-form");
+  const form = screen.getByTestId("test-forgot-password-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -96,7 +103,9 @@ test("Submit - Server error", async () => {
 
   render(
     <TestWrapper initialEntries={['/forgot-password']}>
-      <Route path="forgot-password" element={<ForgotPassword />}></Route>
+      <Route element={<Auth />}>
+        <Route path="forgot-password" element={<ForgotPassword />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -114,7 +123,7 @@ test("Submit - Server error", async () => {
   expect(sendEmailButton).toBeInTheDocument();
 
   // Get forgot password form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("forgot-password-form");
+  const form = screen.getByTestId("test-forgot-password-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -129,7 +138,9 @@ test("Submit - Successful", async () => {
 
   render(
     <TestWrapper initialEntries={['/forgot-password']}>
-      <Route path="forgot-password" element={<ForgotPassword />}></Route>
+      <Route element={<Auth />}>
+        <Route path="forgot-password" element={<ForgotPassword />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -147,7 +158,7 @@ test("Submit - Successful", async () => {
   expect(sendEmailButton).toBeInTheDocument();
 
   // Get forgot password form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("forgot-password-form");
+  const form = screen.getByTestId("test-forgot-password-form");
   fireEvent.submit(form);
 
   await waitFor(() => {

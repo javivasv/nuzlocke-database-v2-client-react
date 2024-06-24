@@ -3,9 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
 import { sign } from "jsonwebtoken";
-import TestWrapper from '../../../TestWrapper';
-import ResetPassword from '../ResetPassword';
-import Login from '../Login';
+import TestWrapper from '../../TestWrapper';
+import Auth from '../../containers/Auth';
+import ResetPassword from '../../components/Auth/ResetPassword';
+import Login from '../../components/Auth/Login';
 
 const tokenKey = "testing_key";
 
@@ -20,7 +21,9 @@ test("Elements renderization and token validation - Valid token", async() => {
 
   render(
     <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
-      <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      <Route element={<Auth />}>
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      </Route>
     </TestWrapper>
   );
 
@@ -59,7 +62,9 @@ test("Elements renderization and token validation - Token expired", async () => 
 
   render(
     <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
-      <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      <Route element={<Auth />}>
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      </Route>
     </TestWrapper>
   );
 
@@ -96,7 +101,9 @@ test("Elements renderization and token validation - Invalid token", async () => 
 
   render(
     <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
-      <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      <Route element={<Auth />}>
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      </Route>
     </TestWrapper>
   );
 
@@ -133,7 +140,9 @@ test("Elements renderization and token validation - Server error", async () => {
 
   render(
     <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
-      <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      <Route element={<Auth />}>
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      </Route>
     </TestWrapper>
   );
 
@@ -172,7 +181,9 @@ test("Password input values", async () => {
 
   render(
     <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
-      <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      <Route element={<Auth />}>
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      </Route>
     </TestWrapper>
   );
 
@@ -215,7 +226,9 @@ test("Password confirmation input values", async () => {
 
   render(
     <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
-      <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      <Route element={<Auth />}>
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      </Route>
     </TestWrapper>
   );
 
@@ -277,7 +290,9 @@ test("Submit - Empty form", async () => {
 
   render(
     <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
-      <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      <Route element={<Auth />}>
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      </Route>
     </TestWrapper>
   );
 
@@ -307,7 +322,7 @@ test("Submit - Empty form", async () => {
   expect(resetPasswordButton).toBeInTheDocument();
 
   // Get reset password form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("reset-password-form");
+  const form = screen.getByTestId("test-reset-password-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -333,7 +348,9 @@ test("Submit - Inexistent email", async () => {
 
   render(
     <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
-      <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      <Route element={<Auth />}>
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      </Route>
     </TestWrapper>
   );
 
@@ -365,7 +382,7 @@ test("Submit - Inexistent email", async () => {
   expect(resetPasswordButton).toBeInTheDocument();
 
   // Get reset password form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("reset-password-form");
+  const form = screen.getByTestId("test-reset-password-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -388,7 +405,9 @@ test("Submit - Server error", async () => {
 
   render(
     <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
-      <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      <Route element={<Auth />}>
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+      </Route>
     </TestWrapper>
   );
 
@@ -420,7 +439,7 @@ test("Submit - Server error", async () => {
   expect(resetPasswordButton).toBeInTheDocument();
 
   // Get reset password form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("reset-password-form");
+  const form = screen.getByTestId("test-reset-password-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -443,8 +462,10 @@ test("Submit - Successful", async () => {
 
   render(
     <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
-      <Route path="reset-password/:resetToken" element={<ResetPassword />} />
-      <Route path="login" element={<Login />}></Route>
+      <Route element={<Auth />}>
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
+        <Route path="login" element={<Login />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -476,7 +497,7 @@ test("Submit - Successful", async () => {
   expect(resetPasswordButton).toBeInTheDocument();
 
   // Get reset password form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("reset-password-form");
+  const form = screen.getByTestId("test-reset-password-form");
   fireEvent.submit(form);
 
   await waitFor(() => {

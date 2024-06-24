@@ -2,14 +2,17 @@ import { expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
-import TestWrapper from '../../../TestWrapper';
-import Register from '../Register';
-import Login from '../Login';
+import TestWrapper from '../../TestWrapper';
+import Auth from '../../containers/Auth';
+import Register from '../../components/Auth/Register';
+import Login from '../../components/Auth/Login';
 
 test("Elements renderization", () => {
   render(
     <TestWrapper initialEntries={['/register']}>
-      <Route path="register" element={<Register />}></Route>
+      <Route element={<Auth />}>
+        <Route path="register" element={<Register />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -48,7 +51,9 @@ test("Email input values", async () => {
 
   render(
     <TestWrapper initialEntries={['/register']}>
-      <Route path="register" element={<Register />}></Route>
+      <Route element={<Auth />}>
+        <Route path="register" element={<Register />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -86,7 +91,9 @@ test("Username input values", async () => {
 
   render(
     <TestWrapper initialEntries={['/register']}>
-      <Route path="register" element={<Register />}></Route>
+      <Route element={<Auth />}>
+        <Route path="register" element={<Register />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -116,7 +123,9 @@ test("Password input values", async () => {
 
   render(
     <TestWrapper initialEntries={['/register']}>
-      <Route path="register" element={<Register />}></Route>
+      <Route element={<Auth />}>
+        <Route path="register" element={<Register />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -146,7 +155,9 @@ test("Password confirmation input values", async () => {
 
   render(
     <TestWrapper initialEntries={['/register']}>
-      <Route path="register" element={<Register />}></Route>
+      <Route element={<Auth />}>
+        <Route path="register" element={<Register />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -195,7 +206,9 @@ test("Submit - Empty form", async () => {
 
   render(
     <TestWrapper initialEntries={['/register']}>
-      <Route path="register" element={<Register />}></Route>
+      <Route element={<Auth />}>
+        <Route path="register" element={<Register />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -236,7 +249,7 @@ test("Submit - Empty form", async () => {
   expect(registerButton).toBeInTheDocument();
 
   // Get register form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("register-form");
+  const form = screen.getByTestId("test-register-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -260,7 +273,9 @@ test("Submit - User exists", async () => {
 
   render(
     <TestWrapper initialEntries={['/register']}>
-      <Route path="register" element={<Register />}></Route>
+      <Route element={<Auth />}>
+        <Route path="register" element={<Register />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -305,7 +320,7 @@ test("Submit - User exists", async () => {
   expect(registerButton).toBeInTheDocument();
 
   // Get register form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("register-form");
+  const form = screen.getByTestId("test-register-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -320,7 +335,9 @@ test("Submit - Server error", async () => {
 
   render(
     <TestWrapper initialEntries={['/register']}>
-      <Route path="register" element={<Register />}></Route>
+      <Route element={<Auth />}>
+        <Route path="register" element={<Register />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -365,7 +382,7 @@ test("Submit - Server error", async () => {
   expect(registerButton).toBeInTheDocument();
 
   // Get register form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("register-form");
+  const form = screen.getByTestId("test-register-form");
   fireEvent.submit(form);
 
   await waitFor(() => {
@@ -380,8 +397,10 @@ test("Submit - Successful", async () => {
 
   render(
     <TestWrapper initialEntries={['/register']}>
-      <Route path="register" element={<Register />}></Route>
-      <Route path="login" element={<Login />}></Route>
+      <Route element={<Auth />}>
+        <Route path="register" element={<Register />}></Route>
+        <Route path="login" element={<Login />}></Route>
+      </Route>
     </TestWrapper>
   );
 
@@ -426,7 +445,7 @@ test("Submit - Successful", async () => {
   expect(registerButton).toBeInTheDocument();
 
   // Get register form to submit - Using fireEvent because userEvent does not have submit
-  const form = screen.getByTestId("register-form");
+  const form = screen.getByTestId("test-register-form");
   fireEvent.submit(form);
 
   await waitFor(() => {

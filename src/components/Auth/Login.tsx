@@ -82,7 +82,7 @@ function Login() {
   }
 
   return (
-    <form className="w-100" data-testid="login-form" noValidate onSubmit={HandleLogin}>
+    <form className="w-100" data-testid="test-login-form" noValidate onSubmit={HandleLogin}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Email" />
         <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>

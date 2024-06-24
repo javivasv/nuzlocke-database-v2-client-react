@@ -67,7 +67,7 @@ function ForgotPassword() {
   }
 
   return (
-    <form className="w-100" data-testid="forgot-password-form" noValidate onSubmit={HandleForgotPassword}>
+    <form className="w-100" data-testid="test-forgot-password-form" noValidate onSubmit={HandleForgotPassword}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Email" />
         <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>

@@ -58,11 +58,11 @@ function Sidebar(props: Props) {
   const ItemIcon = (itemName: string) => {
     switch(itemName) {
     case "home":
-      return <Home />;
+      return <Home data-testid="test-sidebar-home-icon" />;
     case "nuzlockes":
-      return <CatchingPokemon />;
+      return <CatchingPokemon data-testid="test-sidebar-pokeball-icon" />;
     case "about":
-      return <InfoOutlined />;
+      return <InfoOutlined data-testid="test-sidebar-info-icon" />;
     default:
       return <Home />;
     }

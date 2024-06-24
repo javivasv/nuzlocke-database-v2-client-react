@@ -107,7 +107,7 @@ function Register() {
   }
 
   return (
-    <form className="w-100" data-testid="register-form" noValidate onSubmit={HandleRegister}>
+    <form className="w-100" data-testid="test-register-form" noValidate onSubmit={HandleRegister}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Email" />
         <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
