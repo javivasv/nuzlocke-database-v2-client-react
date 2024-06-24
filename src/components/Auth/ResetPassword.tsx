@@ -8,6 +8,7 @@ import { validateResetToken, resetPassword } from '../../store/auth/authSlice';
 import { showSnackbar } from '../../store/notifications/notificationsSlice';
 import { Button, Grid, TextField, Divider } from '@mui/material';
 import MultiuseText from '../MultiuseText';
+import LoadingRow from '../LoadingRow';
 
 function ResetPassword() {
   const { resetToken } = useParams();
@@ -28,9 +29,13 @@ function ResetPassword() {
         dispatch(showSnackbar(error.msg));
         setErrorMsg(error.msg);
       })
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      .finally(() => {
+        setLoadingToken(false);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const [loadingToken, setLoadingToken] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -105,61 +110,71 @@ function ResetPassword() {
     <form className="w-100" data-testid="reset-password-form" noValidate onSubmit={HandleResetPassword}>
       <Grid container item flexDirection={"column"}>
         {
-          errorMsg &&
-          <MultiuseText text={errorMsg} justify='center' />
+          loadingToken &&
+          <LoadingRow />
         }
         {
-          !errorMsg &&
+          !loadingToken &&
           <>
-            <MultiuseText text="Password" />
-            <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-              <TextField
-                value={password}
-                name="password"
-                variant="outlined"
-                type="password"
-                fullWidth
-                size='small'
-                color='secondary'
-                disabled={loading}
-                error={Boolean(passwordError)}
-                helperText={passwordError}
-                inputProps={{ "data-testid": "test-password-input" }}
-                onChange={HandlePasswordChange}
-              />
+            {
+              errorMsg &&
+              <MultiuseText text={errorMsg} justify='center' />
+            }
+            {
+              !errorMsg &&
+              <>
+                <MultiuseText text="Password" />
+                <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+                  <TextField
+                    value={password}
+                    name="password"
+                    variant="outlined"
+                    type="password"
+                    fullWidth
+                    size='small'
+                    color='secondary'
+                    disabled={loading}
+                    error={Boolean(passwordError)}
+                    helperText={passwordError}
+                    inputProps={{ "data-testid": "test-password-input" }}
+                    onChange={HandlePasswordChange}
+                  />
+                </Grid>
+                <MultiuseText text="Password confirmation" />
+                <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+                  <TextField
+                    value={passwordConfirmation}
+                    name="passwordConfirmation"
+                    variant="outlined"
+                    type="password"
+                    fullWidth
+                    size='small'
+                    color='secondary'
+                    disabled={loading}
+                    error={Boolean(passwordConfirmationError)}
+                    helperText={passwordConfirmationError}
+                    inputProps={{ "data-testid": "test-password-confirmation-input" }}
+                    onChange={HandlePasswordConfirmationChange}
+                  />
+                </Grid>
+                <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+                  <Button color='primary' variant='contained' disabled={loading} type="submit">
+                    Reset password
+                  </Button>
+                </Grid>
+              </>
+            }
+            <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
+              <span className="auth-extra-action" onClick={() => goTo("login")}>
+                  Login
+              </span>
+              <Divider className="vertical-divider" orientation="vertical" flexItem />
+              <span className="auth-extra-action" onClick={() => goTo("home")}>
+                  Home
+              </span>
             </Grid>
-            <MultiuseText text="Password confirmation" />
-            <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-              <TextField
-                value={passwordConfirmation}
-                name="passwordConfirmation"
-                variant="outlined"
-                type="password"
-                fullWidth
-                size='small'
-                color='secondary'
-                disabled={loading}
-                error={Boolean(passwordConfirmationError)}
-                helperText={passwordConfirmationError}
-                inputProps={{ "data-testid": "test-password-confirmation-input" }}
-                onChange={HandlePasswordConfirmationChange}
-              />
-            </Grid>
-            <Grid className="action-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-              <Button color='primary' variant='contained' disabled={loading} type="submit">
-                Reset password
-              </Button>
-            </Grid></>
+          </>
         }
-        <Grid className="auth-extra-actions-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
-          <span className="auth-extra-action" onClick={() => goTo("login")}>
-              Login
-          </span>
-          <Divider className="vertical-divider" orientation="vertical" flexItem />
-          <span className="auth-extra-action" onClick={() => goTo("home")}>
-              Home
-          </span>
-        </Grid>
       </Grid>
     </form>
   );

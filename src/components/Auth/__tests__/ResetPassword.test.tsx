@@ -9,7 +9,7 @@ import Login from '../Login';
 
 const tokenKey = "testing_key";
 
-test("Elements renderization and token validation - Valid token", () => {
+test("Elements renderization and token validation - Valid token", async() => {
   const validToken = sign({
     email: "valid@test.com",
   },
@@ -23,6 +23,11 @@ test("Elements renderization and token validation - Valid token", () => {
       <Route path="reset-password/:resetToken" element={<ResetPassword />} />
     </TestWrapper>
   );
+
+  await waitFor(() => {
+    const loader = screen.queryByRole("progressbar");
+    expect(loader).not.toBeInTheDocument();
+  })
 
   // Check password render
   expect(screen.getByText("Password"));
@@ -59,10 +64,13 @@ test("Elements renderization and token validation - Token expired", async () => 
   );
 
   await waitFor(() => {
-    // Validate snackbar message render
-    const snackbarMessage = screen.getByText("Reset token expired");
-    expect(snackbarMessage).toBeInTheDocument();
+    const loader = screen.queryByRole("progressbar");
+    expect(loader).not.toBeInTheDocument();
   })
+
+  // Validate snackbar message render
+  const snackbarMessage = screen.queryAllByText("Reset token expired");
+  expect(snackbarMessage.length).toBeGreaterThan(0);
 
   // Check password not render
   const password = screen.queryByText('Password');
@@ -93,10 +101,13 @@ test("Elements renderization and token validation - Invalid token", async () => 
   );
 
   await waitFor(() => {
-    // Validate snackbar message render
-    const snackbarMessage = screen.getByText("Invalid token");
-    expect(snackbarMessage).toBeInTheDocument();
+    const loader = screen.queryByRole("progressbar");
+    expect(loader).not.toBeInTheDocument();
   })
+
+  // Validate snackbar message render
+  const snackbarMessage = screen.queryAllByText("Invalid token");
+  expect(snackbarMessage.length).toBeGreaterThan(0);
 
   // Check password not render
   const password = screen.queryByText('Password');
@@ -127,10 +138,13 @@ test("Elements renderization and token validation - Server error", async () => {
   );
 
   await waitFor(() => {
-    // Validate snackbar message render
-    const snackbarMessage = screen.getByText("Server error");
-    expect(snackbarMessage).toBeInTheDocument();
+    const loader = screen.queryByRole("progressbar");
+    expect(loader).not.toBeInTheDocument();
   })
+
+  // Validate snackbar message render
+  const snackbarMessage = screen.queryAllByText("Server error");
+  expect(snackbarMessage.length).toBeGreaterThan(0);
 
   // Check password not render
   const password = screen.queryByText('Password');
@@ -161,6 +175,11 @@ test("Password input values", async () => {
       <Route path="reset-password/:resetToken" element={<ResetPassword />} />
     </TestWrapper>
   );
+
+  await waitFor(() => {
+    const loader = screen.queryByRole("progressbar");
+    expect(loader).not.toBeInTheDocument();
+  })
 
   // Check password render
   const passwordInput = screen.getByTestId("test-password-input");
@@ -199,6 +218,11 @@ test("Password confirmation input values", async () => {
       <Route path="reset-password/:resetToken" element={<ResetPassword />} />
     </TestWrapper>
   );
+
+  await waitFor(() => {
+    const loader = screen.queryByRole("progressbar");
+    expect(loader).not.toBeInTheDocument();
+  })
 
   // Check password confirmation render
   const passwordConfirmationInput = screen.getByTestId("test-password-confirmation-input");
@@ -257,6 +281,11 @@ test("Submit - Empty form", async () => {
     </TestWrapper>
   );
 
+  await waitFor(() => {
+    const loader = screen.queryByRole("progressbar");
+    expect(loader).not.toBeInTheDocument();
+  })
+
   // Check password render
   const passwordInput = screen.getByTestId("test-password-input");
   expect(passwordInput).toBeInTheDocument();
@@ -308,6 +337,11 @@ test("Submit - Inexistent email", async () => {
     </TestWrapper>
   );
 
+  await waitFor(() => {
+    const loader = screen.queryByRole("progressbar");
+    expect(loader).not.toBeInTheDocument();
+  })
+
   // Check password render
   const passwordInput = screen.getByTestId("test-password-input");
   expect(passwordInput).toBeInTheDocument();
@@ -357,6 +391,11 @@ test("Submit - Server error", async () => {
       <Route path="reset-password/:resetToken" element={<ResetPassword />} />
     </TestWrapper>
   );
+
+  await waitFor(() => {
+    const loader = screen.queryByRole("progressbar");
+    expect(loader).not.toBeInTheDocument();
+  })
 
   // Check password render
   const passwordInput = screen.getByTestId("test-password-input");
@@ -408,6 +447,11 @@ test("Submit - Successful", async () => {
       <Route path="login" element={<Login />}></Route>
     </TestWrapper>
   );
+
+  await waitFor(() => {
+    const loader = screen.queryByRole("progressbar");
+    expect(loader).not.toBeInTheDocument();
+  })
 
   // Check password render
   const passwordInput = screen.getByTestId("test-password-input");
