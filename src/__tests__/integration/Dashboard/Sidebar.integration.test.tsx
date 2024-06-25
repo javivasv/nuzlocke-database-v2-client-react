@@ -2,16 +2,16 @@ import { expect, vi } from 'vitest';
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
-import { store } from '../../store/store';
-import { setUser } from '../../store/auth/authSlice';
-import TestWrapper from '../../TestWrapper';
-import Dashboard from '../../containers/Dashboard';
-import Home from '../../containers/Home';
-import NuzlockesLayout from '../../containers/NuzlockesLayout';
-import NuzlockesContainer from '../../containers/NuzlockesContainer';
-import About from '../../containers/About';
-import Auth from '../../containers/Auth';
-import Login from '../../components/Auth/Login';
+import { store } from '../../../store/store';
+import { setUser } from '../../../store/auth/authSlice';
+import TestWrapper from '../IntegrationTestWrapper';
+import Dashboard from '../../../containers/Dashboard';
+import Home from '../../../containers/Home';
+import NuzlockesLayout from '../../../containers/NuzlockesLayout';
+import NuzlockesContainer from '../../../containers/NuzlockesContainer';
+import About from '../../../containers/About';
+import Auth from '../../../containers/Auth';
+import Login from '../../../components/Auth/Login';
 
 // Config for useMediaQuery mock
 import * as MaterialUI from '@mui/material';

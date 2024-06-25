@@ -2,32 +2,9 @@ import { expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
-import TestWrapper from '../../TestWrapper';
-import Auth from '../../containers/Auth';
-import ForgotPassword from '../../components/Auth/ForgotPassword';
-
-test("Elements renderization", () => {
-  render(
-    <TestWrapper initialEntries={['/forgot-password']}>
-      <Route element={<Auth />}>
-        <Route path="forgot-password" element={<ForgotPassword />}></Route>
-      </Route>
-    </TestWrapper>
-  );
-
-  // Check email render
-  expect(screen.getByText("Email"));
-  const emailInput = screen.getByTestId("test-email-input");
-  expect(emailInput).toBeInTheDocument();
-
-  // Check send email button render
-  const sendEmailButton = screen.getByRole("button", { name: /send email/i, });
-  expect(sendEmailButton).toBeInTheDocument();
-
-  // Check redirect links render
-  expect(screen.getByText("Login"));
-  expect(screen.getByText("Home"));
-});
+import TestWrapper from '../IntegrationTestWrapper';
+import Auth from '../../../containers/Auth';
+import ForgotPassword from '../../../components/Auth/ForgotPassword';
 
 test("Submit - Empty form", async () => {
   const user = userEvent.setup();

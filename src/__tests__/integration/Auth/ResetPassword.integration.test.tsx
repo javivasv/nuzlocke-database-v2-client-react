@@ -3,13 +3,14 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
 import { sign } from "jsonwebtoken";
-import TestWrapper from '../../TestWrapper';
-import Auth from '../../containers/Auth';
-import ResetPassword from '../../components/Auth/ResetPassword';
-import Login from '../../components/Auth/Login';
+import TestWrapper from '../IntegrationTestWrapper';
+import Auth from '../../../containers/Auth';
+import ResetPassword from '../../../components/Auth/ResetPassword';
+import Login from '../../../components/Auth/Login';
 
 const tokenKey = "testing_key";
 
+// Used the same renderization test for all elements
 test("Elements renderization and token validation - Valid token", async() => {
   const validToken = sign({
     email: "valid@test.com",

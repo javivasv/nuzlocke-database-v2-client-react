@@ -134,11 +134,11 @@ function Sidebar(props: Props) {
         <Button className="w-100" color='primary' variant="contained" onClick={HandleLog}>
           {
             user &&
-            <Logout />
+            <Logout data-testid="test-sidebar-logout-icon" />
           }
           {
             !user &&
-            <Login />
+            <Login data-testid="test-sidebar-login-icon" />
           }
           {
             isLgAndUp &&

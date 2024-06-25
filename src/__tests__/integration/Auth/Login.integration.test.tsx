@@ -2,43 +2,13 @@ import { expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
-import { store } from '../../store/store';
-import { AuthState } from '../../store/auth/authSlice';
-import TestWrapper from '../../TestWrapper';
-import Auth from '../../containers/Auth';
-import Login from '../../components/Auth/Login';
-import Dashboard from '../../containers/Dashboard';
-import Home from '../../containers/Home';
-
-test("Elements renderization", () => {
-  render(
-    <TestWrapper initialEntries={['/login']}>
-      <Route element={<Auth />}>
-        <Route path="login" element={<Login />}></Route>
-      </Route>
-    </TestWrapper>
-  );
-
-  // Check email render
-  expect(screen.getByText("Email"));
-  const emailInput = screen.getByTestId("test-email-input");
-  expect(emailInput).toBeInTheDocument();
-
-  // Check password render
-  expect(screen.getByText("Password"));
-  const passwordInput = screen.getByTestId("test-password-input");
-  expect(passwordInput).toBeInTheDocument();
-
-  // Check login button render
-  const loginButton = screen.getByRole("button", { name: /login/i, });
-  expect(loginButton).toBeInTheDocument();
-
-  // Check redirect links render
-  expect(screen.getByText("Forgot password"));
-  expect(screen.getByText("Don't have an account?"));
-  expect(screen.getByText("Register"));
-  expect(screen.getByText("Home"));
-});
+import { store } from '../../../store/store';
+import { AuthState } from '../../../store/auth/authSlice';
+import TestWrapper from '../IntegrationTestWrapper';
+import Auth from '../../../containers/Auth';
+import Login from '../../../components/Auth/Login';
+import Dashboard from '../../../containers/Dashboard';
+import Home from '../../../containers/Home';
 
 test("Email input values", async () => {
   const user = userEvent.setup();
