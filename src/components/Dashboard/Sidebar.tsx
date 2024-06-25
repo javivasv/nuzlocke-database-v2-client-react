@@ -127,7 +127,7 @@ function Sidebar(props: Props) {
       }
       <Grid id="title-container" container item flexDirection={"row"} alignItems="center" justifyContent='end'>
         <Switch checked={darkTheme} onChange={(e) => ChangeTheme(e)} />
-        <DarkMode />
+        <DarkMode data-testid="test-sidebar-dark-mode-icon" />
       </Grid>
       <div className="empty-space" />
       <Grid id="log-button-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>

@@ -27,7 +27,7 @@ vi.mock('@mui/material', async () => {
 const { useMediaQuery } = await import('@mui/material');
 (useMediaQuery as jest.Mock).mockImplementation(query => query === '(min-width:1280px)' ? true : false);
 
-test("Elements renderization - Sidebar", async () => {
+test("Elements renderization", async () => {
   const mockToggleTheme = vi.fn();
 
   render(
@@ -74,6 +74,12 @@ test("Elements renderization - Sidebar", async () => {
   expect(infoIcon).toBeInTheDocument()
   expect(screen.getByText("About"));
 
+  const switchElement = screen.getByRole('checkbox');
+  expect(switchElement).toBeInTheDocument();
+  expect(switchElement).not.toBeChecked();
+  const darkModeIcon = screen.getByTestId('test-sidebar-dark-mode-icon');
+  expect(darkModeIcon).toBeInTheDocument()
+  
   // Check logout button render - After setting user
   const logoutButton = screen.getByRole("button", { name: /logout/i, });
   expect(logoutButton).toBeInTheDocument();
@@ -183,3 +189,33 @@ test("Navigation between modules", async () => {
   await user.click(homeButton);
   expect(screen.getByText("Welcome to the Nuzlocke DataBase!")).toBeInTheDocument;
 });
+
+test("Theme change", async () => {
+  const mockToggleTheme = vi.fn();
+  const user = userEvent.setup();
+
+  render(
+    <TestWrapper initialEntries={['/home']}>
+      <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
+        <Route index path="home" element={<Home isMdAndUp={true} />} />
+      </Route>
+    </TestWrapper>
+  );
+
+  const switchElement = screen.getByRole('checkbox');
+  expect(switchElement).toBeInTheDocument();
+  expect(switchElement).not.toBeChecked();
+  const darkModeIcon = screen.getByTestId('test-sidebar-dark-mode-icon');
+  expect(darkModeIcon).toBeInTheDocument()
+
+  // Turn on dark mode
+  await user.click(switchElement);
+  expect(mockToggleTheme).toHaveBeenCalledWith(true);
+
+  // Clear mock
+  mockToggleTheme.mockClear();
+
+  // Turn off dark mode
+  await user.click(switchElement);
+  expect(mockToggleTheme).toHaveBeenCalledWith(false);
+})
