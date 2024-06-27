@@ -15,7 +15,6 @@ test("Email renderization", () => {
     </UnitTestWrapper>
   );
 
-  // Check email render
   expect(screen.getByText("Email"));
   const emailInput = screen.getByTestId("test-email-input");
   expect(emailInput).toBeInTheDocument();
@@ -28,7 +27,6 @@ test("Password renderization", () => {
     </UnitTestWrapper>
   );
 
-  // Check password render
   expect(screen.getByText("Password"));
   const passwordInput = screen.getByTestId("test-password-input");
   expect(passwordInput).toBeInTheDocument();
@@ -41,7 +39,6 @@ test("Login button renderization", () => {
     </UnitTestWrapper>
   );
 
-  // Check login button render
   const loginButton = screen.getByRole("button", { name: /login/i, });
   expect(loginButton).toBeInTheDocument();
 });
@@ -53,7 +50,6 @@ test("Links renderization", () => {
     </UnitTestWrapper>
   );
 
-  // Check redirect links render
   expect(screen.getByText("Forgot password"));
   expect(screen.getByText("Don't have an account?"));
   expect(screen.getByText("Register"));

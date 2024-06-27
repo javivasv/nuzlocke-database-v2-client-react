@@ -10,9 +10,9 @@ import Login from '../../../components/Auth/Login';
 import Dashboard from '../../../containers/Dashboard';
 import Home from '../../../containers/Home';
 
-test("Email input values", async () => {
-  const user = userEvent.setup();
+const user = userEvent.setup();
 
+test("Email input values", async () => {
   render(
     <TestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
@@ -51,8 +51,6 @@ test("Email input values", async () => {
 });
 
 test("Password input values", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
@@ -83,8 +81,6 @@ test("Password input values", async () => {
 });
 
 test("Submit - Empty form", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
@@ -128,8 +124,6 @@ test("Submit - Empty form", async () => {
 });
 
 test("Submit - Invalid credentials", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
@@ -172,8 +166,6 @@ test("Submit - Invalid credentials", async () => {
 });
 
 test("Submit - Server error", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
@@ -217,7 +209,6 @@ test("Submit - Server error", async () => {
 
 test("Submit - Successful", async () => {
   const mockToggleTheme = vi.fn();
-  const user = userEvent.setup();
 
   render(
     <TestWrapper initialEntries={['/login']}>

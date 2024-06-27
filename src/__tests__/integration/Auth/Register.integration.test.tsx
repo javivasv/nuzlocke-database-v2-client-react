@@ -7,9 +7,9 @@ import Auth from '../../../containers/Auth';
 import Register from '../../../components/Auth/Register';
 import Login from '../../../components/Auth/Login';
 
-test("Email input values", async () => {
-  const user = userEvent.setup();
+const user = userEvent.setup();
 
+test("Email input values", async () => {
   render(
     <TestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
@@ -48,8 +48,6 @@ test("Email input values", async () => {
 });
 
 test("Username input values", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
@@ -80,8 +78,6 @@ test("Username input values", async () => {
 });
 
 test("Password input values", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
@@ -112,8 +108,6 @@ test("Password input values", async () => {
 });
 
 test("Password confirmation input values", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
@@ -163,8 +157,6 @@ test("Password confirmation input values", async () => {
 });
 
 test("Submit - Empty form", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
@@ -230,8 +222,6 @@ test("Submit - Empty form", async () => {
 });
 
 test("Submit - User exists", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
@@ -292,8 +282,6 @@ test("Submit - User exists", async () => {
 });
 
 test("Submit - Server error", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
@@ -354,8 +342,6 @@ test("Submit - Server error", async () => {
 });
 
 test("Submit - Successful", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>

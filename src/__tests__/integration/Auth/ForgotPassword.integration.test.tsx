@@ -6,9 +6,9 @@ import TestWrapper from '../IntegrationTestWrapper';
 import Auth from '../../../containers/Auth';
 import ForgotPassword from '../../../components/Auth/ForgotPassword';
 
-test("Submit - Empty form", async () => {
-  const user = userEvent.setup();
+const user = userEvent.setup();
 
+test("Submit - Empty form", async () => {
   render(
     <TestWrapper initialEntries={['/forgot-password']}>
       <Route element={<Auth />}>
@@ -41,8 +41,6 @@ test("Submit - Empty form", async () => {
 });
 
 test("Submit - Inexistent email", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/forgot-password']}>
       <Route element={<Auth />}>
@@ -76,8 +74,6 @@ test("Submit - Inexistent email", async () => {
 });
 
 test("Submit - Server error", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/forgot-password']}>
       <Route element={<Auth />}>
@@ -111,8 +107,6 @@ test("Submit - Server error", async () => {
 });
 
 test("Submit - Successful", async () => {
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/forgot-password']}>
       <Route element={<Auth />}>

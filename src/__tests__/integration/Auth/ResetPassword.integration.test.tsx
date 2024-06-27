@@ -9,6 +9,7 @@ import ResetPassword from '../../../components/Auth/ResetPassword';
 import Login from '../../../components/Auth/Login';
 
 const tokenKey = "testing_key";
+const user = userEvent.setup();
 
 // Used the same renderization test for all elements
 test("Elements renderization and token validation - Valid token", async() => {
@@ -170,8 +171,6 @@ test("Elements renderization and token validation - Server error", async () => {
 });
 
 test("Password input values", async () => {
-  const user = userEvent.setup();
-
   const validToken = sign({
     email: "valid@test.com",
   },
@@ -215,8 +214,6 @@ test("Password input values", async () => {
 });
 
 test("Password confirmation input values", async () => {
-  const user = userEvent.setup();
-
   const validToken = sign({
     email: "valid@test.com",
   },
@@ -279,8 +276,6 @@ test("Password confirmation input values", async () => {
 });
 
 test("Submit - Empty form", async () => {
-  const user = userEvent.setup();
-
   const validToken = sign({
     email: "valid@test.com",
   },
@@ -337,8 +332,6 @@ test("Submit - Empty form", async () => {
 });
 
 test("Submit - Inexistent email", async () => {
-  const user = userEvent.setup();
-
   const validToken = sign({
     email: "inexistent@test.com",
   },
@@ -394,8 +387,6 @@ test("Submit - Inexistent email", async () => {
 });
 
 test("Submit - Server error", async () => {
-  const user = userEvent.setup();
-
   const validToken = sign({
     email: "valid-server@test.com",
   },
@@ -451,8 +442,6 @@ test("Submit - Server error", async () => {
 });
 
 test("Submit - Successful", async () => {
-  const user = userEvent.setup();
-
   const validToken = sign({
     email: "success@test.com",
   },

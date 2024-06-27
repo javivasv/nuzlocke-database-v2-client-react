@@ -15,7 +15,6 @@ test("Email renderization", () => {
     </UnitTestWrapper>
   );
 
-  // Check email render
   expect(screen.getByText("Email"));
   const emailInput = screen.getByTestId("test-email-input");
   expect(emailInput).toBeInTheDocument();
@@ -28,7 +27,6 @@ test("Send email button renderization", () => {
     </UnitTestWrapper>
   );
 
-  // Check send email button render
   const sendEmailButton = screen.getByRole("button", { name: /send email/i, });
   expect(sendEmailButton).toBeInTheDocument();
 });
@@ -40,7 +38,6 @@ test("Links renderization", () => {
     </UnitTestWrapper>
   );
 
-  // Check redirect links render
   expect(screen.getByText("Login"));
   expect(screen.getByText("Home"));
 });

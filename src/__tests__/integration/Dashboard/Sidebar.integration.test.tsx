@@ -27,9 +27,12 @@ vi.mock('@mui/material', async () => {
 const { useMediaQuery } = await import('@mui/material');
 (useMediaQuery as jest.Mock).mockImplementation(query => query === '(min-width:1280px)' ? true : false);
 
-test("Elements renderization", async () => {
-  const mockToggleTheme = vi.fn();
+// Config for ToggleTheme mock
+const mockToggleTheme = vi.fn();
 
+const user = userEvent.setup();
+
+test("Elements renderization", async () => {
   render(
     <TestWrapper initialEntries={['/home']}>
       <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
@@ -86,9 +89,6 @@ test("Elements renderization", async () => {
 });
 
 test("Logout - Login", async () => {
-  const mockToggleTheme = vi.fn();
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/home']}>
       <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
@@ -137,9 +137,6 @@ test("Logout - Login", async () => {
 });
 
 test("Navigation between modules", async () => {
-  const mockToggleTheme = vi.fn();
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/home']}>
       <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
@@ -191,9 +188,6 @@ test("Navigation between modules", async () => {
 });
 
 test("Theme change", async () => {
-  const mockToggleTheme = vi.fn();
-  const user = userEvent.setup();
-
   render(
     <TestWrapper initialEntries={['/home']}>
       <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
