@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
 import { store } from '../../../store/store';
 import { AuthState } from '../../../store/auth/authSlice';
-import TestWrapper from '../IntegrationTestWrapper';
+import IntegrationTestWrapper from '../IntegrationTestWrapper';
 import Auth from '../../../containers/Auth';
 import Login from '../../../components/Auth/Login';
 import Dashboard from '../../../containers/Dashboard';
@@ -14,11 +14,11 @@ const user = userEvent.setup();
 
 test("Email input values", async () => {
   render(
-    <TestWrapper initialEntries={['/login']}>
+    <IntegrationTestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
         <Route path="login" element={<Login />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -52,11 +52,11 @@ test("Email input values", async () => {
 
 test("Password input values", async () => {
   render(
-    <TestWrapper initialEntries={['/login']}>
+    <IntegrationTestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
         <Route path="login" element={<Login />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check password render
@@ -82,11 +82,11 @@ test("Password input values", async () => {
 
 test("Submit - Empty form", async () => {
   render(
-    <TestWrapper initialEntries={['/login']}>
+    <IntegrationTestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
         <Route path="login" element={<Login />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -125,11 +125,11 @@ test("Submit - Empty form", async () => {
 
 test("Submit - Invalid credentials", async () => {
   render(
-    <TestWrapper initialEntries={['/login']}>
+    <IntegrationTestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
         <Route path="login" element={<Login />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -167,11 +167,11 @@ test("Submit - Invalid credentials", async () => {
 
 test("Submit - Server error", async () => {
   render(
-    <TestWrapper initialEntries={['/login']}>
+    <IntegrationTestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
         <Route path="login" element={<Login />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -211,14 +211,14 @@ test("Submit - Successful", async () => {
   const mockToggleTheme = vi.fn();
 
   render(
-    <TestWrapper initialEntries={['/login']}>
+    <IntegrationTestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
         <Route path="login" element={<Login />}></Route>
       </Route>
       <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
         <Route index path="home" element={<Home isMdAndUp={true} />} />
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render

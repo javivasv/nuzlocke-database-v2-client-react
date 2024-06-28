@@ -2,7 +2,7 @@ import { expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
-import TestWrapper from '../IntegrationTestWrapper';
+import IntegrationTestWrapper from '../IntegrationTestWrapper';
 import Auth from '../../../containers/Auth';
 import Register from '../../../components/Auth/Register';
 import Login from '../../../components/Auth/Login';
@@ -11,11 +11,11 @@ const user = userEvent.setup();
 
 test("Email input values", async () => {
   render(
-    <TestWrapper initialEntries={['/register']}>
+    <IntegrationTestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
         <Route path="register" element={<Register />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -49,11 +49,11 @@ test("Email input values", async () => {
 
 test("Username input values", async () => {
   render(
-    <TestWrapper initialEntries={['/register']}>
+    <IntegrationTestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
         <Route path="register" element={<Register />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check username render
@@ -79,11 +79,11 @@ test("Username input values", async () => {
 
 test("Password input values", async () => {
   render(
-    <TestWrapper initialEntries={['/register']}>
+    <IntegrationTestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
         <Route path="register" element={<Register />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check password render
@@ -109,11 +109,11 @@ test("Password input values", async () => {
 
 test("Password confirmation input values", async () => {
   render(
-    <TestWrapper initialEntries={['/register']}>
+    <IntegrationTestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
         <Route path="register" element={<Register />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check password confirmation render
@@ -158,11 +158,11 @@ test("Password confirmation input values", async () => {
 
 test("Submit - Empty form", async () => {
   render(
-    <TestWrapper initialEntries={['/register']}>
+    <IntegrationTestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
         <Route path="register" element={<Register />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -223,11 +223,11 @@ test("Submit - Empty form", async () => {
 
 test("Submit - User exists", async () => {
   render(
-    <TestWrapper initialEntries={['/register']}>
+    <IntegrationTestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
         <Route path="register" element={<Register />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -283,11 +283,11 @@ test("Submit - User exists", async () => {
 
 test("Submit - Server error", async () => {
   render(
-    <TestWrapper initialEntries={['/register']}>
+    <IntegrationTestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
         <Route path="register" element={<Register />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -343,12 +343,12 @@ test("Submit - Server error", async () => {
 
 test("Submit - Successful", async () => {
   render(
-    <TestWrapper initialEntries={['/register']}>
+    <IntegrationTestWrapper initialEntries={['/register']}>
       <Route element={<Auth />}>
         <Route path="register" element={<Register />}></Route>
         <Route path="login" element={<Login />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render

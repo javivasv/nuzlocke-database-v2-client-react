@@ -2,7 +2,7 @@ import { expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
-import TestWrapper from '../IntegrationTestWrapper';
+import IntegrationTestWrapper from '../IntegrationTestWrapper';
 import Auth from '../../../containers/Auth';
 import ForgotPassword from '../../../components/Auth/ForgotPassword';
 
@@ -10,11 +10,11 @@ const user = userEvent.setup();
 
 test("Submit - Empty form", async () => {
   render(
-    <TestWrapper initialEntries={['/forgot-password']}>
+    <IntegrationTestWrapper initialEntries={['/forgot-password']}>
       <Route element={<Auth />}>
         <Route path="forgot-password" element={<ForgotPassword />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -42,11 +42,11 @@ test("Submit - Empty form", async () => {
 
 test("Submit - Inexistent email", async () => {
   render(
-    <TestWrapper initialEntries={['/forgot-password']}>
+    <IntegrationTestWrapper initialEntries={['/forgot-password']}>
       <Route element={<Auth />}>
         <Route path="forgot-password" element={<ForgotPassword />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -75,11 +75,11 @@ test("Submit - Inexistent email", async () => {
 
 test("Submit - Server error", async () => {
   render(
-    <TestWrapper initialEntries={['/forgot-password']}>
+    <IntegrationTestWrapper initialEntries={['/forgot-password']}>
       <Route element={<Auth />}>
         <Route path="forgot-password" element={<ForgotPassword />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render
@@ -108,11 +108,11 @@ test("Submit - Server error", async () => {
 
 test("Submit - Successful", async () => {
   render(
-    <TestWrapper initialEntries={['/forgot-password']}>
+    <IntegrationTestWrapper initialEntries={['/forgot-password']}>
       <Route element={<Auth />}>
         <Route path="forgot-password" element={<ForgotPassword />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   // Check email render

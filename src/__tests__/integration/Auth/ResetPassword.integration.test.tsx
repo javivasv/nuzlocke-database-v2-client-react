@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
 import { sign } from "jsonwebtoken";
-import TestWrapper from '../IntegrationTestWrapper';
+import IntegrationTestWrapper from '../IntegrationTestWrapper';
 import Auth from '../../../containers/Auth';
 import ResetPassword from '../../../components/Auth/ResetPassword';
 import Login from '../../../components/Auth/Login';
@@ -22,11 +22,11 @@ test("Elements renderization and token validation - Valid token", async() => {
   });
 
   render(
-    <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
+    <IntegrationTestWrapper initialEntries={[`/reset-password/${validToken}`]}>
       <Route element={<Auth />}>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   await waitFor(() => {
@@ -63,11 +63,11 @@ test("Elements renderization and token validation - Token expired", async () => 
   });
 
   render(
-    <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
+    <IntegrationTestWrapper initialEntries={[`/reset-password/${validToken}`]}>
       <Route element={<Auth />}>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   await waitFor(() => {
@@ -102,11 +102,11 @@ test("Elements renderization and token validation - Invalid token", async () => 
   });
 
   render(
-    <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
+    <IntegrationTestWrapper initialEntries={[`/reset-password/${validToken}`]}>
       <Route element={<Auth />}>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   await waitFor(() => {
@@ -141,11 +141,11 @@ test("Elements renderization and token validation - Server error", async () => {
   });
 
   render(
-    <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
+    <IntegrationTestWrapper initialEntries={[`/reset-password/${validToken}`]}>
       <Route element={<Auth />}>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   await waitFor(() => {
@@ -180,11 +180,11 @@ test("Password input values", async () => {
   });
 
   render(
-    <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
+    <IntegrationTestWrapper initialEntries={[`/reset-password/${validToken}`]}>
       <Route element={<Auth />}>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   await waitFor(() => {
@@ -223,11 +223,11 @@ test("Password confirmation input values", async () => {
   });
 
   render(
-    <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
+    <IntegrationTestWrapper initialEntries={[`/reset-password/${validToken}`]}>
       <Route element={<Auth />}>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   await waitFor(() => {
@@ -285,11 +285,11 @@ test("Submit - Empty form", async () => {
   });
 
   render(
-    <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
+    <IntegrationTestWrapper initialEntries={[`/reset-password/${validToken}`]}>
       <Route element={<Auth />}>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   await waitFor(() => {
@@ -341,11 +341,11 @@ test("Submit - Inexistent email", async () => {
   });
 
   render(
-    <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
+    <IntegrationTestWrapper initialEntries={[`/reset-password/${validToken}`]}>
       <Route element={<Auth />}>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   await waitFor(() => {
@@ -396,11 +396,11 @@ test("Submit - Server error", async () => {
   });
 
   render(
-    <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
+    <IntegrationTestWrapper initialEntries={[`/reset-password/${validToken}`]}>
       <Route element={<Auth />}>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   await waitFor(() => {
@@ -451,12 +451,12 @@ test("Submit - Successful", async () => {
   });
 
   render(
-    <TestWrapper initialEntries={[`/reset-password/${validToken}`]}>
+    <IntegrationTestWrapper initialEntries={[`/reset-password/${validToken}`]}>
       <Route element={<Auth />}>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
         <Route path="login" element={<Login />}></Route>
       </Route>
-    </TestWrapper>
+    </IntegrationTestWrapper>
   );
 
   await waitFor(() => {

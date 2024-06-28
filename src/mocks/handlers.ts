@@ -5,6 +5,7 @@ import { handlersForgotPassword } from "./handlers/handlerForgotPassword";
 import { handlersrResetPassword } from "./handlers/handlerResetPassword";
 import { handlersHome } from "./handlers/handlerHome";
 import { handlersNuzlocke } from "./handlers/handlerNuzlockes";
+import { handlersAbout } from "./handlers/handlerAbout";
 
 export const handlers = [
   ...handlersLogin,
@@ -13,4 +14,5 @@ export const handlers = [
   ...handlersrResetPassword,
   ...handlersHome,
   ...handlersNuzlocke,
+  ...handlersAbout,
 ];
