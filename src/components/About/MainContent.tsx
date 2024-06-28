@@ -24,13 +24,12 @@ function MainContent() {
           As I played, I found uncomfortable to keep track of my nuzlockes. I
           decided to develop an app that would meet my needs as a player and that
           can be as inclusive as possible in terms of different types of games a
-          player can play. At first I thought about providing lists of locations
-          and encounters based on the games, but that ended up restricting the
-          players freedom to play the nuzlocke with the rules they wanted to play
-          with. In the end, I decided to let the player type manually some of the
-          information in order to make it as free as possible. This gives the
-          player the opportunity to keep track of any nuzlocke of any type of
-          Pokemon game.
+          player can play. At first I thought of providing lists of locations and
+          encounters based on the games, but that ended up restricting the players'
+          freedom to play the nuzlocke with the rules they wanted to play with.
+          In the end, I decided to let the player type manually some of the
+          information in order to make it as free as possible. This gives the player
+          the opportunity to keep track of any nuzlocke of any type of Pokemon game.
         </CustomCardContent>
         <CustomCardContent>
           <span>

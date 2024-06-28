@@ -57,7 +57,7 @@ function Feedback() {
   }
 
   return (
-    <form className="w-100" noValidate onSubmit={HandleSendFeedback}>
+    <form className="w-100" data-testid="test-feedback-form" noValidate onSubmit={HandleSendFeedback}>
       <Grid container item flexDirection={"column"}>
         <MultiuseText text="Name" />
         <Grid className="input-row" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
@@ -69,6 +69,7 @@ function Feedback() {
             size='small'
             color='secondary'
             disabled={loading}
+            inputProps={{ "data-testid": "test-name-input" }}
             onChange={HandleNameChange}
           />
         </Grid>
@@ -84,6 +85,7 @@ function Feedback() {
             multiline
             rows={5}
             disabled={loading}
+            inputProps={{ "data-testid": "test-suggestions-input" }}
             onChange={HandleSuggestionChange}
           />
         </Grid>
