@@ -57,6 +57,15 @@ test("Second content - First card", () => {
   expect(screen.getByText("Nuzlocke Basic Rules"));
   expect(screen.getByText(/any pokémon that faints is considered dead/i));
   expect(screen.getByText(/the player may only catch the first wild/i));
+});
+
+test("Second content - Second card", () => {
+  render(
+    <UnitTestWrapper store={store}>
+      <SecondaryContent isMdAndUp={true} />
+    </UnitTestWrapper>
+  );
+
   expect(screen.getByText("Commonly accepted extra rules"));
   expect(screen.getByText(/the two basic rules are not in effect/i));
   expect(screen.getByText(/the player must nickname all/i));
