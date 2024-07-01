@@ -16,7 +16,7 @@ const state = {
 
 const store = createMockStore(state);
 
-test("Main content - Search renderization", () => {
+test("Search renderization", () => {
   render(
     <UnitTestWrapper store={store}>
       <NuzlockesTable />
@@ -28,7 +28,7 @@ test("Main content - Search renderization", () => {
   expect(screen.getByPlaceholderText("Search"));
 });
 
-test("Main content - No nuzlockes message renderization", () => {
+test("No nuzlockes message renderization", () => {
   render(
     <UnitTestWrapper store={store}>
       <NuzlockesTable />
@@ -38,7 +38,7 @@ test("Main content - No nuzlockes message renderization", () => {
   expect(screen.getByText("There are no nuzlockes registered yet"));
 });
 
-test("Main content - Nuzlockes table headers renderization", () => {
+test("Nuzlockes table headers renderization", () => {
   const headers = [
     {
       name: "name",
@@ -68,7 +68,7 @@ test("Main content - Nuzlockes table headers renderization", () => {
   expect(screen.getByText("Status"));
 });
 
-test("Main content - Nuzlockes table row renderization - Started", () => {
+test("Nuzlockes table row renderization - Started", () => {
   const nuzlocke = {
     _id: "0000",
     name: "test name",
@@ -92,7 +92,7 @@ test("Main content - Nuzlockes table row renderization - Started", () => {
   expect(startedIcon).toBeInTheDocument()
 });
 
-test("Main content - Nuzlockes table row renderization - Completed", () => {
+test("Nuzlockes table row renderization - Completed", () => {
   const nuzlocke = {
     _id: "0000",
     name: "test name",
@@ -116,7 +116,7 @@ test("Main content - Nuzlockes table row renderization - Completed", () => {
   expect(startedIcon).toBeInTheDocument()
 });
 
-test("Main content - Nuzlockes table row renderization - Lost", () => {
+test("Nuzlockes table row renderization - Lost", () => {
   const nuzlocke = {
     _id: "0000",
     name: "test name",
