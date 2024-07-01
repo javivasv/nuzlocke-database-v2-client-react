@@ -18,7 +18,7 @@ const mockToggleTheme = vi.fn();
 
 const user = userEvent.setup();
 
-test("Logout - Login", async () => {
+test("Logout", async () => {
   render(
     <IntegrationTestWrapper initialEntries={['/home']}>
       <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
@@ -53,6 +53,27 @@ test("Logout - Login", async () => {
   // Logout
   await user.click(logoutIcon);
 
+  // Validate auth state after setting user
+  const updatedState = store.getState().auth;
+  expect(updatedState.user).toEqual(null);
+
+  // Check login button render
+  const loginIcon = screen.getByTestId('test-sidebar-login-icon');
+  expect(loginIcon).toBeInTheDocument()
+});
+
+test("Navigation from Home to Login", async () => {
+  render(
+    <IntegrationTestWrapper initialEntries={['/home']}>
+      <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
+        <Route index path="home" element={<Home isMdAndUp={true} />} />
+      </Route>
+      <Route element={<Auth />}>
+        <Route path="login" element={<Login />}></Route>
+      </Route>
+    </IntegrationTestWrapper>
+  );
+
   // Check login button render
   const loginIcon = screen.getByTestId('test-sidebar-login-icon');
   expect(loginIcon).toBeInTheDocument()
@@ -60,7 +81,7 @@ test("Logout - Login", async () => {
   // Redirect to Login
   await user.click(loginIcon);
 
-  // Check login button render
+  // Check login email input render
   expect(screen.getByText("Email"));
   const emailInput = screen.getByTestId("test-email-input");
   expect(emailInput).toBeInTheDocument();
