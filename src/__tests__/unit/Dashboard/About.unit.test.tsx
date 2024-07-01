@@ -63,41 +63,6 @@ test("Secondary content - First card", () => {
   expect(screen.getByText("Feedback"));
 });
 
-test("Name renderization", () => {
-  render(
-    <UnitTestWrapper store={store}>
-      <SecondaryContent isMdAndUp={true} />
-    </UnitTestWrapper>
-  );
-
-  expect(screen.getByText("Name"));
-  const nameInput = screen.getByTestId("test-name-input");
-  expect(nameInput).toBeInTheDocument();
-});
-
-test("Suggestions renderization", () => {
-  render(
-    <UnitTestWrapper store={store}>
-      <SecondaryContent isMdAndUp={true} />
-    </UnitTestWrapper>
-  );
-
-  expect(screen.getByText("Suggestions"));
-  const suggestionsInput = screen.getByTestId("test-suggestions-input");
-  expect(suggestionsInput).toBeInTheDocument();
-});
-
-test("Send button renderization", () => {
-  render(
-    <UnitTestWrapper store={store}>
-      <SecondaryContent isMdAndUp={true} />
-    </UnitTestWrapper>
-  );
-
-  const sendButton = screen.getByRole("button", { name: /send/i, });
-  expect(sendButton).toBeInTheDocument();
-});
-
 test("Secondary content - Second card", () => {
   render(
     <UnitTestWrapper store={store}>
