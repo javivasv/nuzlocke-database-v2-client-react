@@ -17,13 +17,13 @@ function NuzlockeRow(props: Props) {
   const ItemIcon = (itemStatus: string) => {
     switch(itemStatus) {
     case "started":
-      return <Flag />;
+      return <Flag data-testid="test-nuzlockes-started-icon" />;
     case "completed":
-      return <Done />;
+      return <Done data-testid="test-nuzlockes-completed-icon" />;
     case "lost":
-      return <Close />;
+      return <Close data-testid="test-nuzlockes-lost-icon" />;
     default:
-      return <Flag />;
+      return <Flag data-testid="test-nuzlockes-started-icon" />;
     }
   }
 
