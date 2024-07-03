@@ -5,17 +5,19 @@ import useGoTo from '../../customHooks/useGoTo';
 import useLogout from '../../customHooks/useLogout';
 import { RootState } from "../../store/store";
 import { useTheme } from '@mui/material/styles';
-import { useMediaQuery, Grid, Divider, Button, Switch, Avatar } from '@mui/material';
-import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login, Logout } from '@mui/icons-material';
+import { useMediaQuery, Grid, Divider, Button, Switch, Avatar, IconButton } from '@mui/material';
+import { Home, CatchingPokemon, InfoOutlined, DarkMode, Login, Logout, Close } from '@mui/icons-material';
 
 interface Props {
   ToggleTheme: (e: boolean) => void;
+  HandleClose?: () => void;
 }
 
 function Sidebar(props: Props) {
   const location = useLocation();
   const theme = useTheme();
-  const isLgAndUp = useMediaQuery('(min-width:1280px)');
+  const isLgAndUp = useMediaQuery('(min-width:1200px)');
+  const isMdAndDown = useMediaQuery('(max-width:899px)');
   const user = useSelector((state: RootState) => state.auth.user);
   const [darkTheme, setDarkTheme] = useState(false);
   const goTo = useGoTo();
@@ -85,6 +87,14 @@ function Sidebar(props: Props) {
 
   return (
     <Grid id="sidebar" container item flexDirection={"column"}>
+      {
+        isMdAndDown && 
+        <Grid container item flexDirection={"row"} alignItems="center" justifyContent='end'>
+          <IconButton onClick={props.HandleClose}>
+            <Close />
+          </IconButton>
+        </Grid>
+      }
       <Grid id="title-container" container item flexDirection={"row"} alignItems="center" justifyContent='center'>
         <h2>
           { isLgAndUp ? "Nuzlocke DataBase" : "NDB" }

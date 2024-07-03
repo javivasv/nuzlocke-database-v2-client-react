@@ -26,7 +26,7 @@ interface Props {
 }
 
 function AppRoutes(props: Props) {
-  const isMdAndUp = useMediaQuery('(min-width:960px)');
+  const isMdAndUp = useMediaQuery('(min-width:900px)');
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
   const validateError = useValidateError();

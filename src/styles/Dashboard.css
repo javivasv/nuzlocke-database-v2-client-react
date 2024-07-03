@@ -27,6 +27,14 @@
   }
 }
 
+#sidebar-buttton-row {
+  padding: 12px;
+}
+
+.small-screen-content {
+  height: calc(100% - 64px)
+}
+
 .main-content,
 .secondary-content,
 .only-content {

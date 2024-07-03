@@ -28,30 +28,34 @@ function SecondaryContent(props: Props) {
   ];
 
   return (
-    <Grid className={props.isMdAndUp ? "" : "only-content-second-half"} container flexDirection={"row"}>
-      <Card className='secondary-content-card top-card'>
-        <MultiuseText text="Feedback" justify="center" />
-        <Feedback />
-      </Card>
-      <Card className='secondary-content-card'>
-        <MultiuseText text="Contact" justify="center" />
-        <CustomCardContent>
-          {
-            websites.map(website => (
-              <Grid key={website.url} className="card-text-row" container flexDirection={"row"} justifyContent="center">
-                <a
-                  className="website-link"
-                  href={website.url}
-                  target="_blank"
-                >
-                  { website.name }
-                </a>
-              </Grid>
-            ))
-          }
-        </CustomCardContent>
-      </Card>
-    </Grid>
+    <>
+      <Grid className={props.isMdAndUp ? "" : "only-content-second-half"} container flexDirection={"row"}>
+        <Card className='secondary-content-card top-card'>
+          <MultiuseText text="Feedback" justify="center" />
+          <Feedback />
+        </Card>
+      </Grid>
+      <Grid container flexDirection={"row"}>
+        <Card className='secondary-content-card'>
+          <MultiuseText text="Contact" justify="center" />
+          <CustomCardContent>
+            {
+              websites.map(website => (
+                <Grid key={website.url} className="card-text-row" container flexDirection={"row"} justifyContent="center">
+                  <a
+                    className="website-link"
+                    href={website.url}
+                    target="_blank"
+                  >
+                    { website.name }
+                  </a>
+                </Grid>
+              ))
+            }
+          </CustomCardContent>
+        </Card>
+      </Grid>
+    </>
   );
 }
   
