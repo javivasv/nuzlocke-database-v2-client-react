@@ -83,9 +83,9 @@ test("Dark mode switch renderization", () => {
     </UnitTestWrapper>
   );
 
-  const switchElement = screen.getByRole('checkbox');
-  expect(switchElement).toBeInTheDocument();
-  expect(switchElement).not.toBeChecked();
+  const darkModeSwitch = screen.getByRole('checkbox');
+  expect(darkModeSwitch).toBeInTheDocument();
+  expect(darkModeSwitch).not.toBeChecked();
 });
 
 test("Logout button renderization - Large screen and up", () => {

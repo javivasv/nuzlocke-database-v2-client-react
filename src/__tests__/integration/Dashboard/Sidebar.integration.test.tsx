@@ -150,21 +150,21 @@ test("Theme change", async () => {
     </IntegrationTestWrapper>
   );
 
-  const switchElement = screen.getByRole('checkbox');
-  expect(switchElement).toBeInTheDocument();
-  expect(switchElement).not.toBeChecked();
+  const darkModeSwitch = screen.getByRole('checkbox');
+  expect(darkModeSwitch).toBeInTheDocument();
+  expect(darkModeSwitch).not.toBeChecked();
   
   const darkModeIcon = screen.getByTestId('test-sidebar-dark-mode-icon');
   expect(darkModeIcon).toBeInTheDocument()
 
   // Turn on dark mode
-  await user.click(switchElement);
+  await user.click(darkModeSwitch);
   expect(mockToggleTheme).toHaveBeenCalledWith(true);
 
   // Clear mock
   mockToggleTheme.mockClear();
 
   // Turn off dark mode
-  await user.click(switchElement);
+  await user.click(darkModeSwitch);
   expect(mockToggleTheme).toHaveBeenCalledWith(false);
 })

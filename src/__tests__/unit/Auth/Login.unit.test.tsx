@@ -32,6 +32,19 @@ test("Password renderization", () => {
   expect(passwordInput).toBeInTheDocument();
 });
 
+test("Remember me renderization", () => {
+  render(
+    <UnitTestWrapper store={store}>
+      <Login />
+    </UnitTestWrapper>
+  );
+
+  const rememberMeCheckbox = screen.getByRole('checkbox');
+  expect(rememberMeCheckbox).toBeInTheDocument();
+  expect(rememberMeCheckbox).not.toBeChecked();
+  expect(screen.getByText("Remember me"));
+});
+
 test("Login button renderization", () => {
   render(
     <UnitTestWrapper store={store}>
