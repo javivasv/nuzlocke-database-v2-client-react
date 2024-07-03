@@ -22,7 +22,7 @@ const store = createMockStore(state);
 const mockToggleTheme = vi.fn();
 
 test("Title renderization - Large screen and up", () => {
-  window.matchMedia = configMediaQuery('(min-width:1280px)');
+  window.matchMedia = configMediaQuery('(min-width:1200px)');
 
   render(
     <UnitTestWrapper store={store}>
@@ -35,7 +35,7 @@ test("Title renderization - Large screen and up", () => {
 });
 
 test("Home item renderization - Large screen and up", () => {
-  window.matchMedia = configMediaQuery('(min-width:1280px)');
+  window.matchMedia = configMediaQuery('(min-width:1200px)');
 
   render(
     <UnitTestWrapper store={store}>
@@ -49,7 +49,7 @@ test("Home item renderization - Large screen and up", () => {
 });
 
 test("Nuzlockes item renderization - Large screen and up", () => {
-  window.matchMedia = configMediaQuery('(min-width:1280px)');
+  window.matchMedia = configMediaQuery('(min-width:1200px)');
 
   render(
     <UnitTestWrapper store={store}>
@@ -63,7 +63,7 @@ test("Nuzlockes item renderization - Large screen and up", () => {
 });
 
 test("About item renderization - Large screen and up", () => {
-  window.matchMedia = configMediaQuery('(min-width:1280px)');
+  window.matchMedia = configMediaQuery('(min-width:1200px)');
 
   render(
     <UnitTestWrapper store={store}>
@@ -89,7 +89,7 @@ test("Dark mode switch renderization", () => {
 });
 
 test("Logout button renderization - Large screen and up", () => {
-  window.matchMedia = configMediaQuery('(min-width:1280px)');
+  window.matchMedia = configMediaQuery('(min-width:1200px)');
 
   render(
     <UnitTestWrapper store={store}>
@@ -102,7 +102,7 @@ test("Logout button renderization - Large screen and up", () => {
 });
 
 test("Login button renderization - Large screen and up", () => {
-  window.matchMedia = configMediaQuery('(min-width:1280px)');
+  window.matchMedia = configMediaQuery('(min-width:1200px)');
 
   const state = {
     auth: {
@@ -125,7 +125,7 @@ test("Login button renderization - Large screen and up", () => {
 // Change to medium screen and down tests
 
 test("Title renderization - Medium screen and down", () => {
-  window.matchMedia = configMediaQuery('(max-width:1280px)');
+  window.matchMedia = configMediaQuery('(max-width:1200px)');
 
   render(
     <UnitTestWrapper store={store}>
@@ -137,7 +137,7 @@ test("Title renderization - Medium screen and down", () => {
 });
 
 test("Home item renderization - Medium screen and down", () => {
-  window.matchMedia = configMediaQuery('(max-width:1280px)');
+  window.matchMedia = configMediaQuery('(max-width:1200px)');
 
   render(
     <UnitTestWrapper store={store}>
@@ -153,7 +153,7 @@ test("Home item renderization - Medium screen and down", () => {
 });
 
 test("Nuzlockes item renderization - Medium screen and down", () => {
-  window.matchMedia = configMediaQuery('(max-width:1280px)');
+  window.matchMedia = configMediaQuery('(max-width:1200px)');
 
   render(
     <UnitTestWrapper store={store}>
@@ -169,7 +169,7 @@ test("Nuzlockes item renderization - Medium screen and down", () => {
 });
 
 test("About item renderization - Medium screen and down", () => {
-  window.matchMedia = configMediaQuery('(max-width:1280px)');
+  window.matchMedia = configMediaQuery('(max-width:1200px)');
 
   render(
     <UnitTestWrapper store={store}>
@@ -185,7 +185,7 @@ test("About item renderization - Medium screen and down", () => {
 });
 
 test("Logout button renderization - Medium screen and down", () => {
-  window.matchMedia = configMediaQuery('(max-width:1280px)');
+  window.matchMedia = configMediaQuery('(max-width:1200px)');
 
   render(
     <UnitTestWrapper store={store}>
@@ -201,7 +201,7 @@ test("Logout button renderization - Medium screen and down", () => {
 });
 
 test("Login button renderization - Medium screen and down", () => {
-  window.matchMedia = configMediaQuery('(max-width:1280px)');
+  window.matchMedia = configMediaQuery('(max-width:1200px)');
 
   const state = {
     auth: {

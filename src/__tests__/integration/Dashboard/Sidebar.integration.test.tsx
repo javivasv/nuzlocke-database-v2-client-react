@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { Route } from 'react-router-dom';
 import { store } from '../../../store/store';
 import { setUser } from '../../../store/auth/authSlice';
+import { configMediaQuery } from '../../../mocks/mediaQuery';
 import IntegrationTestWrapper from '../IntegrationTestWrapper';
 import Dashboard from '../../../containers/Dashboard';
 import Home from '../../../containers/Home';
@@ -139,6 +140,8 @@ test("Navigation between modules", async () => {
 });
 
 test("Theme change", async () => {
+  window.matchMedia = configMediaQuery('(min-width:900px)');
+
   render(
     <IntegrationTestWrapper initialEntries={['/home']}>
       <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
@@ -150,6 +153,7 @@ test("Theme change", async () => {
   const switchElement = screen.getByRole('checkbox');
   expect(switchElement).toBeInTheDocument();
   expect(switchElement).not.toBeChecked();
+  
   const darkModeIcon = screen.getByTestId('test-sidebar-dark-mode-icon');
   expect(darkModeIcon).toBeInTheDocument()
 
