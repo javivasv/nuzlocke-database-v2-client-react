@@ -29,7 +29,7 @@
 }
 
 .menu-card {
-  width: 420px;
+  max-width: 420px;
   padding: 16px;
 }
 
