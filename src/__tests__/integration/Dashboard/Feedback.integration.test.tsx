@@ -8,11 +8,12 @@ import IntegrationTestWrapper from '../IntegrationTestWrapper';
 import Dashboard from '../../../containers/Dashboard';
 import About from '../../../containers/About';
 
+// Config for ToggleTheme mock
+const mockToggleTheme = vi.fn();
+
 const user = userEvent.setup();
 
 test("Submit - Server error", async () => {
-  const mockToggleTheme = vi.fn();
-
   render(
     <IntegrationTestWrapper initialEntries={['/about']}>
       <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
@@ -59,8 +60,6 @@ test("Submit - Server error", async () => {
 });
 
 test("Submit - Successful", async () => {
-  const mockToggleTheme = vi.fn();
-
   render(
     <IntegrationTestWrapper initialEntries={['/about']}>
       <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>

@@ -10,6 +10,9 @@ import Login from '../../../components/Auth/Login';
 import Dashboard from '../../../containers/Dashboard';
 import Home from '../../../containers/Home';
 
+// Config for ToggleTheme mock
+const mockToggleTheme = vi.fn();
+
 const user = userEvent.setup();
 
 test("Email input values", async () => {
@@ -208,8 +211,6 @@ test("Submit - Server error", async () => {
 });
 
 test("Submit - Successful", async () => {
-  const mockToggleTheme = vi.fn();
-
   render(
     <IntegrationTestWrapper initialEntries={['/login']}>
       <Route element={<Auth />}>
@@ -239,6 +240,12 @@ test("Submit - Successful", async () => {
   await user.type(passwordInput, 'test password');
   expect(passwordInput).toHaveValue('test password');
 
+  // Check remember me checkbox
+  const rememberMeCheckbox = screen.getByRole('checkbox');
+  expect(rememberMeCheckbox).toBeInTheDocument();
+  expect(rememberMeCheckbox).not.toBeChecked();
+  await user.click(rememberMeCheckbox);
+
   // Check login button render
   const loginButton = screen.getByRole("button", { name: /login/i, });
   expect(loginButton).toBeInTheDocument();
@@ -262,5 +269,40 @@ test("Submit - Successful", async () => {
     });
 
     expect(screen.getByText("Welcome to the Nuzlocke DataBase!"));
+
+    // Check local storage 
+    expect(localStorage.getItem('ndb_remember_me')).not.toBeNull();
   })
+});
+
+test("Remember me - Clear data", async () => {
+  render(
+    <IntegrationTestWrapper initialEntries={['/login']}>
+      <Route element={<Auth />}>
+        <Route path="login" element={<Login />}></Route>
+      </Route>
+      <Route element={<Dashboard ToggleTheme={mockToggleTheme} />}>
+        <Route index path="home" element={<Home isMdAndUp={true} />} />
+      </Route>
+    </IntegrationTestWrapper>
+  );
+
+  // Check email render
+  const emailInput = screen.getByTestId("test-email-input");
+  expect(emailInput).toBeInTheDocument();
+  expect(emailInput).toHaveValue('success@test.com');
+
+  // Check password render
+  const passwordInput = screen.getByTestId("test-password-input");
+  expect(passwordInput).toBeInTheDocument();
+  expect(passwordInput).toHaveValue('test password');
+
+  // Uncheck remember me checkbox
+  const rememberMeCheckbox = screen.getByRole('checkbox');
+  expect(rememberMeCheckbox).toBeInTheDocument();
+  expect(rememberMeCheckbox).toBeChecked();
+  await user.click(rememberMeCheckbox);
+
+  // Check local storage 
+  expect(localStorage.getItem('ndb_remember_me')).toBeNull();
 });
