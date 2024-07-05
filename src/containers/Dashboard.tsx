@@ -36,8 +36,9 @@ function Dashboard(props: Props) {
               <Menu />
             </IconButton>
             <Backdrop
-              sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, justifyContent: "start" }}
               open={open}
+              transitionDuration={350}
+              sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, justifyContent: "start" }}
             >
               <SidebarContainer ToggleTheme={props.ToggleTheme} HandleClose={HandleClose} />
             </Backdrop>
