@@ -1,4 +1,4 @@
-# Track To Power - Frontend
+# Nuzlocke DataBase - Frontend
 
 ## Table of Contents
 - [Installation](#installation)
