@@ -23,7 +23,7 @@ const videosSlice = createSlice({
 })
 
 export const fetchVideos = createAsyncThunk(
-  "auth/fetchVideosAsync",
+  "videos/fetchVideosAsync",
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${baseURL}/videos`);

@@ -15,7 +15,7 @@ const pokemonSlice = createSlice({
 })
 
 export const addPokemon = createAsyncThunk(
-  "auth/addPokemonAsync",
+  "pokemon/addPokemonAsync",
   async (data: CreatePokemonData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${baseURL}/nuzlocke/${data.nuzlockeId}/pokemon`, data.pokemon);
@@ -31,7 +31,7 @@ export const addPokemon = createAsyncThunk(
 );
 
 export const updatePokemon = createAsyncThunk(
-  "auth/updatePokemonAsync",
+  "pokemon/updatePokemonAsync",
   async (data: UpdatePokemonData, { rejectWithValue }) => {
     try {
       const response = await axios.put(`${baseURL}/nuzlocke/${data.nuzlockeId}/pokemon/${data.pokemonId}`, data.pokemon);
@@ -47,7 +47,7 @@ export const updatePokemon = createAsyncThunk(
 );
 
 export const deletePokemon = createAsyncThunk(
-  "auth/deletePokemonAsync",
+  "pokemon/deletePokemonAsync",
   async (data: DeletePokemonData, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`${baseURL}/nuzlocke/${data.nuzlockeId}/pokemon/${data.pokemonId}`);

@@ -38,7 +38,7 @@ const pokeapiSlice = createSlice({
 })
 
 export const fetchPokemonList = createAsyncThunk(
-  "auth/fetchPokemonListAsync",
+  "pokeapi/fetchPokemonListAsync",
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${baseURL}/pokemon/?limit=1351`);
@@ -68,7 +68,7 @@ export const fetchPokemonList = createAsyncThunk(
 );
 
 export const fetchAbilitiesList = createAsyncThunk(
-  "auth/fetchAbilitiesListAsync",
+  "pokeapi/fetchAbilitiesListAsync",
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${baseURL}/ability/?limit=373`);
@@ -100,7 +100,7 @@ export const fetchAbilitiesList = createAsyncThunk(
 );
 
 export const fetchPokemon = createAsyncThunk(
-  "auth/fetchPokemonAsync",
+  "pokeapi/fetchPokemonAsync",
   async (data: string, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${baseURL}/pokemon/${data}`);

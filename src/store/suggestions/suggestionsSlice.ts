@@ -15,7 +15,7 @@ const suggestionsSlice = createSlice({
 })
 
 export const sendFeedback = createAsyncThunk(
-  "auth/sendFeedbackAsync",
+  "suggestions/sendFeedbackAsync",
   async (data: SuggestionData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${baseURL}/suggestions`, data);

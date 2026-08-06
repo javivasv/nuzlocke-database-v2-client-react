@@ -28,7 +28,7 @@ const nuzlockesSlice = createSlice({
 })
 
 export const fetchNuzlockes = createAsyncThunk(
-  "auth/fetchNuzlockesAsync",
+  "nuzlockes/fetchNuzlockesAsync",
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${baseURL}/nuzlockes`);
@@ -44,7 +44,7 @@ export const fetchNuzlockes = createAsyncThunk(
 );
 
 export const createNuzlocke = createAsyncThunk(
-  "auth/createNuzlockeAsync",
+  "nuzlockes/createNuzlockeAsync",
   async (data: NuzlockeData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${baseURL}/nuzlocke`, data);
@@ -60,7 +60,7 @@ export const createNuzlocke = createAsyncThunk(
 );
 
 export const fetchNuzlocke = createAsyncThunk(
-  "auth/fetchNuzlockeAsync",
+  "nuzlockes/fetchNuzlockeAsync",
   async (data: string, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${baseURL}/nuzlocke/${data}`);
@@ -76,7 +76,7 @@ export const fetchNuzlocke = createAsyncThunk(
 );
 
 export const updateNuzlocke = createAsyncThunk(
-  "auth/updateNuzlockeAsync",
+  "nuzlockes/updateNuzlockeAsync",
   async (data: UpdateNuzlockeData | UpdateNuzlockeStatus, { rejectWithValue }) => {
     try {
       const response = await axios.put(`${baseURL}/nuzlocke/${data.nuzlockeId}`, data.nuzlocke);
@@ -92,7 +92,7 @@ export const updateNuzlocke = createAsyncThunk(
 );
 
 export const deleteNuzlocke = createAsyncThunk(
-  "auth/deleteNuzlockeAsync",
+  "nuzlockes/deleteNuzlockeAsync",
   async (data: string, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`${baseURL}/nuzlocke/${data}`);
