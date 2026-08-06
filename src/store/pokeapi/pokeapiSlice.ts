@@ -41,7 +41,7 @@ export const fetchPokemonList = createAsyncThunk(
   "auth/fetchPokemonListAsync",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${baseURL}/pokemon/?limit=1281`);
+      const response = await axios.get(`${baseURL}/pokemon/?limit=1351`);
 
       const list = response.data.results.map((pokemon: BasicDataFromApi) => {
         let unformattedName = pokemon.name.split("-");
@@ -71,7 +71,7 @@ export const fetchAbilitiesList = createAsyncThunk(
   "auth/fetchAbilitiesListAsync",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${baseURL}/ability/?limit=358`);
+      const response = await axios.get(`${baseURL}/ability/?limit=373`);
 
       const list = response.data.results.map((ability: BasicDataFromApi) => {
         let unformattedName = ability.name.split("-");
