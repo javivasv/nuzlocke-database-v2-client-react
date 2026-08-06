@@ -1,14 +1,14 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { BasicDataFromApi, CustomError } from "../../interfaces/interfaces";
+import { BasicDataFromApi, CustomError, Name } from "../../interfaces/interfaces";
 
 const baseURL = "https://pokeapi.co/api/v2";
 
 interface PokeapiState {
-  pokemon: [];
-  abilities: [];
-  items: [];
-  moves: [];
+  pokemon: Name[];
+  abilities: Name[];
+  items: Name[];
+  moves: Name[];
 }
 
 const initialState: PokeapiState = {
@@ -22,16 +22,16 @@ const pokeapiSlice = createSlice({
   name: "pokeapi",
   initialState,
   reducers: {
-    setPokemonList: (state, action) => {
+    setPokemonList: (state, action: PayloadAction<Name[]>) => {
       state.pokemon = action.payload;
     },
-    setAbilitiesList: (state, action) => {
+    setAbilitiesList: (state, action: PayloadAction<Name[]>) => {
       state.abilities = action.payload;
     },
-    setItems: (state, action) => {
+    setItems: (state, action: PayloadAction<Name[]>) => {
       state.items = action.payload;
     },
-    setMoves: (state, action) => {
+    setMoves: (state, action: PayloadAction<Name[]>) => {
       state.moves = action.payload;
     },
   },

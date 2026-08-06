@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { StatusFilter, ObtainedFilter, PokemonTypeFilter } from "../../interfaces/interfaces";
 
 interface FiltersState {
@@ -163,13 +163,13 @@ const filtersSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setStatusFilters: (state, action) => {
+    setStatusFilters: (state, action: PayloadAction<number>) => {
       state.statusFilters[action.payload].on = !state.statusFilters[action.payload].on;
     },
-    setObtainedFilters: (state, action) => {
+    setObtainedFilters: (state, action: PayloadAction<number>) => {
       state.obtainedFilters[action.payload].on = !state.obtainedFilters[action.payload].on;
     },
-    setPokemonTypeFilters: (state, action) => {
+    setPokemonTypeFilters: (state, action: PayloadAction<number>) => {
       state.pokemonTypeFilters[action.payload].on = !state.pokemonTypeFilters[action.payload].on;
     },
   },

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface NotificationsState {
   openSnackbar: boolean | false;
@@ -14,7 +14,7 @@ const notificationsSlice = createSlice({
   name: "notifications",
   initialState,
   reducers: {
-    showSnackbar: (state, action) => {
+    showSnackbar: (state, action: PayloadAction<string>) => {
       state.openSnackbar = true;
       state.snackbarText = action.payload;
     },

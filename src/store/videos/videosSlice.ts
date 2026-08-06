@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { Video, CustomError } from "../../interfaces/interfaces";
 
@@ -16,7 +16,7 @@ const videosSlice = createSlice({
   name: "videos",
   initialState,
   reducers: {
-    setVideos: (state, action) => {
+    setVideos: (state, action: PayloadAction<Video[]>) => {
       state.videos = action.payload;
     },
   },

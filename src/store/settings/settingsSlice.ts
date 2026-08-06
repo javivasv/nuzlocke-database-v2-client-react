@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Settings } from "../../interfaces/interfaces";
 
 interface SettingsState {
@@ -19,7 +19,7 @@ const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
-    setSetting: (state, action) => {
+    setSetting: (state, action: PayloadAction<number>) => {
       state.settings[action.payload].on = !state.settings[action.payload].on;
     },
   },

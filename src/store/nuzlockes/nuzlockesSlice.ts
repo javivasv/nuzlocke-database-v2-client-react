@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { Nuzlocke, NuzlockeData, UpdateNuzlockeData, UpdateNuzlockeStatus, CustomError } from "../../interfaces/interfaces";
 
@@ -18,10 +18,10 @@ const nuzlockesSlice = createSlice({
   name: "nuzlockes",
   initialState,
   reducers: {
-    setNuzlockes: (state, action) => {
+    setNuzlockes: (state, action: PayloadAction<Nuzlocke[]>) => {
       state.nuzlockes = action.payload;
     },
-    setNuzlocke: (state, action) => {
+    setNuzlocke: (state, action: PayloadAction<Nuzlocke | null>) => {
       state.nuzlocke = action.payload;
     },
   },
