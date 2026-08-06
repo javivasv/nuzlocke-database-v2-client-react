@@ -427,7 +427,7 @@ function PokemonForm(props: Props) {
             {
               (!loadingPokemonData && sprite) &&
               <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-                <img src={sprite} height="150px" />
+                <img src={sprite} height="150px" alt={`${species.formattedName} sprite`} />
               </Grid>
             }
             {

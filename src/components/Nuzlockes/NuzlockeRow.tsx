@@ -1,3 +1,4 @@
+import { KeyboardEvent } from "react";
 import useGoTo from '../../customHooks/useGoTo';
 import { Nuzlocke } from "../../interfaces/interfaces";
 import { Grid } from "@mui/material";
@@ -14,6 +15,13 @@ function NuzlockeRow(props: Props) {
     goTo(`nuzlockes/nuzlocke/${props.nuzlocke._id}`);
   }
 
+  const HandleRowKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget) {
+      e.preventDefault();
+      CheckNuzlocke();
+    }
+  }
+
   const ItemIcon = (itemStatus: string) => {
     switch(itemStatus) {
     case "started":
@@ -28,7 +36,16 @@ function NuzlockeRow(props: Props) {
   }
 
   return (
-    <Grid className="table-row" container flexDirection={"row"} onClick={CheckNuzlocke}>
+    <Grid
+      className="table-row"
+      container
+      flexDirection={"row"}
+      onClick={CheckNuzlocke}
+      onKeyDown={HandleRowKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for ${props.nuzlocke.name}`}
+    >
       <Grid container item flexDirection={"column"} xs={6}>
         <Grid className="h-100" container item flexDirection={"row"} alignItems="center" justifyContent="center">
           <span className="table-text">

@@ -90,7 +90,7 @@ function Sidebar(props: Props) {
       {
         isMdAndDown && 
         <Grid container item flexDirection={"row"} alignItems="center" justifyContent='end'>
-          <IconButton onClick={props.HandleClose}>
+          <IconButton aria-label="Close sidebar" onClick={props.HandleClose}>
             <Close />
           </IconButton>
         </Grid>

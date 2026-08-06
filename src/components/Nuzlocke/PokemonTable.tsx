@@ -162,7 +162,7 @@ function PokemonTable(props: Props) {
             }}
             onChange={HandleSearchChange}
           />
-          <IconButton className="search-extra-action-button" onClick={HandleOpenFilters}>
+          <IconButton aria-label="Filter Pokémon" className="search-extra-action-button" onClick={HandleOpenFilters}>
             <FilterList />
           </IconButton>
           <Menu
@@ -173,7 +173,7 @@ function PokemonTable(props: Props) {
           >
             <FiltersMenu />
           </Menu>
-          <IconButton className="search-extra-action-button" onClick={HandleOpenSettings}>
+          <IconButton aria-label="Table settings" className="search-extra-action-button" onClick={HandleOpenSettings}>
             <Settings />
           </IconButton>
           <Menu

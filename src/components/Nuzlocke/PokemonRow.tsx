@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, KeyboardEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useGoTo from '../../customHooks/useGoTo';
 import useValidateError from '../../customHooks/useValidateError';
@@ -41,6 +41,10 @@ function PokemonRow(props: Props) {
     }
 
     return props.pokemon.sprite !== '';
+  }
+
+  const DisplayName = () => {
+    return showAsObtained ? (props.pokemon.obtainedAs!).species.formattedName : props.pokemon.species.formattedName;
   }
 
   const Type = (type: string) => {
@@ -100,6 +104,13 @@ function PokemonRow(props: Props) {
     goTo(`nuzlockes/nuzlocke/${nuzlocke._id}/pokemon/${props.pokemon._id}`);
   }
 
+  const HandleRowKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget) {
+      e.preventDefault();
+      CheckPokemon();
+    }
+  }
+
   const ChangePokemonStatus = (e: MouseEvent<HTMLButtonElement>, pokemon: Pokemon) => {
     e.stopPropagation();
 
@@ -133,12 +144,21 @@ function PokemonRow(props: Props) {
   }
 
   return (
-    <Grid className={PokemonRowClassName()} container flexDirection={"row"} onClick={CheckPokemon}>
+    <Grid
+      className={PokemonRowClassName()}
+      container
+      flexDirection={"row"}
+      onClick={CheckPokemon}
+      onKeyDown={HandleRowKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for ${DisplayName()}`}
+    >
       <Grid container item flexDirection={"column"} xs={props.isMdAndUp ? 2 : 3}>
         {
           ShowSpriteRow() &&
           <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
-            <img src={showAsObtained ? (props.pokemon.obtainedAs!).sprite : props.pokemon.sprite} />
+            <img src={showAsObtained ? (props.pokemon.obtainedAs!).sprite : props.pokemon.sprite} alt={`${DisplayName()} sprite`} />
           </Grid>
         }
         <Grid container item flexDirection={"row"} alignItems="center" justifyContent="center">
@@ -201,7 +221,7 @@ function PokemonRow(props: Props) {
           }
           {
             props.pokemon.obtained !== "not" &&
-            <IconButton disabled={loading} onClick={(e) => ChangePokemonStatus(e, props.pokemon)} onMouseEnter={() => setStatusButtonHover(true)} onMouseLeave={() => setStatusButtonHover(false)}>
+            <IconButton aria-label={props.pokemon.fainted ? "Mark as alive" : "Mark as fainted"} disabled={loading} onClick={(e) => ChangePokemonStatus(e, props.pokemon)} onMouseEnter={() => setStatusButtonHover(true)} onMouseLeave={() => setStatusButtonHover(false)}>
               { StatusIcon() }
             </IconButton>
           }
