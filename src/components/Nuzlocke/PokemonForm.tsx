@@ -9,7 +9,7 @@ import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
 import { fetchPokemon } from "../../store/pokeapi/pokeapiSlice";
 import { addPokemon, updatePokemon } from "../../store/pokemon/pokemonSlice";
 import { showSnackbar } from "../../store/notifications/notificationsSlice";
-import { Name, Pokemon } from "../../interfaces/interfaces";
+import { Name, Pokemon, ObtainedStatus } from "../../interfaces/interfaces";
 import { Grid, Card, TextField, Button, FormControlLabel, Checkbox, Autocomplete, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import MultiuseText from "../MultiuseText";
 import LoadingRow from "../LoadingRow";
@@ -364,7 +364,7 @@ function PokemonForm(props: Props) {
         species,
         nickname,
         location,
-        obtained: obtained.toLowerCase(),
+        obtained: obtained.toLowerCase() as ObtainedStatus,
         sprite,
         fainted,
         types: {

@@ -72,13 +72,15 @@ export interface UpdateNuzlockeStatus {
 }
 
 // Pokemon-related
+export type ObtainedStatus = "caught" | "gifted" | "hatched" | "traded" | "not";
+
 export interface Pokemon {
   _id?: string;
   originalSpecies: boolean;
   species: Name;
   nickname: string;
   location: string;
-  obtained: string;
+  obtained: ObtainedStatus;
   sprite: string;
   fainted: boolean;
   types: PokemonTypes;
@@ -143,7 +145,7 @@ export interface StatusFilter {
 
 export interface ObtainedFilter {
   name: string;
-  value: string;
+  value: ObtainedStatus;
   on: boolean;
 }
 
