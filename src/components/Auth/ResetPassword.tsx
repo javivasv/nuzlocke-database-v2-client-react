@@ -22,9 +22,6 @@ function ResetPassword() {
 
     dispatch(validateResetToken(data))
       .unwrap()
-      .then(res => {
-        setEmail(res);
-      })
       .catch(error => {
         dispatch(showSnackbar(error.msg));
         setErrorMsg(error.msg);
@@ -36,7 +33,6 @@ function ResetPassword() {
   }, [])
 
   const [loadingToken, setLoadingToken] = useState(true);
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [loading, setLoading] = useState(false);
@@ -90,7 +86,7 @@ function ResetPassword() {
     setLoading(true);
     
     dispatch(resetPassword({
-      email,
+      resetToken: resetToken || "",
       password,
     }))
       .unwrap()

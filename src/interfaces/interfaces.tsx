@@ -33,6 +33,11 @@ export interface ResetToken {
   resetToken: string;
 }
 
+export interface ResetPasswordData {
+  resetToken: string;
+  password: string;
+}
+
 // Nuzlocke-related
 export interface Nuzlocke {
   _id?: string;

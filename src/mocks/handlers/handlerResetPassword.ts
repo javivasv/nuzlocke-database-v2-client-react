@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { jwtDecode } from "jwt-decode";
-import { ResetToken, ResetJWT, UserData } from "../../interfaces/interfaces";
+import { ResetToken, ResetJWT, ResetPasswordData } from "../../interfaces/interfaces";
 
 const baseURL = import.meta.env.VITE_API;
 
@@ -45,16 +45,17 @@ export const handlersrResetPassword = [
     }
   }),
   http.put(`${baseURL}/users/reset-password`, async ({ request }) => {
-    const body = await request.json() as UserData;
+    const body = await request.json() as ResetPasswordData;
+    const token = jwtDecode(body.resetToken) as ResetJWT;
 
-    if (body.email === "success@test.com") {
+    if (token.email === "success@test.com") {
       return HttpResponse.json({
         msg: "Password updated successfully",
       },
       {
         status: 200,
       });
-    } else if (body.email === "inexistent@test.com") {
+    } else if (token.email === "inexistent@test.com") {
       return HttpResponse.json({
         msg: "User not found",
       },

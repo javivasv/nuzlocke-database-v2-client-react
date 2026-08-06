@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { jwtDecode } from "jwt-decode";
-import { Token, User, UserData, EmailData, ResetJWT, ResetToken, CustomError } from "../../interfaces/interfaces";
+import { Token, User, UserData, EmailData, ResetJWT, ResetToken, ResetPasswordData, CustomError } from "../../interfaces/interfaces";
 
 const baseURL = import.meta.env.VITE_API;
 
@@ -136,7 +136,7 @@ export const validateResetToken = createAsyncThunk(
 
 export const resetPassword = createAsyncThunk(
   "auth/resetPasswordAsync",
-  async (data: UserData, { rejectWithValue }) => {
+  async (data: ResetPasswordData, { rejectWithValue }) => {
     try {
       const response = await axios.put(`${baseURL}/users/reset-password`, data);
       return response.data;
