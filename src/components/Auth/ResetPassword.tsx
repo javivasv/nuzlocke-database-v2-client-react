@@ -2,6 +2,7 @@ import { useState, useEffect, FormEvent, SyntheticEvent } from 'react';
 import { useParams } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import useGoTo from '../../customHooks/useGoTo';
+import useYupValidation from '../../customHooks/useYupValidation';
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { validateResetToken, resetPassword } from '../../store/auth/authSlice';
@@ -45,33 +46,25 @@ function ResetPassword() {
     passwordConfirmation: Yup.string().required('Password confirmation is required').oneOf([password], 'Passwords must match'),
   });
 
-  const validateField = async (field: string, value: string) => {
-    try {
-      await validationSchema.validateAt(field, { [field]: value });
-      return '';
-    } catch (error) {
-      return (error as Yup.ValidationError).message;
-    }
-  };
+  const { ValidateField, ValidateForm } = useYupValidation(validationSchema);
 
   const validateForm = async () => {
-    const passwordError = await validateField('password', password);
-    const passwordConfirmationError = await validateField('passwordConfirmation', passwordConfirmation);
-    setPasswordError(passwordError);
-    setPasswordConfirmationError(passwordConfirmationError);
-    return !passwordError && !passwordConfirmationError;
+    const errors = await ValidateForm({ password, passwordConfirmation });
+    setPasswordError(errors.password);
+    setPasswordConfirmationError(errors.passwordConfirmation);
+    return !errors.password && !errors.passwordConfirmation;
   };
 
   const HandlePasswordChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setPassword(target.value);
-    const error = await validateField('password', target.value);
+    const error = await ValidateField('password', target.value);
     setPasswordError(error);
   }
   const HandlePasswordConfirmationChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setPasswordConfirmation(target.value);
-    const error = await validateField('passwordConfirmation', target.value);
+    const error = await ValidateField('passwordConfirmation', target.value);
     setPasswordConfirmationError(error);
   }
 

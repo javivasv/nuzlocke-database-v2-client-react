@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useGoTo from '../../customHooks/useGoTo';
 import useValidateError from '../../customHooks/useValidateError';
+import useYupValidation from '../../customHooks/useYupValidation';
 import * as Yup from 'yup';
 import { AppDispatch, RootState } from "../../store/store";
 import { setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
@@ -66,21 +67,13 @@ function PokemonForm(props: Props) {
     location: Yup.string().required('Location is required'),
   });
 
-  const validateField = async (field: string, value: string) => {
-    try {
-      await validationSchema.validateAt(field, { [field]: value });
-      return '';
-    } catch (error) {
-      return (error as Yup.ValidationError).message;
-    }
-  };
+  const { ValidateField, ValidateForm } = useYupValidation(validationSchema);
 
   const validateForm = async () => {
-    const speciesError = await validateField('species', species.codedName);
-    const locationError = await validateField('location', location);
-    setSpeciesError(speciesError);
-    setLocationError(locationError);
-    return !speciesError && !locationError;
+    const errors = await ValidateForm({ species: species.codedName, location });
+    setSpeciesError(errors.species);
+    setLocationError(errors.location);
+    return !errors.species && !errors.location;
   };
 
   useEffect(() => {
@@ -245,7 +238,7 @@ function PokemonForm(props: Props) {
       formattedName: target.value,
     });
 
-    const error = await validateField('species', target.value);
+    const error = await ValidateField('species', target.value);
     setSpeciesError(error);
   }
 
@@ -268,7 +261,7 @@ function PokemonForm(props: Props) {
       FetchPokemonData(defaultSpecies.codedName);
     }
 
-    const error = await validateField('species', target.value);
+    const error = await ValidateField('species', target.value);
     setSpeciesError(error);
   }
 
@@ -338,7 +331,7 @@ function PokemonForm(props: Props) {
   const HandleLocationChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setLocation(target.value);
-    const error = await validateField('location', target.value);
+    const error = await ValidateField('location', target.value);
     setLocationError(error);
   }
 

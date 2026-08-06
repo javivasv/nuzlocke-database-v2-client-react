@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import useGoTo from '../../customHooks/useGoTo';
 import useValidateError from '../../customHooks/useValidateError';
+import useYupValidation from '../../customHooks/useYupValidation';
 import * as Yup from 'yup';
 import { AppDispatch } from "../../store/store";
 import { fetchNuzlocke, createNuzlocke, updateNuzlocke, setNuzlockes, setNuzlocke } from "../../store/nuzlockes/nuzlockesSlice";
@@ -45,34 +46,26 @@ function NuzlockeForm() {
     game: Yup.string().required('Game is required'),
   });
 
-  const validateField = async (field: string, value: string) => {
-    try {
-      await validationSchema.validateAt(field, { [field]: value });
-      return '';
-    } catch (error) {
-      return (error as Yup.ValidationError).message;
-    }
-  };
+  const { ValidateField, ValidateForm } = useYupValidation(validationSchema);
 
   const validateForm = async () => {
-    const nameError = await validateField('name', name);
-    const gameError = await validateField('game', game);
-    setNameError(nameError);
-    setGameError(gameError);
-    return !nameError && !gameError;
+    const errors = await ValidateForm({ name, game });
+    setNameError(errors.name);
+    setGameError(errors.game);
+    return !errors.name && !errors.game;
   };
 
   const HandleNameChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setName(target.value);
-    const error = await validateField('name', target.value);
+    const error = await ValidateField('name', target.value);
     setNameError(error);
   }
 
   const HandleGameChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setGame(target.value);
-    const error = await validateField('game', target.value);
+    const error = await ValidateField('game', target.value);
     setGameError(error);
   }
 

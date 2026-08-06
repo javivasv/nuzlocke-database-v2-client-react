@@ -2,6 +2,7 @@
 import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import useGoTo from '../../customHooks/useGoTo';
+import useYupValidation from '../../customHooks/useYupValidation';
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { register } from '../../store/auth/authSlice';
@@ -29,52 +30,42 @@ function Register() {
     passwordConfirmation: Yup.string().required('Password confirmation is required').oneOf([password], 'Passwords must match'),
   });
 
-  const validateField = async (field: string, value: string) => {
-    try {
-      await validationSchema.validateAt(field, { [field]: value });
-      return '';
-    } catch (error) {
-      return (error as Yup.ValidationError).message;
-    }
-  };
+  const { ValidateField, ValidateForm } = useYupValidation(validationSchema);
 
   const validateForm = async () => {
-    const emailError = await validateField('email', email);
-    const usernameError = await validateField('username', username);
-    const passwordError = await validateField('password', password);
-    const passwordConfirmationError = await validateField('passwordConfirmation', passwordConfirmation);
-    setEmailError(emailError);
-    setUsernameError(usernameError);
-    setPasswordError(passwordError);
-    setPasswordConfirmationError(passwordConfirmationError);
-    return !emailError && !usernameError && !passwordError && !passwordConfirmationError;
+    const errors = await ValidateForm({ email, username, password, passwordConfirmation });
+    setEmailError(errors.email);
+    setUsernameError(errors.username);
+    setPasswordError(errors.password);
+    setPasswordConfirmationError(errors.passwordConfirmation);
+    return !errors.email && !errors.username && !errors.password && !errors.passwordConfirmation;
   };
 
   const HandleEmailChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setEmail(target.value);
-    const error = await validateField('email', target.value);
+    const error = await ValidateField('email', target.value);
     setEmailError(error);
   }
 
   const HandleUsernameChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setUsername(target.value);
-    const error = await validateField('username', target.value);
+    const error = await ValidateField('username', target.value);
     setUsernameError(error);
   }
 
   const HandlePasswordChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setPassword(target.value);
-    const error = await validateField('password', target.value);
+    const error = await ValidateField('password', target.value);
     setPasswordError(error);
   }
 
   const HandlePasswordConfirmationChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setPasswordConfirmation(target.value);
-    const error = await validateField('passwordConfirmation', target.value);
+    const error = await ValidateField('passwordConfirmation', target.value);
     setPasswordConfirmationError(error);
   }
 

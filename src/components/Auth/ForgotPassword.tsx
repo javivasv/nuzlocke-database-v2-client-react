@@ -1,6 +1,7 @@
 import { useState, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import useGoTo from '../../customHooks/useGoTo';
+import useYupValidation from '../../customHooks/useYupValidation';
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { forgotPassword } from '../../store/auth/authSlice';
@@ -19,25 +20,18 @@ function ForgotPassword() {
     email: Yup.string().required('Email is required').matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,'Invalid email address'),
   });
 
-  const validateField = async (field: string, value: string) => {
-    try {
-      await validationSchema.validateAt(field, { [field]: value });
-      return '';
-    } catch (error) {
-      return (error as Yup.ValidationError).message;
-    }
-  };
+  const { ValidateField, ValidateForm } = useYupValidation(validationSchema);
 
   const validateForm = async () => {
-    const emailError = await validateField('email', email);
-    setEmailError(emailError);
-    return !emailError;
+    const errors = await ValidateForm({ email });
+    setEmailError(errors.email);
+    return !errors.email;
   };
 
   const HandleEmailChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setEmail(target.value);
-    const error = await validateField('email', target.value);
+    const error = await ValidateField('email', target.value);
     setEmailError(error);
   }
 

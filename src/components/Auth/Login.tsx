@@ -2,6 +2,7 @@
 import { useState, useEffect, FormEvent, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import useGoTo from '../../customHooks/useGoTo';
+import useYupValidation from '../../customHooks/useYupValidation';
 import * as Yup from 'yup';
 import { AppDispatch } from '../../store/store';
 import { login, setUser } from '../../store/auth/authSlice';
@@ -36,34 +37,26 @@ function Login() {
     password: Yup.string().required('Password is required'),
   });
 
-  const validateField = async (field: string, value: string) => {
-    try {
-      await validationSchema.validateAt(field, { [field]: value });
-      return '';
-    } catch (error) {
-      return (error as Yup.ValidationError).message;
-    }
-  };
+  const { ValidateField, ValidateForm } = useYupValidation(validationSchema);
 
   const validateForm = async () => {
-    const emailError = await validateField('email', email);
-    const passwordError = await validateField('password', password);
-    setEmailError(emailError);
-    setPasswordError(passwordError);
-    return !emailError && !passwordError;
+    const errors = await ValidateForm({ email, password });
+    setEmailError(errors.email);
+    setPasswordError(errors.password);
+    return !errors.email && !errors.password;
   };
 
   const HandleEmailChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setEmail(target.value);
-    const error = await validateField('email', target.value);
+    const error = await ValidateField('email', target.value);
     setEmailError(error);
   }
 
   const HandlePasswordChange = async (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setPassword(target.value);
-    const error = await validateField('password', target.value);
+    const error = await ValidateField('password', target.value);
     setPasswordError(error);
   }
 
