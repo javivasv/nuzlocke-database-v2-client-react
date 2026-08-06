@@ -28,12 +28,6 @@ const pokeapiSlice = createSlice({
     setAbilitiesList: (state, action: PayloadAction<Name[]>) => {
       state.abilities = action.payload;
     },
-    setItems: (state, action: PayloadAction<Name[]>) => {
-      state.items = action.payload;
-    },
-    setMoves: (state, action: PayloadAction<Name[]>) => {
-      state.moves = action.payload;
-    },
   },
 })
 
