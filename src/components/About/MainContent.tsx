@@ -9,9 +9,9 @@ function MainContent() {
         <Card className='main-content-card top-card'>
           <CustomCardHeader title="About" />
           <CustomCardContent>
-            My name is Javier Vivas and I am a Computer/Software Engineer graduated
-            at Universidad Simón Bolívar in Caracas, Venezuela. I live in the USA
-            and currently work as a Frontend Engineer.
+            Hey. My name is Javier Vivas, I'm a Bachelor of Science in Computer Engineering graduated
+            from Universidad Simón Bolívar in Caracas, Venezuela. I currently live in Davenport, Florida,
+            USA.
           </CustomCardContent>
           <CustomCardContent>
             In 2020 I got to know what a nuzlocke is from videos on Youtube. At
